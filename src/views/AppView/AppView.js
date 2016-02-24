@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { checkAuth } from '../../redux/modules/keno'
 import { Grid, Panel, Row, Col } from 'react-bootstrap'
+import BigNumberCircle from 'components/BigNumberCircle/BigNumberCircle'
 // import classes from './LoginView.scss'
 
 export class AppView extends React.Component {
@@ -33,7 +34,7 @@ export class AppView extends React.Component {
         </Row>
         <Row>
           <Col xs={12} md={12}>
-
+            <BigNumberCircle number='1' />
           </Col>
         </Row>
       </Grid>
