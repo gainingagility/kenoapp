@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch'
 import ErrorHandler from '../utils/ErrorHandler.js'
+import { push } from 'react-router-redux'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -20,14 +22,25 @@ export const logIn = (playerName) => {
           type: GAMBLER_OBJECT_RECEIVED,
           gamblerObject: json
         })
+        dispatch(push('/app'))
       }).catch((ex) => {
         ErrorHandler(ex)
       })
   }
 }
 
+export const checkAuth = () => {
+  return (dispatch, getState) => {
+    const isUserNotLoggedIn = Object.keys(getState().keno.gamblerObject).length === 0
+    if (isUserNotLoggedIn) {
+      dispatch(push('/'))
+    }
+  }
+}
+
 export const actions = {
-  logIn
+  logIn,
+  checkAuth
 }
 
 // ------------------------------------
@@ -35,7 +48,7 @@ export const actions = {
 // ------------------------------------
 const ACTION_HANDLERS = {
   [GAMBLER_OBJECT_RECEIVED]: (state, action) => {
-    return ({ ...state, 'playerName': action.gamblerObject.name, 'points': action.gamblerObject.points })
+    return ({ ...state, 'gamblerObject': action.gamblerObject })
   }
 }
 
@@ -43,8 +56,7 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 const initialState = {
-  'playerName': '',
-  'points': 0
+  'gamblerObject': {}
 }
 export default function KenoReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
