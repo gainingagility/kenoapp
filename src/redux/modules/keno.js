@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import ErrorHandler from '../utils/ErrorHandler.js'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -20,7 +21,7 @@ export const logIn = (playerName) => {
           gamblerObject: json
         })
       }).catch((ex) => {
-        alert('Error: ' + ex)
+        ErrorHandler(ex)
       })
   }
 }
