@@ -15,7 +15,7 @@ export const GAMBLER_OBJECT_RECEIVED = 'GAMBLER_OBJECT_RECEIVED'
 
 export const logIn = (playerName) => {
   return (dispatch) => {
-    return fetch(`http://kenoapp.azurewebsites.net/gamblersname/${playerName}`)
+    return fetch(`https://kenoapp.azurewebsites.net/gamblersname/${playerName}`)
       .then((response) => response.json())
       .then((json) => {
         dispatch({
@@ -23,6 +23,19 @@ export const logIn = (playerName) => {
           gamblerObject: json
         })
         dispatch(push('/app'))
+        const xhr = new XMLHttpRequest()
+        xhr.open('POST', 'https://kenoapp.azurewebsites.net/api/kenorounds', true)
+
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.send(JSON.stringify(json))
+
+        xhr.onreadystatechange = () => {
+          if (xhr.status === 200) {
+            console.log(JSON.parse(xhr.responseText))
+          } else {
+            ErrorHandler(JSON.parse(xhr.responseText).error.message)
+          }
+        }
       }).catch((ex) => {
         ErrorHandler(ex)
       })
@@ -56,7 +69,11 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 const initialState = {
-  'gamblerObject': {}
+  'gamblerObject': {},
+  'gameSettings': {
+    'maxSelectedNumbers': 6,
+    'maxCountOfNumbers': 80
+  }
 }
 export default function KenoReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
