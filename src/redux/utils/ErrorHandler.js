@@ -8,5 +8,6 @@ export default function ErrorHandler (error) {
     'hideDuration': '1000',
     'timeOut': '5000'
   }
+  console.log(`Error: ${error}`)
   toastr.error(error, 'Error', options)
 }

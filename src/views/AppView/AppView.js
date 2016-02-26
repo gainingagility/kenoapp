@@ -1,15 +1,22 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { checkAuth } from '../../redux/modules/keno'
+import { checkAuth, selectBalls, playGame, clearResult } from '../../redux/modules/keno'
 import { Grid, Panel, Row, Col, Button } from 'react-bootstrap'
 import BigNumberCircle from 'components/BigNumberCircle/BigNumberCircle'
-// import classes from './LoginView.scss'
+import DrawnNumbersCircle from 'components/DrawnNumbersCircle/DrawnNumbersCircle'
+import classes from './AppView.scss'
 
 export class AppView extends React.Component {
   static propTypes = {
     gamblerObject: PropTypes.object.isRequired,
     gameSettings: PropTypes.object.isRequired,
-    checkAuth: PropTypes.func.isRequired
+    checkAuth: PropTypes.func.isRequired,
+    drawnNumbers: PropTypes.string,
+    numbersMatched: PropTypes.string,
+    totalNumbersMatched: PropTypes.number,
+    isLoading: PropTypes.bool.isRequired,
+    playGame: PropTypes.func.isRequired,
+    selectBalls: PropTypes.func.isRequired
   };
 
   constructor () {
@@ -17,15 +24,33 @@ export class AppView extends React.Component {
     this.state = {
       'selectedNumbers': [],
       'circlesDisabled': false,
+      'selectedNumbersCount': 0,
       'gameButtonDisabled': true,
-      'clearButtonDisabled': false,
-      'selectedNumbersCount': 0
+      'clearButtonDisable': false
     }
   }
 
   componentDidMount () {
     // if user is not logged - redirect to login page
     this.props.checkAuth()
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.isLoading) {
+      this.setState({
+        'gameButtonDisabled': true,
+        'clearButtonDisable': true
+      })
+    } else {
+      this.setState({
+        'gameButtonDisabled': false,
+        'clearButtonDisable': false
+      })
+    }
+  }
+
+  clearResult() {
+    this.props.clearResult()
   }
 
   selectNumber (selectedNumber, toAdd) {
@@ -56,6 +81,22 @@ export class AppView extends React.Component {
         'circlesDisabled': true
       })
     }
+
+    // Enable/disable game button
+    if (selectedNumbersCount !== 0) {
+      this.setState({
+        'gameButtonDisabled': false
+      })
+    } else {
+      this.setState({
+        'gameButtonDisabled': true
+      })
+    }
+    this.props.selectBalls(this.state.selectedNumbers)
+  }
+
+  playGame () {
+    this.props.playGame()
   }
 
   render () {
@@ -69,11 +110,37 @@ export class AppView extends React.Component {
           disabled={this.state.circlesDisabled}
         />)
     }
+    const drawnNumberCircles = []
+    if (this.props.drawnNumbers !== undefined) {
+      const drawnNumbers = this.props.drawnNumbers.split(',')
+      drawnNumbers.forEach((item) => {
+        drawnNumberCircles.push(
+          <DrawnNumbersCircle
+            number={item}
+            key={item}
+          />)
+      })
+    }
+    const numbersMatchedCircles = []
+    if (this.props.numbersMatched !== undefined) {
+      const numbersMatched = this.props.numbersMatched.split(',')
+      numbersMatched.forEach((item) => {
+        numbersMatchedCircles.push(
+          <DrawnNumbersCircle
+            number={item}
+            key={item}
+          />)
+      })
+    }
+    let totalNumbersMatched = ''
+    if (totalNumbersMatched !== undefined) {
+      totalNumbersMatched = this.props.totalNumbersMatched
+    }
     return (
       <Grid>
         <Row>
           <Col xs={12} md={12}>
-            <Panel><h1>Welcome To Keno</h1></Panel>
+            <Panel><h1 className={classes.textCenter}>Welcome To Keno</h1></Panel>
           </Col>
         </Row>
         <Row>
@@ -98,29 +165,50 @@ export class AppView extends React.Component {
         <Row>
           <Col xs={12} md={12}>
             <Panel>
-              Numbers drawn
+              <h2 className={classes.textCenter}>Numbers drawn</h2>
+              {drawnNumberCircles.map((i) => {
+                return (
+                  i
+                )
+              }, this)}
             </Panel>
           </Col>
         </Row>
         <Row>
           <Col xs={12} md={2}>
             <Panel>
-              <Button bsStyle='primary'>Clear result</Button>
+              <Button
+                bsStyle='primary'
+                disabled={this.state.clearButtonDisable}
+                onClick={::this.clearResult}>
+                  Clear result
+              </Button>
             </Panel>
           </Col>
           <Col xs={12} md={2}>
             <Panel>
-              <Button bsStyle='primary' disabled={this.state.gameButtonDisabled}>Play game</Button>
+              <Button
+                bsStyle='primary'
+                disabled={this.state.gameButtonDisabled}
+                onClick={::this.playGame}>
+                  Play game
+              </Button>
             </Panel>
           </Col>
           <Col xs={12} md={2}>
             <Panel>
-              Total numbers
+              <h4 className={classes.textCenter}>Total numbers</h4>
+              <h2 className={classes.textCenter}>{totalNumbersMatched}</h2>
             </Panel>
           </Col>
           <Col xs={12} md={6}>
             <Panel>
-              Numbers mathed
+              <h4 className={classes.textCenter}>Numbers mathed</h4>
+              {numbersMatchedCircles.map((i) => {
+                return (
+                  i
+                )
+              }, this)}
             </Panel>
           </Col>
         </Row>
@@ -131,8 +219,15 @@ export class AppView extends React.Component {
 
 const mapStateToProps = (state) => ({
   gamblerObject: state.keno.gamblerObject,
+  isLoading: state.keno.isLoading,
+  drawnNumbers: state.keno.processBetObject.resultDetail,
+  totalNumbersMatched: state.keno.processBetObject.totalNumbersMatched,
+  numbersMatched: state.keno.processBetObject.numbersMatched,
   gameSettings: state.keno.gameSettings
 })
 export default connect((mapStateToProps), {
-  checkAuth
+  checkAuth,
+  clearResult,
+  playGame,
+  selectBalls
 })(AppView)
