@@ -17,6 +17,8 @@ export class AppView extends React.Component {
     this.state = {
       'selectedNumbers': [],
       'circlesDisabled': false,
+      'gameButtonDisabled': true,
+      'clearButtonDisabled': false,
       'selectedNumbersCount': 0
     }
   }
@@ -108,7 +110,7 @@ export class AppView extends React.Component {
           </Col>
           <Col xs={12} md={2}>
             <Panel>
-              <Button bsStyle='primary'>Play game</Button>
+              <Button bsStyle='primary' disabled={this.state.gameButtonDisabled}>Play game</Button>
             </Panel>
           </Col>
           <Col xs={12} md={2}>
