@@ -13,7 +13,7 @@ export const IS_LOADING = 'IS_LOADING'
 export const SELECT_BALLS = 'SELECT_BALLS'
 export const PLAY_GAME = 'PLAY_GAME'
 export const BET_OBJECT_RECEIVED = 'BET_OBJECT_RECEIVED'
-export const CLEAR_RESULT = 'BET_OBJECT_RECEIVED'
+export const CLEAR_RESULT = 'CLEAR_RESULT'
 // API Constants
 const SERVER_NAME = 'https://kenoapp.azurewebsites.net/'
 const SEARCH_FOR_GAMBLER = 'gamblersname/' // http://{servername}/gamblersname/{playerName}
@@ -116,6 +116,7 @@ export const playGame = () => {
     const gamblerId = getState().keno.gamblerObject.id
 
     setLoading(dispatch, true)
+    console.log(detail)
 
     return fetch(`${SERVER_NAME}${PLACE_BET}`, {
       method: 'post',

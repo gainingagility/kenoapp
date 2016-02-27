@@ -13,8 +13,10 @@ export class AppView extends React.Component {
     checkAuth: PropTypes.func.isRequired,
     drawnNumbers: PropTypes.string,
     numbersMatched: PropTypes.string,
+    selectedBalls: PropTypes.string,
     totalNumbersMatched: PropTypes.number,
     isLoading: PropTypes.bool.isRequired,
+    clearResult: PropTypes.func.isRequired,
     playGame: PropTypes.func.isRequired,
     selectBalls: PropTypes.func.isRequired
   };
@@ -47,9 +49,14 @@ export class AppView extends React.Component {
         'clearButtonDisable': false
       })
     }
+    if (nextProps.selectedBalls === '') {
+      this.setState({
+        'gameButtonDisabled': true
+      })
+    }
   }
 
-  clearResult() {
+  clearResult () {
     this.props.clearResult()
   }
 
@@ -203,7 +210,7 @@ export class AppView extends React.Component {
           </Col>
           <Col xs={12} md={6}>
             <Panel>
-              <h4 className={classes.textCenter}>Numbers mathed</h4>
+              <h4 className={classes.textCenter}>Numbers matched</h4>
               {numbersMatchedCircles.map((i) => {
                 return (
                   i
@@ -220,6 +227,7 @@ export class AppView extends React.Component {
 const mapStateToProps = (state) => ({
   gamblerObject: state.keno.gamblerObject,
   isLoading: state.keno.isLoading,
+  selectedBalls: state.keno.selectedBalls,
   drawnNumbers: state.keno.processBetObject.resultDetail,
   totalNumbersMatched: state.keno.processBetObject.totalNumbersMatched,
   numbersMatched: state.keno.processBetObject.numbersMatched,
