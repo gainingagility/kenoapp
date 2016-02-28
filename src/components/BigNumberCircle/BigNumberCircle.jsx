@@ -33,8 +33,14 @@ export default class BigNumberCircle extends React.Component {
   }
 
   render () {
-    // Change style of circle on check
-    const styleCircle = this.state.checked ? classes.numberCircle : classes.numberCircleChecked
+    let styleCircle
+    if ((this.props.disabled && !this.state.checked) || (!this.props.disabled && !this.state.checked)) {
+      styleCircle = classes.numberCircleCheckedPointer
+    } else if (!this.props.disabled) {
+      styleCircle = classes.numberCirclePointer
+    } else {
+      styleCircle = classes.numberCircleDisabled
+    }
     return (
       <div className={styleCircle} onClick={::this.handleClick}>
         {this.props.number}

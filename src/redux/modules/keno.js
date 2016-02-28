@@ -1,7 +1,5 @@
-import fetch from 'isomorphic-fetch'
-import ErrorHandler from '../utils/ErrorHandler.js'
 import { push } from 'react-router-redux'
-import moment from 'moment'
+import { sendLogInRequest, joinGame, placeBet, processBet, balanceCheck } from '../utils/api/APIUtils.js'
 
 // ------------------------------------
 // Constants
@@ -14,62 +12,10 @@ export const SELECT_BALLS = 'SELECT_BALLS'
 export const PLAY_GAME = 'PLAY_GAME'
 export const BET_OBJECT_RECEIVED = 'BET_OBJECT_RECEIVED'
 export const CLEAR_RESULT = 'CLEAR_RESULT'
-// API Constants
-const SERVER_NAME = 'https://kenoapp.azurewebsites.net/'
-const SEARCH_FOR_GAMBLER = 'gamblersname/' // http://{servername}/gamblersname/{playerName}
-const JOIN_GAME = 'api/kenorounds/' //  http://{servername}/api/kenorounds
-const PLACE_BET = 'api/bets/' // http://{servername}/api/bets
-const PROCESS_BET = 'api/processround/' // http://{servername}/api/processround/{roundId}/gamblerId/{gamblerId}
-const BALANCE_CHECK = 'gamblers/' // http://{servername}/gamblers/{gambler.Id}
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const logIn = (playerName) => {
-  return (dispatch) => {
-    return fetch(`${SERVER_NAME}${SEARCH_FOR_GAMBLER}${playerName}`)
-      .then((responseGambler) => responseGambler.json())
-      .then((jsonGambler) => {
-        dispatch({
-          type: GAMBLER_OBJECT_RECEIVED,
-          gamblerObject: jsonGambler
-        })
-
-        // After we get searchForGambler response
-        // We send request to start game
-        const roundStartTime = moment().utcOffset('2013-03-07T07:00:00-08:00') // ISO8601 formatted string
-        const gamblerId = jsonGambler.id
-        fetch(`${SERVER_NAME}${JOIN_GAME}${gamblerId}`, {
-          method: 'post',
-          headers: {
-            'content-type': 'application/json',
-            'cache-control': 'no-cache'
-          },
-          body: JSON.stringify({
-            'Id': 0,
-            'RoundStartTime': roundStartTime,
-            'RoundEndTime': null,
-            'GamblerId': gamblerId
-          })
-        }).then(
-          (responseGame) => responseGame.json())
-        .then((jsonGame) => {
-          dispatch({
-            type: GAME_OBJECT_RECEIVED,
-            gameObject: jsonGame
-          })
-          // If all requests are successful - redirect to App page
-          dispatch(push('/app'))
-        })
-        .catch((ex) => {
-          ErrorHandler(ex)
-        })
-      }).catch((ex) => {
-        ErrorHandler(ex)
-      })
-  }
-}
-
 const setLoading = (dispatch, value) => {
   return (
     dispatch({
@@ -79,17 +25,18 @@ const setLoading = (dispatch, value) => {
   )
 }
 
-const balanceCheck = (dispatch, gamblerId) => {
-  return fetch(`${SERVER_NAME}${BALANCE_CHECK}${gamblerId}`)
-         .then((responseBalanceCheck) => responseBalanceCheck.json())
-         .then((jsonBalanceCheck) => {
-           dispatch({
-             type: GAMBLER_OBJECT_RECEIVED,
-             gamblerObject: jsonBalanceCheck
-           })
-         }).catch((ex) => {
-           ErrorHandler(ex)
-         })
+export const logIn = (playerName) => {
+  return (dispatch) => {
+    sendLogInRequest(playerName).then(
+      (response) => {
+        dispatch({
+          type: GAMBLER_OBJECT_RECEIVED,
+          gamblerObject: response
+        })
+        dispatch(push('/app'))
+      }
+    )
+  }
 }
 
 export const selectBalls = (ballsNumber) => {
@@ -117,44 +64,36 @@ export const playGame = () => {
 
     setLoading(dispatch, true)
 
-    return fetch(`${SERVER_NAME}${PLACE_BET}`, {
-      method: 'post',
-      headers: {
-        'content-type': 'application/json',
-        'cache-control': 'no-cache'
-      },
-      body: JSON.stringify({
-        'detail': detail,
-        'roundId': roundId,
-        'gamblerId': gamblerId
-      })
-    }).then((responsePlaceBet) => responsePlaceBet.json())
-      .then((jsonPlaceBet) => {
+    joinGame(gamblerId).then(
+      (jsonGame) => {
         dispatch({
-          type: BET_OBJECT_RECEIVED,
-          betObject: jsonPlaceBet
+          type: GAME_OBJECT_RECEIVED,
+          gameObject: jsonGame
         })
-        fetch(`${SERVER_NAME}${PROCESS_BET}${roundId}/gamblerId/${gamblerId}`)
-        .then((responseProcessBet) => responseProcessBet.json())
-        .then((jsonProcessBet) => {
-          dispatch({
-            type: PROCESS_BET_OBJECT_RECEIVED,
-            processBetObject: jsonProcessBet
-          })
-          balanceCheck(dispatch, gamblerId)
-          setLoading(dispatch, false)
-          if (jsonProcessBet.message !== undefined) {
-            throw jsonProcessBet.message
-          }
-        })
-        .catch((ex) => {
-          ErrorHandler(ex)
-          setLoading(dispatch, false)
-        })
-      })
-      .catch((ex) => {
-        setLoading(dispatch, false)
-        ErrorHandler(ex)
+        placeBet(detail, roundId, gamblerId).then(
+          (jsonPlaceBet) => {
+            dispatch({
+              type: BET_OBJECT_RECEIVED,
+              betObject: jsonPlaceBet
+            })
+            processBet(roundId, gamblerId).then(
+            (jsonProcessBet) => {
+              dispatch({
+                type: PROCESS_BET_OBJECT_RECEIVED,
+                processBetObject: jsonProcessBet
+              })
+              setLoading(dispatch, false)
+              balanceCheck(gamblerId).then(
+                (jsonBalanceCheck) => {
+                  dispatch({
+                    type: GAMBLER_OBJECT_RECEIVED,
+                    gamblerObject: jsonBalanceCheck
+                  })
+                })
+            },
+            (ex) => setLoading(dispatch, true))
+          },
+           (ex) => setLoading(dispatch, false))
       })
   }
 }
