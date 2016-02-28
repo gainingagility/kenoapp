@@ -113,6 +113,7 @@ export class AppView extends React.Component {
         <BigNumberCircle
           number={i}
           key={i}
+          drawnNumbers={this.props.drawnNumbers}
           selectNumber={::this.selectNumber}
           disabled={this.state.circlesDisabled}
         />)
@@ -131,6 +132,7 @@ export class AppView extends React.Component {
     const numbersMatchedCircles = []
     if (this.props.totalNumbersMatched !== undefined && this.props.totalNumbersMatched !== 0) {
       const numbersMatched = this.props.numbersMatched.split(',')
+      numbersMatched.sort()
       numbersMatched.forEach((item) => {
         numbersMatchedCircles.push(
           <DrawnNumbersCircle

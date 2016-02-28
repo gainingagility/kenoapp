@@ -7,6 +7,7 @@ export default class BigNumberCircle extends React.Component {
   static propTypes = {
     number: PropTypes.number.isRequired,
     disabled: PropTypes.bool.isRequired,
+    drawnNumbers: PropTypes.string,
     selectNumber: PropTypes.func.isRequired
   };
 
@@ -33,16 +34,29 @@ export default class BigNumberCircle extends React.Component {
   }
 
   render () {
-    let styleCircle
+    // Change style of circle on check
+    const circleStyle = this.state.checked ? classes.numberCircle: classes.numberCircleChecked
+    let mouseArrowStyle
     if ((this.props.disabled && !this.state.checked) || (!this.props.disabled && !this.state.checked)) {
-      styleCircle = classes.numberCircleCheckedPointer
+      mouseArrowStyle = classes.numberCirclePointer
     } else if (!this.props.disabled) {
-      styleCircle = classes.numberCirclePointer
+      mouseArrowStyle = classes.numberCirclePointer
     } else {
-      styleCircle = classes.numberCircleDisabled
+      mouseArrowStyle = classes.numberCircleDisabled
+    }
+    let style = `${circleStyle} ${mouseArrowStyle}`
+    if (this.props.drawnNumbers !== undefined) {
+      const numbersMatched = this.props.drawnNumbers.split(',')
+      numbersMatched.forEach((item) => {
+        if (Number(item) === this.props.number && !this.state.checked) {
+          style +=` ${classes.numberCircleMathed}`
+        } else if (Number(item) === this.props.number) {
+          style +=` ${classes.numberCircleDrawn}`
+        }
+      })
     }
     return (
-      <div className={styleCircle} onClick={::this.handleClick}>
+      <div className={style} onClick={::this.handleClick}>
         {this.props.number}
       </div>
     )

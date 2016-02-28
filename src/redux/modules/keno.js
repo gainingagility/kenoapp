@@ -33,6 +33,13 @@ export const logIn = (playerName) => {
           type: GAMBLER_OBJECT_RECEIVED,
           gamblerObject: response
         })
+        joinGame(response.id).then(
+        (jsonGame) => {
+          dispatch({
+            type: GAME_OBJECT_RECEIVED,
+            gameObject: jsonGame
+          })
+        })
         dispatch(push('/app'))
       }
     )
