@@ -116,7 +116,6 @@ export const playGame = () => {
     const gamblerId = getState().keno.gamblerObject.id
 
     setLoading(dispatch, true)
-    console.log(detail)
 
     return fetch(`${SERVER_NAME}${PLACE_BET}`, {
       method: 'post',

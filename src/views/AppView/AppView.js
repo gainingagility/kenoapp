@@ -129,7 +129,7 @@ export class AppView extends React.Component {
       })
     }
     const numbersMatchedCircles = []
-    if (this.props.numbersMatched !== undefined) {
+    if (this.props.totalNumbersMatched !== undefined && this.props.totalNumbersMatched !== 0) {
       const numbersMatched = this.props.numbersMatched.split(',')
       numbersMatched.forEach((item) => {
         numbersMatchedCircles.push(
@@ -140,7 +140,7 @@ export class AppView extends React.Component {
       })
     }
     let totalNumbersMatched = ''
-    if (totalNumbersMatched !== undefined) {
+    if (this.props.totalNumbersMatched !== undefined) {
       totalNumbersMatched = this.props.totalNumbersMatched
     }
     return (
