@@ -19,7 +19,7 @@ export default class BigNumberCircle extends React.Component {
   }
 
   handleClick () {
-    if (!this.state.checked) {
+    if (!this.state.checked && !(this.props.drawnNumbers !== undefined)) {
       this.addNumber()
     } else if (!this.props.disabled) {
       this.addNumber()
@@ -42,6 +42,9 @@ export default class BigNumberCircle extends React.Component {
     } else if (!this.props.disabled) {
       mouseArrowStyle = classes.numberCirclePointer
     } else {
+      mouseArrowStyle = classes.numberCircleDisabled
+    }
+    if (this.props.disabled && this.props.drawnNumbers !== undefined) {
       mouseArrowStyle = classes.numberCircleDisabled
     }
     let style = `${circleStyle} ${mouseArrowStyle}`

@@ -54,6 +54,12 @@ export class AppView extends React.Component {
         'gameButtonDisabled': true
       })
     }
+    if (nextProps.drawnNumbers !== undefined) {
+      this.setState({
+        'circlesDisabled': true,
+        'gameButtonDisabled': true
+      })
+    }
   }
 
   clearResult () {
