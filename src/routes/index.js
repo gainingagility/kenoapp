@@ -1,13 +1,15 @@
 import React from 'react'
-import { Route, IndexRoute } from 'react-router'
+import { Route } from 'react-router'
 
 import CoreLayout from 'layouts/CoreLayout/CoreLayout'
 import LoginView from 'views/LoginView/LoginView'
 import AppView from 'views/AppView/AppView'
+import LobbyView from 'views/LobbyView/LobbyView'
 
 export default (store) => (
   <Route path='/' component={CoreLayout}>
-    <IndexRoute component={LoginView} />
+    <Route path='login' component={LoginView} />
     <Route path='app' component={AppView} />
+    <Route path='lobby' component={LobbyView} />
   </Route>
 )

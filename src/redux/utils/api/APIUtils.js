@@ -3,9 +3,9 @@ import fetch from 'isomorphic-fetch'
 import ErrorHandler from '../ErrorHandler.js'
 import moment from 'moment'
 
-export function sendLogInRequest (playerName) {
+export function sendLogInRequest (playerId) {
   return new Promise((resolve, reject) => {
-    fetch(`${APIConstants.SERVER_NAME}${APIConstants.SEARCH_FOR_GAMBLER}${playerName}`)
+    fetch(`${APIConstants.SERVER_NAME}${APIConstants.LOG_IN}${playerId}`)
           .then((responseGambler) => responseGambler.json())
           .then((jsonGambler) => {
             resolve(jsonGambler)

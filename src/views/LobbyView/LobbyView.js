@@ -1,9 +1,8 @@
 /* @flow */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { logIn } from '../../redux/modules/keno'
+import { } from '../../redux/modules/keno'
 import { Grid, Panel, Row, Col } from 'react-bootstrap'
-import FacebookLogin from 'react-facebook-login'
 // import classes from './LoginView.scss'
 
 // Use Flow (http://flowtype.org/) to type our component's props
@@ -19,36 +18,21 @@ type Props = {
 // Avoid using the `@connect` decorator on the class definition so
 // that we can export the undecorated component for testing.
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
-export class LoginView extends React.Component<void, Props, void> {
+export class LobbyView extends React.Component<void, Props, void> {
   static propTypes = {
-    logIn: PropTypes.func.isRequired
+    playerObject: PropTypes.object.isRequired
   };
 
-  responseFacebook (response) {
-    if (response.status !== 'unknown') {
-      this.props.logIn(response.id)
-    }
-  }
-
   render () {
+    const playerObject = JSON.stringify(this.props.playerObject)
     return (
       <Grid>
         <Row>
           <Col xs={12} md={12}>
             <Panel style={{'textAlign': 'center'}}><h1>
-            Welcome to Golden Ball Casino - Social Gambling At It's Best!</h1>
-              <h4>Please, login using your Facebook details below.</h4>
+            Lobby view</h1>
+              <div style={{'wordWrap': 'break-word'}}>{playerObject}</div>
             </Panel>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} md={12}>
-            <FacebookLogin
-              appId='236082363396429'
-              callback={::this.responseFacebook}
-              scope='public_profile, email, user_friends'
-              autoLoad
-              />
           </Col>
         </Row>
       </Grid>
@@ -56,7 +40,8 @@ export class LoginView extends React.Component<void, Props, void> {
   }
 }
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+  playerObject: state.keno.playerObject
+})
 export default connect((mapStateToProps), {
-  logIn
-})(LoginView)
+})(LobbyView)

@@ -4,7 +4,7 @@ import { sendLogInRequest, joinGame, placeBet, processBet, balanceCheck } from '
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const GAMBLER_OBJECT_RECEIVED = 'GAMBLER_OBJECT_RECEIVED'
+export const PLAYER_OBJECT_RECEIVED = 'PLAYER_OBJECT_RECEIVED'
 export const GAME_OBJECT_RECEIVED = 'GAME_OBJECT_RECEIVED'
 export const PROCESS_BET_OBJECT_RECEIVED = 'PROCESS_BET_OBJECT_RECEIVED'
 export const IS_LOADING = 'IS_LOADING'
@@ -30,17 +30,17 @@ export const logIn = (playerName) => {
     sendLogInRequest(playerName).then(
       (response) => {
         dispatch({
-          type: GAMBLER_OBJECT_RECEIVED,
-          gamblerObject: response
+          type: PLAYER_OBJECT_RECEIVED,
+          playerObject: response
         })
-        joinGame(response.id).then(
+      /*  joinGame(response.id).then(
         (jsonGame) => {
           dispatch({
             type: GAME_OBJECT_RECEIVED,
             gameObject: jsonGame
           })
-        })
-        dispatch(push('/app'))
+        }) */
+        dispatch(push('/lobby'))
       }
     )
   }
@@ -52,6 +52,15 @@ export const selectBalls = (ballsNumber) => {
       type: SELECT_BALLS,
       balls: ballsNumber
     })
+  }
+}
+
+export const checkUserLogIn = () => {
+  return (dispatch, getState) => {
+    // Check if user Log in
+    if (Object.keys(getState().keno.playerObject) !== undefined) {
+      dispatch(push('/login'))
+    }
   }
 }
 
@@ -93,8 +102,8 @@ export const playGame = () => {
               balanceCheck(gamblerId).then(
                 (jsonBalanceCheck) => {
                   dispatch({
-                    type: GAMBLER_OBJECT_RECEIVED,
-                    gamblerObject: jsonBalanceCheck
+                    type: PLAYER_OBJECT_RECEIVED,
+                    playerObject: jsonBalanceCheck
                   })
                 })
             },
@@ -119,6 +128,7 @@ export const actions = {
   playGame,
   clearResult,
   selectBalls,
+  checkUserLogIn,
   checkAuth
 }
 
@@ -126,8 +136,8 @@ export const actions = {
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [GAMBLER_OBJECT_RECEIVED]: (state, action) => {
-    return ({ ...state, 'gamblerObject': action.gamblerObject })
+  [PLAYER_OBJECT_RECEIVED]: (state, action) => {
+    return ({ ...state, 'playerObject': action.playerObject })
   },
   [SELECT_BALLS]: (state, action) => {
     const selectedBalls = action.balls.toString()
@@ -154,11 +164,7 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 const initialState = {
-  'gamblerObject': {
-    'id': null,
-    'name': null,
-    'points': null
-  },
+  'playerObject': {},
   'gameObject': {
     'id': null,
     'roundStartTime': null,

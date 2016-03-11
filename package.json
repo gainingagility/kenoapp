@@ -142,6 +142,7 @@
     "react-addons-test-utils": "^0.14.0",
     "react-bootstrap": "^0.28.3",
     "react-bootstrap-validation": "^0.1.11",
+    "react-facebook-login": "^2.1.1",
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.2",
     "redbox-react": "^1.2.2",
