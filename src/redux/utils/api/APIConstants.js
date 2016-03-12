@@ -1,5 +1,6 @@
 export const APIConstants = {
   'SERVER_NAME': 'https://kenoapp.azurewebsites.net/',
+  'KENO_GAMES': 'api/KenoGames/',
   'LOG_IN': 'api/socialgamblers/', // http://{servername}/gamblersname/{playerName}
   'JOIN_GAME': 'api/kenorounds/', //  http://{servername}/api/kenorounds
   'PLACE_BET': 'api/bets/', // http://{servername}/api/bets

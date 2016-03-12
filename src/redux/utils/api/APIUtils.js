@@ -93,3 +93,16 @@ export function balanceCheck (gamblerId) {
       })
   })
 }
+
+export function getAllKenoGames () {
+  return new Promise((resolve, reject) => {
+    fetch(`${APIConstants.SERVER_NAME}${APIConstants.KENO_GAMES}`)
+     .then((kenoGames) => kenoGames.json())
+     .then((jsonKenoGames) => {
+       resolve(jsonKenoGames)
+     })
+      .catch((ex) => {
+        ErrorHandler(ex)
+      })
+  })
+}

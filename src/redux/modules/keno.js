@@ -1,6 +1,8 @@
 import { push } from 'react-router-redux'
-import { sendLogInRequest, joinGame, placeBet, processBet, balanceCheck } from '../utils/api/APIUtils.js'
+import { sendLogInRequest, joinGame, placeBet, processBet,
+        balanceCheck, getAllKenoGames } from '../utils/api/APIUtils.js'
 import { getUserInfo } from '../utils/FacebookHelpers.js'
+import RSVP from 'rsvp'
 
 // ------------------------------------
 // Constants
@@ -8,6 +10,7 @@ import { getUserInfo } from '../utils/FacebookHelpers.js'
 export const PLAYER_OBJECT_RECEIVED = 'PLAYER_OBJECT_RECEIVED'
 export const GAME_OBJECT_RECEIVED = 'GAME_OBJECT_RECEIVED'
 export const FACEBOOK_USER_RECEIVED = 'FACEBOOK_USER_RECEIVED'
+export const KENO_GAMES_RECEIVED = 'KENO_GAMES_RECEIVED'
 export const PROCESS_BET_OBJECT_RECEIVED = 'PROCESS_BET_OBJECT_RECEIVED'
 export const IS_LOADING = 'IS_LOADING'
 export const SELECT_BALLS = 'SELECT_BALLS'
@@ -35,6 +38,27 @@ export const logIn = (facebookResponse) => {
           type: PLAYER_OBJECT_RECEIVED,
           playerObject: response
         })
+        // After user auth with facebook we must get
+        // few objects from API calls and to do it ASYNC
+
+        const promises = {
+          kenoGames: getAllKenoGames(),
+          userInfo: getUserInfo(facebookResponse.name, facebookResponse.id, facebookResponse.accessToken)
+        }
+
+        RSVP.hash(promises).then((results) => {
+          dispatch({
+            type: FACEBOOK_USER_RECEIVED,
+            facebookUserObject: results.userInfo
+          })
+          dispatch({
+            type: KENO_GAMES_RECEIVED,
+            kenoGames: results.kenoGames
+          })
+        })
+
+        // We need to add checking error
+        dispatch(push('/lobby'))
       /*  joinGame(response.id).then(
         (jsonGame) => {
           dispatch({
@@ -42,15 +66,6 @@ export const logIn = (facebookResponse) => {
             gameObject: jsonGame
           })
         }) */
-        getUserInfo(facebookResponse.name, facebookResponse.id, facebookResponse.accessToken).then(
-          (facebookUserObject) => {
-            dispatch({
-              type: FACEBOOK_USER_RECEIVED,
-              facebookUserObject: facebookUserObject
-            })
-          })
-        // We need to add checking error
-        dispatch(push('/lobby'))
       }
     )
   }
@@ -170,6 +185,9 @@ const ACTION_HANDLERS = {
   },
   [FACEBOOK_USER_RECEIVED]: (state, action) => {
     return ({ ...state, 'facebookUserObject': action.facebookUserObject })
+  },
+  [KENO_GAMES_RECEIVED]: (state, action) => {
+    return ({ ...state, 'kenoGames': action.kenoGames })
   }
 }
 
@@ -188,6 +206,7 @@ const initialState = {
   'betObject': {},
   'processBetObject': {},
   'selectedBalls': '',
+  'kenoGames': [],
   'isLoading': false,
   'gameSettings': {
     'maxSelectedNumbers': 6,
