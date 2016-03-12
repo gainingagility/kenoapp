@@ -25,8 +25,8 @@ export class LoginView extends React.Component<void, Props, void> {
   };
 
   responseFacebook (response) {
-    if (response.status !== 'unknown') {
-      this.props.logIn(response.id)
+    if (response.status !== 'unknown' && response.message === undefined) {
+      this.props.logIn(response)
     }
   }
 
@@ -44,7 +44,7 @@ export class LoginView extends React.Component<void, Props, void> {
         <Row>
           <Col xs={12} md={12}>
             <FacebookLogin
-              appId='236082363396429'
+              appId='458885024321985'
               callback={::this.responseFacebook}
               scope='public_profile, email, user_friends'
               autoLoad

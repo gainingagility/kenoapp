@@ -1,11 +1,13 @@
 import { push } from 'react-router-redux'
 import { sendLogInRequest, joinGame, placeBet, processBet, balanceCheck } from '../utils/api/APIUtils.js'
+import { getUserInfo } from '../utils/FacebookHelpers.js'
 
 // ------------------------------------
 // Constants
 // ------------------------------------
 export const PLAYER_OBJECT_RECEIVED = 'PLAYER_OBJECT_RECEIVED'
 export const GAME_OBJECT_RECEIVED = 'GAME_OBJECT_RECEIVED'
+export const FACEBOOK_USER_RECEIVED = 'FACEBOOK_USER_RECEIVED'
 export const PROCESS_BET_OBJECT_RECEIVED = 'PROCESS_BET_OBJECT_RECEIVED'
 export const IS_LOADING = 'IS_LOADING'
 export const SELECT_BALLS = 'SELECT_BALLS'
@@ -25,9 +27,9 @@ const setLoading = (dispatch, value) => {
   )
 }
 
-export const logIn = (playerName) => {
+export const logIn = (facebookResponse) => {
   return (dispatch) => {
-    sendLogInRequest(playerName).then(
+    sendLogInRequest(facebookResponse.id).then(
       (response) => {
         dispatch({
           type: PLAYER_OBJECT_RECEIVED,
@@ -40,6 +42,14 @@ export const logIn = (playerName) => {
             gameObject: jsonGame
           })
         }) */
+        getUserInfo(facebookResponse.name, facebookResponse.id, facebookResponse.accessToken).then(
+          (facebookUserObject) => {
+            dispatch({
+              type: FACEBOOK_USER_RECEIVED,
+              facebookUserObject: facebookUserObject
+            })
+          })
+        // We need to add checking error
         dispatch(push('/lobby'))
       }
     )
@@ -58,7 +68,7 @@ export const selectBalls = (ballsNumber) => {
 export const checkUserLogIn = () => {
   return (dispatch, getState) => {
     // Check if user Log in
-    if (Object.keys(getState().keno.playerObject) !== undefined) {
+    if (Object.keys(getState().keno.playerObject) !== undefined || getState().keno.playerObject.message !== undefined) {
       dispatch(push('/login'))
     }
   }
@@ -157,6 +167,9 @@ const ACTION_HANDLERS = {
   },
   [GAME_OBJECT_RECEIVED]: (state, action) => {
     return ({ ...state, 'gameObject': action.gameObject })
+  },
+  [FACEBOOK_USER_RECEIVED]: (state, action) => {
+    return ({ ...state, 'facebookUserObject': action.facebookUserObject })
   }
 }
 
@@ -165,6 +178,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = {
   'playerObject': {},
+  'facebookUserObject': {},
   'gameObject': {
     'id': null,
     'roundStartTime': null,
