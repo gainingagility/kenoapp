@@ -2,6 +2,8 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { } from '../../redux/modules/keno'
+import LobbyObject from 'components/LobbyObject/LobbyObject.jsx'
+import PictureProfile from 'components/PictureProfile/PictureProfile.jsx'
 import { Grid, Panel, Row, Col } from 'react-bootstrap'
 // import classes from './LoginView.scss'
 
@@ -20,18 +22,47 @@ type Props = {
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
 export class LobbyView extends React.Component<void, Props, void> {
   static propTypes = {
-    playerObject: PropTypes.object.isRequired
+    playerObject: PropTypes.object.isRequired,
+    facebookUserObject: PropTypes.object.isRequired
   };
 
   render () {
-    const playerObject = JSON.stringify(this.props.playerObject)
     return (
       <Grid>
         <Row>
-          <Col xs={12} md={12}>
-            <Panel style={{'textAlign': 'center'}}><h1>
-            Lobby view</h1>
-              <div style={{'wordWrap': 'break-word'}}>{playerObject}</div>
+          <Col xs={12} md={10}>
+            <Col xs={12} md={12}>
+              <Panel>
+                <LobbyObject
+                  text='Coin balance:'
+                  value={String(this.props.playerObject.wallet.coinBalance)}
+                />
+                <LobbyObject
+                  text='Ball balance:'
+                  value={String(this.props.playerObject.wallet.ballBalance)}
+                />
+                <LobbyObject
+                  text='Welcome,'
+                  value={this.props.facebookUserObject.name}
+                />
+                <LobbyObject
+                  text='Bar balance:'
+                  value={String(this.props.playerObject.wallet.barBalance)}
+                />
+                <LobbyObject
+                  text='Level:'
+                  value={String(this.props.playerObject.level.levelNumber)}
+                />
+                <LobbyObject
+                  text='Status:'
+                  value={this.props.playerObject.level.levelStatus}
+                />
+              </Panel>
+            </Col>
+          </Col>
+          <Col xs={12} md={2} style={{'textAlign': 'center'}}>
+            <Panel>
+              <PictureProfile url={this.props.facebookUserObject.picture} />
             </Panel>
           </Col>
         </Row>
@@ -41,7 +72,8 @@ export class LobbyView extends React.Component<void, Props, void> {
 }
 
 const mapStateToProps = (state) => ({
-  playerObject: state.keno.playerObject
+  playerObject: state.keno.playerObject,
+  facebookUserObject: state.keno.facebookUserObject
 })
 export default connect((mapStateToProps), {
 })(LobbyView)
