@@ -5,6 +5,7 @@ import { } from '../../redux/modules/keno'
 import LobbyObject from 'components/LobbyObject/LobbyObject.jsx'
 import GamesList from 'components/GamesList/GamesList.jsx'
 import FriendsList from 'components/FriendsList/FriendsList.jsx'
+import XpProgressBar from 'components/XpProgressBar/XpProgressBar.jsx'
 import PictureProfile from 'components/PictureProfile/PictureProfile.jsx'
 import { Grid, Panel, Row, Col } from 'react-bootstrap'
 // import classes from './LoginView.scss'
@@ -67,6 +68,11 @@ export class LobbyView extends React.Component<void, Props, void> {
             <Panel>
               <PictureProfile url={this.props.facebookUserObject.picture} />
             </Panel>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} md={12} style={{'textAlign': 'center'}}>
+            <XpProgressBar playerObject={this.props.playerObject}/>
           </Col>
         </Row>
         <Row>
