@@ -1,6 +1,6 @@
 
 import React, { PropTypes } from 'react'
-import { Panel, Col } from 'react-bootstrap'
+import { Panel } from 'react-bootstrap'
 // import classes from './FriendsListItem.scss'
 
 export default class FriendsListItem extends React.Component {
@@ -12,20 +12,20 @@ export default class FriendsListItem extends React.Component {
 
   render () {
     return (
-      <Col xs={12} md={2} style={{
-        'marginRight': '5px',
+      <Panel className='slick-slide' style={{
+        'minHeight': '170px',
+        'width': '180px',
+        'marginRight': '15px',
         'textAlign': 'center'
       }}>
-        <Panel style={{
-          'minHeight': '170px'
-        }}>
-          <div style={{
-            'minHeight': '30px'
-          }}>{this.props.name}</div>
-          <hr />
-          <img src={this.props.picture}/>
-        </Panel>
-      </Col>
+        <div style={{
+          'minHeight': '30px'
+        }}>{this.props.name}</div>
+        <hr />
+        <img style={{
+          'marginLeft': '50px'
+        }}src={this.props.picture}/>
+      </Panel>
     )
   }
 }
