@@ -9,7 +9,7 @@ import LobbyView from 'views/LobbyView/LobbyView'
 export default (store) => (
   <Route path='/' component={CoreLayout}>
     <Route path='login' component={LoginView} />
-    <Route path='app' component={AppView} />
+    <Route path='game' component={AppView} />
     <Route path='lobby' component={LobbyView} />
   </Route>
 )

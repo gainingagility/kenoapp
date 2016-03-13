@@ -3,6 +3,8 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { } from '../../redux/modules/keno'
 import LobbyObject from 'components/LobbyObject/LobbyObject.jsx'
+import GamesList from 'components/GamesList/GamesList.jsx'
+import FriendsList from 'components/FriendsList/FriendsList.jsx'
 import PictureProfile from 'components/PictureProfile/PictureProfile.jsx'
 import { Grid, Panel, Row, Col } from 'react-bootstrap'
 // import classes from './LoginView.scss'
@@ -23,6 +25,7 @@ type Props = {
 export class LobbyView extends React.Component<void, Props, void> {
   static propTypes = {
     playerObject: PropTypes.object.isRequired,
+    kenoGames: PropTypes.array.isRequired,
     facebookUserObject: PropTypes.object.isRequired
   };
 
@@ -66,6 +69,12 @@ export class LobbyView extends React.Component<void, Props, void> {
             </Panel>
           </Col>
         </Row>
+        <Row>
+          <GamesList kenoGames={this.props.kenoGames}/>
+        </Row>
+        <Row>
+          <FriendsList fbFriends={this.props.facebookUserObject.friends}/>
+        </Row>
       </Grid>
     )
   }
@@ -73,6 +82,7 @@ export class LobbyView extends React.Component<void, Props, void> {
 
 const mapStateToProps = (state) => ({
   playerObject: state.keno.playerObject,
+  kenoGames: state.keno.kenoGames,
   facebookUserObject: state.keno.facebookUserObject
 })
 export default connect((mapStateToProps), {

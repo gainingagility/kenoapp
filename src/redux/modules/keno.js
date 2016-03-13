@@ -56,9 +56,9 @@ export const logIn = (facebookResponse) => {
             kenoGames: results.kenoGames
           })
         })
+        dispatch(push('/lobby'))
 
         // We need to add checking error
-        dispatch(push('/lobby'))
       /*  joinGame(response.id).then(
         (jsonGame) => {
           dispatch({
@@ -141,6 +141,7 @@ export const playGame = () => {
 
 export const checkAuth = () => {
   return (dispatch, getState) => {
+    console.log(getState().keno.gamblerObject.id)
     const isUserNotLoggedIn = getState().keno.gamblerObject.id === null
     if (isUserNotLoggedIn) {
       dispatch(push('/'))
