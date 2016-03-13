@@ -9,15 +9,15 @@ export default class XpProgressBar extends React.Component {
   };
 
   render () {
-    const totalXPForLevel = this.props.playerObject.wallet.xpToNextLevel + this.props.playerObject.wallet.xp
-    const xpToNextLevel = this.props.playerObject.wallet.xpToNextLevel / totalXPForLevel * 100
-    const currentXP = this.props.playerObject.wallet.xp / totalXPForLevel * 100
+    const progressBarLabel = `${this.props.playerObject.wallet.xp}/${this.props.playerObject.level.levelXP}`
     return (
       <Panel>
-        <ProgressBar>
-          <ProgressBar striped bsStyle='success' label='%(percent)s%' now={currentXP} key={1} />
-          <ProgressBar bsStyle='info' label='%(percent)s%' now={xpToNextLevel} key={2} />
-        </ProgressBar>
+        <ProgressBar
+          striped
+          bsStyle='success'
+          label={progressBarLabel}
+          now={this.props.playerObject.wallet.xpToNextLevel}
+        />
       </Panel>
     )
   }
