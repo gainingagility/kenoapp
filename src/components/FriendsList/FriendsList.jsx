@@ -1,8 +1,7 @@
 
 import React, { PropTypes } from 'react'
 // import classes from './GamesList.scss'
-import { Panel, Col, Row } from 'react-bootstrap'
-import FriendsListItem from './FriendsListItem/FriendsListItem.jsx'
+import { Panel, Col } from 'react-bootstrap'
 import Slider from 'react-slick'
 
 export default class FriendsList extends React.Component {
@@ -13,31 +12,36 @@ export default class FriendsList extends React.Component {
 
   render () {
     const settings = {
+      dots: false,
       arrows: false,
       autoplay: true,
-      dots: false,
       speed: 700,
       infinity: true,
-      autoplaySpeed: 5000,
-      swipeToSlide: false,
-      slidesToShow: 4,
+      slidesToShow: 5,
       slidesToScroll: 1
     }
     const friendsListItems = []
     if (this.props.fbFriends !== undefined) {
-      const fbFriends = this.props.fbFriends
-      for (let i = 0; i < fbFriends.length; i++) {
+      this.props.fbFriends.map((i) => {
         friendsListItems.push(
-          <FriendsListItem
-            key={fbFriends[i].id}
-            name={fbFriends[i].name}
-            picture={fbFriends[i].picture.data.url}
-          />)
-      }
+          <Panel key={i.id} style={{
+            'minHeight': '170px',
+            'width': '180px',
+            'textAlign': 'center'
+          }}>
+            <div style={{
+              'minHeight': '30px'
+            }}>{i.name}</div>
+            <hr />
+            <img style={{
+              'margin': '0 auto'
+            }}src={i.picture.data.url}/>
+          </Panel>)
+      })
     }
     return (
       <Col xs={12} md={12}>
-        <Panel>
+        <Panel style={{'maxHeight': '200px'}}>
           <Slider {...settings}>
             {friendsListItems.map((i) => {
               return (

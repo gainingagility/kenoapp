@@ -55,8 +55,8 @@ export const logIn = (facebookResponse) => {
             type: KENO_GAMES_RECEIVED,
             kenoGames: results.kenoGames
           })
+          dispatch(push('/lobby'))
         })
-        dispatch(push('/lobby'))
 
         // We need to add checking error
       /*  joinGame(response.id).then(
