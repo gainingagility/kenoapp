@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { checkAuth, selectBalls, playGame, clearResult } from '../../redux/modules/keno'
+import { checkUserLogIn, selectBalls, playGame, clearResult } from '../../redux/modules/keno'
 import { Grid, Panel, Row, Col, Button } from 'react-bootstrap'
 import BigNumberCircle from 'components/BigNumberCircle/BigNumberCircle'
 import DrawnNumbersCircle from 'components/DrawnNumbersCircle/DrawnNumbersCircle'
@@ -8,9 +8,11 @@ import classes from './AppView.scss'
 
 export class AppView extends React.Component {
   static propTypes = {
-    gamblerObject: PropTypes.object.isRequired,
+    playerObject: PropTypes.object.isRequired,
     gameSettings: PropTypes.object.isRequired,
-    checkAuth: PropTypes.func.isRequired,
+    facebookUserObject: PropTypes.object.isRequired,
+    gameObject: PropTypes.object.isRequired,
+    checkUserLogIn: PropTypes.func.isRequired,
     drawnNumbers: PropTypes.string,
     numbersMatched: PropTypes.string,
     selectedBalls: PropTypes.string,
@@ -34,7 +36,7 @@ export class AppView extends React.Component {
 
   componentDidMount () {
     // if user is not logged - redirect to login page
-    this.props.checkAuth()
+    this.props.checkUserLogIn()
   }
 
   componentWillReceiveProps (nextProps) {
@@ -114,7 +116,7 @@ export class AppView extends React.Component {
 
   render () {
     const numberCircles = []
-    for (let i = 1; i <= this.props.gameSettings.maxCountOfNumbers; i++) {
+    for (let i = 1; i <= this.props.gameObject.kenoGame.kenoGameConfig.boardNumbers; i++) {
       numberCircles.push(
         <BigNumberCircle
           number={i}
@@ -154,16 +156,23 @@ export class AppView extends React.Component {
     return (
       <Grid>
         <Row>
-          <Col xs={12} md={12}>
-            <Panel><h1 className={classes.textCenter}>Welcome To Keno</h1></Panel>
+          <Col xs={12} md={8}>
+            <h1 className={classes.textCenter}>Welcome To {this.props.gameObject.kenoGame.name}</h1>
+          </Col>
+          <Col xs={12} md={4}>
+            <h3 className={classes.textCenter}>Player Name: <br />
+            {this.props.facebookUserObject.name}</h3>
           </Col>
         </Row>
         <Row>
-          <Col xs={12} md={6}>
-            <Panel><h3>Player name: {this.props.gamblerObject.name}</h3></Panel>
+          <Col xs={12} md={4}>
+            <h4 className={classes.textCenter}>Points Balance: {this.props.playerObject.wallet.coinBalance}</h4>
           </Col>
-          <Col xs={12} md={6}>
-            <Panel><h3>Points balance: {this.props.gamblerObject.points}</h3></Panel>
+          <Col xs={12} md={4}>
+            <h4 className={classes.textCenter}>Level: {this.props.playerObject.level.levelNumber}</h4>
+          </Col>
+          <Col xs={12} md={4}>
+            <h4 className={classes.textCenter}>Status: {this.props.playerObject.level.levelStatus}</h4>
           </Col>
         </Row>
         <Row id='numberCircles'>
@@ -190,6 +199,29 @@ export class AppView extends React.Component {
           </Col>
         </Row>
         <Row>
+          <Col xs={12} md={5}>
+            <Panel>
+              <h4 className={classes.textCenter}>Numbers matched</h4>
+              {numbersMatchedCircles.map((i) => {
+                return (
+                  i
+                )
+              }, this)}
+            </Panel>
+          </Col>
+          <Col xs={12} md={2}>
+            <Panel>
+              <h4 className={classes.textCenter}>Total numbers</h4>
+              <h2 className={classes.textCenter}>{totalNumbersMatched}</h2>
+            </Panel>
+          </Col>
+          <Col xs={12} md={5}>
+            <Panel>
+              <h4 className={classes.textCenter}>Game message</h4>
+            </Panel>
+          </Col>
+        </Row>
+        <Row>
           <Col xs={12} md={2}>
             <Panel>
               <Button
@@ -210,22 +242,6 @@ export class AppView extends React.Component {
               </Button>
             </Panel>
           </Col>
-          <Col xs={12} md={2}>
-            <Panel>
-              <h4 className={classes.textCenter}>Total numbers</h4>
-              <h2 className={classes.textCenter}>{totalNumbersMatched}</h2>
-            </Panel>
-          </Col>
-          <Col xs={12} md={6}>
-            <Panel>
-              <h4 className={classes.textCenter}>Numbers matched</h4>
-              {numbersMatchedCircles.map((i) => {
-                return (
-                  i
-                )
-              }, this)}
-            </Panel>
-          </Col>
         </Row>
       </Grid>
     )
@@ -233,7 +249,9 @@ export class AppView extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  gamblerObject: state.keno.gamblerObject,
+  playerObject: state.keno.playerObject,
+  facebookUserObject: state.keno.facebookUserObject,
+  gameObject: state.keno.gameObject,
   isLoading: state.keno.isLoading,
   selectedBalls: state.keno.selectedBalls,
   drawnNumbers: state.keno.processBetObject.resultDetail,
@@ -242,7 +260,7 @@ const mapStateToProps = (state) => ({
   gameSettings: state.keno.gameSettings
 })
 export default connect((mapStateToProps), {
-  checkAuth,
+  checkUserLogIn,
   clearResult,
   playGame,
   selectBalls

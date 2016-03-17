@@ -57,17 +57,22 @@ export const logIn = (facebookResponse) => {
           })
           dispatch(push('/lobby'))
         })
+      }
+    )
+  }
+}
 
-        // We need to add checking error
-      /*  joinGame(response.id).then(
+export const startGame = (gameId) => {
+  return (dispatch, getState) => {
+    const gamblerId = getState().keno.playerObject.id
+    joinGame(gamblerId, gameId).then(
         (jsonGame) => {
           dispatch({
             type: GAME_OBJECT_RECEIVED,
             gameObject: jsonGame
           })
-        }) */
-      }
-    )
+          dispatch(push('/game'))
+        })
   }
 }
 
@@ -83,7 +88,7 @@ export const selectBalls = (ballsNumber) => {
 export const checkUserLogIn = () => {
   return (dispatch, getState) => {
     // Check if user Log in
-    if (Object.keys(getState().keno.playerObject) !== undefined || getState().keno.playerObject.message !== undefined) {
+    if (Object.keys(getState().keno.playerObject).length === 0 || getState().keno.playerObject.message !== undefined) {
       dispatch(push('/login'))
     }
   }
@@ -101,11 +106,12 @@ export const playGame = () => {
   return (dispatch, getState) => {
     const detail = getState().keno.selectedBalls
     const roundId = getState().keno.gameObject.id
-    const gamblerId = getState().keno.gamblerObject.id
+    const gamblerId = getState().keno.playerObject.id
+    const gameId = getState().keno.gameObject.kenoGameId
 
     setLoading(dispatch, true)
 
-    joinGame(gamblerId).then(
+    joinGame(gamblerId, gameId).then(
       (jsonGame) => {
         dispatch({
           type: GAME_OBJECT_RECEIVED,
@@ -153,6 +159,7 @@ export const actions = {
   logIn,
   playGame,
   clearResult,
+  startGame,
   selectBalls,
   checkUserLogIn,
   checkAuth

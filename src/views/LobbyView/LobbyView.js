@@ -1,7 +1,7 @@
 /* @flow */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { } from '../../redux/modules/keno'
+import { startGame } from '../../redux/modules/keno'
 import LobbyObject from 'components/LobbyObject/LobbyObject.jsx'
 import GamesList from 'components/GamesList/GamesList.jsx'
 import FriendsList from 'components/FriendsList/FriendsList.jsx'
@@ -17,7 +17,7 @@ import { Grid, Panel, Row, Col } from 'react-bootstrap'
 // NOTE: You can run `npm run flow:check` to check for any errors in your
 // code, or `npm i -g flow-bin` to have access to the binary globally.
 type Props = {
-  logIn: Function
+  startGame: Function
 };
 
 // Avoid using the `@connect` decorator on the class definition so
@@ -27,6 +27,7 @@ export class LobbyView extends React.Component<void, Props, void> {
   static propTypes = {
     playerObject: PropTypes.object.isRequired,
     kenoGames: PropTypes.array.isRequired,
+    startGame: PropTypes.func,
     facebookUserObject: PropTypes.object.isRequired
   };
 
@@ -76,7 +77,10 @@ export class LobbyView extends React.Component<void, Props, void> {
           </Col>
         </Row>
         <Row>
-          <GamesList kenoGames={this.props.kenoGames}/>
+          <GamesList
+            startGame={this.props.startGame}
+            kenoGames={this.props.kenoGames}
+            />
         </Row>
         <Row>
           <FriendsList fbFriends={this.props.facebookUserObject.friends}/>
@@ -92,4 +96,5 @@ const mapStateToProps = (state) => ({
   facebookUserObject: state.keno.facebookUserObject
 })
 export default connect((mapStateToProps), {
+  startGame
 })(LobbyView)

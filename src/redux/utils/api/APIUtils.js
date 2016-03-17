@@ -15,10 +15,10 @@ export function sendLogInRequest (playerId) {
   })
 }
 
-export function joinGame (gamblerId) {
+export function joinGame (gamblerId, gameId) {
   const roundStartTime = moment().utcOffset('2013-03-07T07:00:00-08:00') // ISO8601 formatted string
   return new Promise((resolve, reject) => {
-    fetch(`${APIConstants.SERVER_NAME}${APIConstants.JOIN_GAME}${gamblerId}`, {
+    fetch(`${APIConstants.SERVER_NAME}${APIConstants.JOIN_GAME}`, {
       method: 'post',
       headers: {
         'content-type': 'application/json',
@@ -28,7 +28,10 @@ export function joinGame (gamblerId) {
         'Id': 0,
         'RoundStartTime': roundStartTime,
         'RoundEndTime': null,
-        'GamblerId': gamblerId
+        'Gambler': null,
+        'GamblerId': gamblerId,
+        'KenoGameId': gameId,
+        'KenoGame': null
       })
     }).then(
       (responseGame) => responseGame.json())

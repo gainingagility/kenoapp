@@ -8,7 +8,8 @@ import Slider from 'react-slick'
 export default class GamesList extends React.Component {
 
   static propTypes = {
-    kenoGames: PropTypes.array
+    kenoGames: PropTypes.array,
+    startGame: PropTypes.func
   };
 
   render () {
@@ -26,6 +27,8 @@ export default class GamesList extends React.Component {
         <GameListItem
           key={i.kenoGameConfig.id}
           name={i.name}
+          id={i.kenoGameConfig.id}
+          startGame={this.props.startGame}
           minBet={i.kenoGameConfig.minBet}
           maxBet={i.kenoGameConfig.maxBet}
           boardNumbers={i.kenoGameConfig.boardNumbers}
