@@ -109,3 +109,15 @@ export function getAllKenoGames () {
       })
   })
 }
+
+export function sendLeaveGameRequest () {
+  return new Promise((resolve, reject) => {
+    fetch(`${APIConstants.SERVER_NAME}${APIConstants.LEAVE_GAME}`)
+     .then((leaveGameAnswer) => {
+       resolve(leaveGameAnswer)
+     })
+      .catch((ex) => {
+        ErrorHandler(ex)
+      })
+  })
+}

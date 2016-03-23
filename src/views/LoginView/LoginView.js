@@ -44,7 +44,8 @@ export class LoginView extends React.Component<void, Props, void> {
         <Row>
           <Col xs={12} md={12}>
             <FacebookLogin
-              appId='458885024321985'
+              // heroku appId='458885024321985'
+              appId='988449867905257'
               callback={::this.responseFacebook}
               scope='public_profile, email, user_friends'
               autoLoad

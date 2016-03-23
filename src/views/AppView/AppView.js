@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { checkUserLogIn, selectBalls, playGame, clearResult } from '../../redux/modules/keno'
+import { checkUserLogIn, selectBalls, playGame, clearResult, leaveGame } from '../../redux/modules/keno'
 import { Grid, Panel, Row, Col, Button } from 'react-bootstrap'
 import BigNumberCircle from 'components/BigNumberCircle/BigNumberCircle'
 import DrawnNumbersCircle from 'components/DrawnNumbersCircle/DrawnNumbersCircle'
@@ -13,6 +13,7 @@ export class AppView extends React.Component {
     facebookUserObject: PropTypes.object.isRequired,
     gameObject: PropTypes.object.isRequired,
     checkUserLogIn: PropTypes.func.isRequired,
+    leaveGame: PropTypes.func.isRequired,
     drawnNumbers: PropTypes.string,
     numbersMatched: PropTypes.string,
     selectedBalls: PropTypes.string,
@@ -37,6 +38,10 @@ export class AppView extends React.Component {
   componentDidMount () {
     // if user is not logged - redirect to login page
     this.props.checkUserLogIn()
+    // Trigger action to leave game if the user closes the browser/tab
+    window.onbeforeunload = () => {
+      this.props.leaveGame()
+    }
   }
 
   componentWillReceiveProps (nextProps) {
@@ -112,6 +117,10 @@ export class AppView extends React.Component {
 
   playGame () {
     this.props.playGame()
+  }
+
+  exitGame () {
+    this.props.leaveGame()
   }
 
   render () {
@@ -221,8 +230,56 @@ export class AppView extends React.Component {
             </Panel>
           </Col>
         </Row>
+        <Row className={classes.textCenter}>
+          <Col xs={12} md={3}>
+            <Panel>
+              <Button
+                bsStyle='info'>
+                  Game information
+              </Button>
+            </Panel>
+          </Col>
+          <Col xs={12} md={2}>
+            <Panel>
+              <Button
+                bsStyle='success'>
+                  -
+              </Button>
+            </Panel>
+          </Col>
+          <Col xs={12} md={2}>
+            <Panel>
+              Bet amount
+            </Panel>
+          </Col>
+          <Col xs={12} md={2}>
+            <Panel>
+              <Button
+                bsStyle='success'>
+                  +
+              </Button>
+            </Panel>
+          </Col>
+          <Col xs={12} md={3}>
+            <Panel>
+              <Button
+                bsStyle='danger'>
+                  Buy More Coins
+              </Button>
+            </Panel>
+          </Col>
+        </Row>
         <Row>
           <Col xs={12} md={2}>
+            <Panel>
+              <Button
+                bsStyle='warning'
+                onClick={::this.exitGame}>
+                  Exit Game
+              </Button>
+            </Panel>
+          </Col>
+          <Col xs={12} md={3}>
             <Panel>
               <Button
                 bsStyle='primary'
@@ -232,13 +289,29 @@ export class AppView extends React.Component {
               </Button>
             </Panel>
           </Col>
-          <Col xs={12} md={2}>
+          <Col xs={12} md={3}>
             <Panel>
               <Button
                 bsStyle='primary'
                 disabled={this.state.gameButtonDisabled}
                 onClick={::this.playGame}>
                   Play game
+              </Button>
+            </Panel>
+          </Col>
+          <Col xs={12} md={2}>
+            <Panel>
+              <Button
+                bsStyle='success'>
+                  Play 5
+              </Button>
+            </Panel>
+          </Col>
+          <Col xs={12} md={2}>
+            <Panel>
+              <Button
+                bsStyle='success'>
+                  Play 10
               </Button>
             </Panel>
           </Col>
@@ -262,6 +335,7 @@ const mapStateToProps = (state) => ({
 export default connect((mapStateToProps), {
   checkUserLogIn,
   clearResult,
+  leaveGame,
   playGame,
   selectBalls
 })(AppView)

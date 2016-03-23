@@ -1,6 +1,6 @@
 import { push } from 'react-router-redux'
 import { sendLogInRequest, joinGame, placeBet, processBet,
-        balanceCheck, getAllKenoGames } from '../utils/api/APIUtils.js'
+        balanceCheck, getAllKenoGames, sendLeaveGameRequest } from '../utils/api/APIUtils.js'
 import { getUserInfo } from '../utils/FacebookHelpers.js'
 import RSVP from 'rsvp'
 
@@ -73,6 +73,16 @@ export const startGame = (gameId) => {
           })
           dispatch(push('/game'))
         })
+  }
+}
+
+export const leaveGame = () => {
+  return (dispatch, getState) => {
+    sendLeaveGameRequest().then(
+    () => {
+      console.log('Leave game successfully.')
+      dispatch(push('/lobby'))
+    })
   }
 }
 
