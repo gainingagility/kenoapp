@@ -4,6 +4,7 @@ import { checkUserLogIn, selectBalls, playGame, clearResult, leaveGame } from '.
 import { Grid, Panel, Row, Col, Button } from 'react-bootstrap'
 import BigNumberCircle from 'components/BigNumberCircle/BigNumberCircle'
 import DrawnNumbersCircle from 'components/DrawnNumbersCircle/DrawnNumbersCircle'
+import showPopupMsg from 'redux/utils/PopupUtils.js'
 import classes from './AppView.scss'
 
 export class AppView extends React.Component {
@@ -123,6 +124,10 @@ export class AppView extends React.Component {
     this.props.leaveGame()
   }
 
+  showGameInformation () {
+    showPopupMsg(this.props.gameObject.kenoGame.kenoGameConfig.payTable)
+  }
+
   render () {
     const numberCircles = []
     for (let i = 1; i <= this.props.gameObject.kenoGame.kenoGameConfig.boardNumbers; i++) {
@@ -234,7 +239,8 @@ export class AppView extends React.Component {
           <Col xs={12} md={3}>
             <Panel>
               <Button
-                bsStyle='info'>
+                bsStyle='info'
+                onClick={::this.showGameInformation}>
                   Game information
               </Button>
             </Panel>
