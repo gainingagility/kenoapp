@@ -1,4 +1,5 @@
 import { applyMiddleware, compose, createStore } from 'redux'
+import persistState from 'redux-localstorage'
 import thunk from 'redux-thunk'
 import rootReducer from './rootReducer'
 import { checkUserLogIn } from './modules/keno.js'
@@ -13,9 +14,12 @@ export default function configureStore (initialState = {}, history) {
       : require('containers/DevTools').default.instrument()
     middleware = compose(middleware, devTools)
   }
+  const createPersistentStore = compose(
+    persistState()
+  )(createStore)
 
   // Create final store and subscribe router in debug env ie. for devtools
-  const store = middleware(createStore)(rootReducer, initialState)
+  const store = middleware(createPersistentStore)(rootReducer, initialState)
 
   if (module.hot) {
     module.hot.accept('./rootReducer', () => {
