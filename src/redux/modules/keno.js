@@ -10,6 +10,8 @@ import RSVP from 'rsvp'
 export const PLAYER_OBJECT_RECEIVED = 'PLAYER_OBJECT_RECEIVED'
 export const GAME_OBJECT_RECEIVED = 'GAME_OBJECT_RECEIVED'
 export const FACEBOOK_USER_RECEIVED = 'FACEBOOK_USER_RECEIVED'
+export const ADD_TO_BET_AMOUNT = 'ADD_TO_BET_AMOUNT'
+export const SUBTRACT_FROM_BET_AMOUNT = 'SUBTRACT_FROM_BET_AMOUNT'
 export const KENO_GAMES_RECEIVED = 'KENO_GAMES_RECEIVED'
 export const PROCESS_BET_OBJECT_RECEIVED = 'PROCESS_BET_OBJECT_RECEIVED'
 export const IS_LOADING = 'IS_LOADING'
@@ -112,6 +114,26 @@ export const clearResult = () => {
   }
 }
 
+export const addToAmount = () => {
+  return (dispatch, getState) => {
+    if (getState().keno.betAmount + 1 <= getState().keno.playerObject.wallet.coinBalance) {
+      dispatch({
+        type: ADD_TO_BET_AMOUNT
+      })
+    }
+  }
+}
+
+export const subtractFromAmount = () => {
+  return (dispatch, getState) => {
+    if (getState().keno.betAmount - 1 > 0) {
+      dispatch({
+        type: SUBTRACT_FROM_BET_AMOUNT
+      })
+    }
+  }
+}
+
 export const playGame = () => {
   return (dispatch, getState) => {
     const detail = getState().keno.selectedBalls
@@ -157,7 +179,6 @@ export const playGame = () => {
 
 export const checkAuth = () => {
   return (dispatch, getState) => {
-    console.log(getState().keno.gamblerObject.id)
     const isUserNotLoggedIn = getState().keno.gamblerObject.id === null
     if (isUserNotLoggedIn) {
       dispatch(push('/'))
@@ -170,6 +191,8 @@ export const actions = {
   playGame,
   clearResult,
   startGame,
+  addToAmount,
+  subtractFromAmount,
   selectBalls,
   checkUserLogIn,
   checkAuth
@@ -206,6 +229,15 @@ const ACTION_HANDLERS = {
   },
   [KENO_GAMES_RECEIVED]: (state, action) => {
     return ({ ...state, 'kenoGames': action.kenoGames })
+  },
+  [SUBTRACT_FROM_BET_AMOUNT]: (state, action) => {
+    const subtractedBetAmount = state.betAmount - 1
+    return ({ ...state, 'betAmount': subtractedBetAmount })
+  },
+  [ADD_TO_BET_AMOUNT]: (state, action) => {
+    console.log(state)
+    const betAmount = state.betAmount + 1
+    return ({ ...state, 'betAmount': betAmount })
   }
 }
 
@@ -222,6 +254,7 @@ const initialState = {
     'gamblerId': null
   },
   'betObject': {},
+  'betAmount': 1,
   'processBetObject': {},
   'selectedBalls': '',
   'kenoGames': [],

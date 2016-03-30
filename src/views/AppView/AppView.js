@@ -1,6 +1,12 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { checkUserLogIn, selectBalls, playGame, clearResult, leaveGame } from '../../redux/modules/keno'
+import { checkUserLogIn,
+          selectBalls,
+          playGame,
+          clearResult,
+          leaveGame,
+          addToAmount,
+          subtractFromAmount } from '../../redux/modules/keno'
 import { Grid, Panel, Row, Col, Button } from 'react-bootstrap'
 import BigNumberCircle from 'components/BigNumberCircle/BigNumberCircle'
 import DrawnNumbersCircle from 'components/DrawnNumbersCircle/DrawnNumbersCircle'
@@ -20,7 +26,10 @@ export class AppView extends React.Component {
     selectedBalls: PropTypes.string,
     totalNumbersMatched: PropTypes.number,
     isLoading: PropTypes.bool.isRequired,
+    betAmount: PropTypes.number.isRequired,
     clearResult: PropTypes.func.isRequired,
+    addToAmount: PropTypes.func.isRequired,
+    subtractFromAmount: PropTypes.func.isRequired,
     playGame: PropTypes.func.isRequired,
     selectBalls: PropTypes.func.isRequired
   };
@@ -122,6 +131,14 @@ export class AppView extends React.Component {
 
   exitGame () {
     this.props.leaveGame()
+  }
+
+  addToAmount () {
+    this.props.addToAmount()
+  }
+
+  subtractFromAmount () {
+    this.props.subtractFromAmount()
   }
 
   showGameInformation () {
@@ -248,20 +265,22 @@ export class AppView extends React.Component {
           <Col xs={12} md={2}>
             <Panel>
               <Button
-                bsStyle='success'>
+                bsStyle='success'
+                onClick={::this.subtractFromAmount}>
                   -
               </Button>
             </Panel>
           </Col>
           <Col xs={12} md={2}>
             <Panel>
-              Bet amount
+              <h3>{this.props.betAmount}</h3>
             </Panel>
           </Col>
           <Col xs={12} md={2}>
             <Panel>
               <Button
-                bsStyle='success'>
+                bsStyle='success'
+                onClick={::this.addToAmount}>
                   +
               </Button>
             </Panel>
@@ -332,6 +351,7 @@ const mapStateToProps = (state) => ({
   facebookUserObject: state.keno.facebookUserObject,
   gameObject: state.keno.gameObject,
   isLoading: state.keno.isLoading,
+  betAmount: state.keno.betAmount,
   selectedBalls: state.keno.selectedBalls,
   drawnNumbers: state.keno.processBetObject.resultDetail,
   totalNumbersMatched: state.keno.processBetObject.totalNumbersMatched,
@@ -342,6 +362,8 @@ export default connect((mapStateToProps), {
   checkUserLogIn,
   clearResult,
   leaveGame,
+  addToAmount,
+  subtractFromAmount,
   playGame,
   selectBalls
 })(AppView)
