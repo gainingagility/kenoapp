@@ -6,6 +6,7 @@ import { checkUserLogIn,
           clearResult,
           leaveGame,
           addToAmount,
+          loopGame,
           subtractFromAmount } from '../../redux/modules/keno'
 import { Grid, Panel, Row, Col, Button } from 'react-bootstrap'
 import BigNumberCircle from 'components/BigNumberCircle/BigNumberCircle'
@@ -29,6 +30,7 @@ export class AppView extends React.Component {
     betAmount: PropTypes.number.isRequired,
     clearResult: PropTypes.func.isRequired,
     addToAmount: PropTypes.func.isRequired,
+    loopGame: PropTypes.func.isRequired,
     subtractFromAmount: PropTypes.func.isRequired,
     playGame: PropTypes.func.isRequired,
     selectBalls: PropTypes.func.isRequired
@@ -75,6 +77,10 @@ export class AppView extends React.Component {
       this.setState({
         'circlesDisabled': true,
         'gameButtonDisabled': true
+      })
+    } else if (this.state.selectedNumbers.length <= 5) {
+      this.setState({
+        'circlesDisabled': false
       })
     }
   }
@@ -139,6 +145,10 @@ export class AppView extends React.Component {
 
   subtractFromAmount () {
     this.props.subtractFromAmount()
+  }
+
+  playFiveGames () {
+    this.props.loopGame(5)
   }
 
   showGameInformation () {
@@ -327,7 +337,9 @@ export class AppView extends React.Component {
           <Col xs={12} md={2}>
             <Panel>
               <Button
-                bsStyle='success'>
+                bsStyle='success'
+                onClick={::this.playFiveGames}
+                disabled={this.state.gameButtonDisabled}>
                   Play 5
               </Button>
             </Panel>
@@ -335,7 +347,8 @@ export class AppView extends React.Component {
           <Col xs={12} md={2}>
             <Panel>
               <Button
-                bsStyle='success'>
+                bsStyle='success'
+                disabled={this.state.gameButtonDisabled}>
                   Play 10
               </Button>
             </Panel>
@@ -362,6 +375,7 @@ export default connect((mapStateToProps), {
   checkUserLogIn,
   clearResult,
   leaveGame,
+  loopGame,
   addToAmount,
   subtractFromAmount,
   playGame,

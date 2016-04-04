@@ -32,6 +32,48 @@ const setLoading = (dispatch, value) => {
   )
 }
 
+const play = (dispatch, getState) => {
+  const detail = getState().keno.selectedBalls
+  const roundId = getState().keno.gameObject.id
+  const gamblerId = getState().keno.playerObject.id
+  const betAmount = getState().keno.betAmount
+  const gameId = getState().keno.gameObject.kenoGameId
+
+  setLoading(dispatch, true)
+
+  joinGame(gamblerId, gameId).then(
+    (jsonGame) => {
+      dispatch({
+        type: GAME_OBJECT_RECEIVED,
+        gameObject: jsonGame
+      })
+      placeBet(detail, roundId, gamblerId, betAmount).then(
+        (jsonPlaceBet) => {
+          dispatch({
+            type: BET_OBJECT_RECEIVED,
+            betObject: jsonPlaceBet
+          })
+          processBet(roundId, gamblerId).then(
+          (jsonProcessBet) => {
+            dispatch({
+              type: PROCESS_BET_OBJECT_RECEIVED,
+              processBetObject: jsonProcessBet
+            })
+            setLoading(dispatch, false)
+            balanceCheck(gamblerId).then(
+              (jsonBalanceCheck) => {
+                dispatch({
+                  type: PLAYER_OBJECT_RECEIVED,
+                  playerObject: jsonBalanceCheck
+                })
+              })
+          },
+          (ex) => setLoading(dispatch, true))
+        },
+         (ex) => setLoading(dispatch, false))
+    })
+}
+
 export const logIn = (facebookResponse) => {
   return (dispatch) => {
     sendLogInRequest(facebookResponse.id).then(
@@ -78,16 +120,6 @@ export const startGame = (gameId) => {
   }
 }
 
-export const leaveGame = () => {
-  return (dispatch, getState) => {
-    sendLeaveGameRequest().then(
-    () => {
-      console.log('Leave game successfully.')
-      dispatch(push('/lobby'))
-    })
-  }
-}
-
 export const selectBalls = (ballsNumber) => {
   return (dispatch) => {
     dispatch({
@@ -114,6 +146,21 @@ export const clearResult = () => {
   }
 }
 
+export const leaveGame = () => {
+  return (dispatch, getState) => {
+    const roundId = getState().keno.gameObject.id
+    const gamblerId = getState().keno.playerObject.id
+    sendLeaveGameRequest(roundId, gamblerId).then(
+    () => {
+      dispatch({
+        type: CLEAR_RESULT
+      })
+      console.log('Leave game successfully.')
+      dispatch(push('/lobby'))
+    })
+  }
+}
+
 export const addToAmount = () => {
   return (dispatch, getState) => {
     if (getState().keno.betAmount + 1 <= getState().keno.playerObject.wallet.coinBalance) {
@@ -136,44 +183,7 @@ export const subtractFromAmount = () => {
 
 export const playGame = () => {
   return (dispatch, getState) => {
-    const detail = getState().keno.selectedBalls
-    const roundId = getState().keno.gameObject.id
-    const gamblerId = getState().keno.playerObject.id
-    const gameId = getState().keno.gameObject.kenoGameId
-
-    setLoading(dispatch, true)
-
-    joinGame(gamblerId, gameId).then(
-      (jsonGame) => {
-        dispatch({
-          type: GAME_OBJECT_RECEIVED,
-          gameObject: jsonGame
-        })
-        placeBet(detail, roundId, gamblerId).then(
-          (jsonPlaceBet) => {
-            dispatch({
-              type: BET_OBJECT_RECEIVED,
-              betObject: jsonPlaceBet
-            })
-            processBet(roundId, gamblerId).then(
-            (jsonProcessBet) => {
-              dispatch({
-                type: PROCESS_BET_OBJECT_RECEIVED,
-                processBetObject: jsonProcessBet
-              })
-              setLoading(dispatch, false)
-              balanceCheck(gamblerId).then(
-                (jsonBalanceCheck) => {
-                  dispatch({
-                    type: PLAYER_OBJECT_RECEIVED,
-                    playerObject: jsonBalanceCheck
-                  })
-                })
-            },
-            (ex) => setLoading(dispatch, true))
-          },
-           (ex) => setLoading(dispatch, false))
-      })
+    play(dispatch, getState)
   }
 }
 
@@ -186,12 +196,31 @@ export const checkAuth = () => {
   }
 }
 
+export const loopGame = (countOfGame) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: CLEAR_RESULT
+    })
+    let count = 0
+    const interval = setInterval(() => {
+      count += 1
+      if (count > countOfGame) {
+        clearInterval(interval)
+      } else {
+        console.log(count)
+        play(dispatch, getState)
+      }
+    }, 3000)
+  }
+}
+
 export const actions = {
   logIn,
   playGame,
   clearResult,
   startGame,
   addToAmount,
+  loopGame,
   subtractFromAmount,
   selectBalls,
   checkUserLogIn,
@@ -235,7 +264,6 @@ const ACTION_HANDLERS = {
     return ({ ...state, 'betAmount': subtractedBetAmount })
   },
   [ADD_TO_BET_AMOUNT]: (state, action) => {
-    console.log(state)
     const betAmount = state.betAmount + 1
     return ({ ...state, 'betAmount': betAmount })
   }

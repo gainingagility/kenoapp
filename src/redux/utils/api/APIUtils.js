@@ -43,7 +43,7 @@ export function joinGame (gamblerId, gameId) {
   })
 }
 
-export function placeBet (detail, roundId, gamblerId) {
+export function placeBet (detail, roundId, gamblerId, betAmount) {
   return new Promise((resolve, reject) => {
     fetch(`${APIConstants.SERVER_NAME}${APIConstants.PLACE_BET}`, {
       method: 'post',
@@ -54,6 +54,7 @@ export function placeBet (detail, roundId, gamblerId) {
       body: JSON.stringify({
         'detail': detail,
         'roundId': roundId,
+        'betamount': betAmount,
         'gamblerId': gamblerId
       })
     }).then((responsePlaceBet) => responsePlaceBet.json())
@@ -110,14 +111,22 @@ export function getAllKenoGames () {
   })
 }
 
-export function sendLeaveGameRequest () {
+export function sendLeaveGameRequest (roundId, gamblerId) {
   return new Promise((resolve, reject) => {
-    fetch(`${APIConstants.SERVER_NAME}${APIConstants.LEAVE_GAME}`)
-     .then((leaveGameAnswer) => {
-       resolve(leaveGameAnswer)
-     })
+    fetch(`${APIConstants.SERVER_NAME}${APIConstants.LEAVE_GAME}`, {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json',
+        'cache-control': 'no-cache'
+      },
+      body: JSON.stringify({
+        'roundId': roundId,
+        'gamblerId': gamblerId
+      })
+    }).then((responseLeaveGame) => resolve(responseLeaveGame))
       .catch((ex) => {
         ErrorHandler(ex)
+        reject(ex)
       })
   })
 }
