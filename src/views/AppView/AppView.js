@@ -22,6 +22,7 @@ export class AppView extends React.Component {
     gameObject: PropTypes.object.isRequired,
     checkUserLogIn: PropTypes.func.isRequired,
     leaveGame: PropTypes.func.isRequired,
+    gameMessage: PropTypes.string,
     drawnNumbers: PropTypes.string,
     numbersMatched: PropTypes.string,
     selectedBalls: PropTypes.string,
@@ -151,6 +152,10 @@ export class AppView extends React.Component {
     this.props.loopGame(5)
   }
 
+  playTenGames () {
+    this.props.loopGame(10)
+  }
+
   showGameInformation () {
     showPopupMsg(this.props.gameObject.kenoGame.kenoGameConfig.payTable)
   }
@@ -259,6 +264,7 @@ export class AppView extends React.Component {
           <Col xs={12} md={5}>
             <Panel>
               <h4 className={classes.textCenter}>Game message</h4>
+              <h5>{this.props.gameMessage}</h5>
             </Panel>
           </Col>
         </Row>
@@ -348,6 +354,7 @@ export class AppView extends React.Component {
             <Panel>
               <Button
                 bsStyle='success'
+                onClick={::this.playTenGames}
                 disabled={this.state.gameButtonDisabled}>
                   Play 10
               </Button>
@@ -365,6 +372,7 @@ const mapStateToProps = (state) => ({
   gameObject: state.keno.gameObject,
   isLoading: state.keno.isLoading,
   betAmount: state.keno.betAmount,
+  gameMessage: state.keno.processBetObject.gameMessage,
   selectedBalls: state.keno.selectedBalls,
   drawnNumbers: state.keno.processBetObject.resultDetail,
   totalNumbersMatched: state.keno.processBetObject.totalNumbersMatched,

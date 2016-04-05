@@ -155,7 +155,6 @@ export const leaveGame = () => {
       dispatch({
         type: CLEAR_RESULT
       })
-      console.log('Leave game successfully.')
       dispatch(push('/lobby'))
     })
   }
@@ -201,6 +200,7 @@ export const loopGame = (countOfGame) => {
     dispatch({
       type: CLEAR_RESULT
     })
+    setLoading(dispatch, true)
     let count = 0
     const interval = setInterval(() => {
       count += 1
