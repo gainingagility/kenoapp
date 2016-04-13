@@ -2,6 +2,7 @@ import { push } from 'react-router-redux'
 import { sendLogInRequest, joinGame, placeBet, processBet,
         balanceCheck, getAllKenoGames, sendLeaveGameRequest } from '../utils/api/APIUtils.js'
 import { getUserInfo } from '../utils/FacebookHelpers.js'
+import ErrorHandler from '../utils/ErrorHandler.js'
 import RSVP from 'rsvp'
 
 // ------------------------------------
@@ -39,39 +40,46 @@ const play = (dispatch, getState) => {
   const betAmount = getState().keno.betAmount
   const gameId = getState().keno.gameObject.kenoGameId
 
-  setLoading(dispatch, true)
+  const coinBalance = getState().keno.playerObject.wallet.coinBalance
+  const playerHasEnoughCoins = (coinBalance - betAmount) >= 0
 
-  joinGame(gamblerId, gameId).then(
-    (jsonGame) => {
-      dispatch({
-        type: GAME_OBJECT_RECEIVED,
-        gameObject: jsonGame
-      })
-      placeBet(detail, roundId, gamblerId, betAmount).then(
-        (jsonPlaceBet) => {
-          dispatch({
-            type: BET_OBJECT_RECEIVED,
-            betObject: jsonPlaceBet
-          })
-          processBet(roundId, gamblerId).then(
-          (jsonProcessBet) => {
+  if (playerHasEnoughCoins) {
+    setLoading(dispatch, true)
+
+    joinGame(gamblerId, gameId).then(
+      (jsonGame) => {
+        dispatch({
+          type: GAME_OBJECT_RECEIVED,
+          gameObject: jsonGame
+        })
+        placeBet(detail, roundId, gamblerId, betAmount).then(
+          (jsonPlaceBet) => {
             dispatch({
-              type: PROCESS_BET_OBJECT_RECEIVED,
-              processBetObject: jsonProcessBet
+              type: BET_OBJECT_RECEIVED,
+              betObject: jsonPlaceBet
             })
-            setLoading(dispatch, false)
-            balanceCheck(gamblerId).then(
-              (jsonBalanceCheck) => {
-                dispatch({
-                  type: PLAYER_OBJECT_RECEIVED,
-                  playerObject: jsonBalanceCheck
-                })
+            processBet(roundId, gamblerId).then(
+            (jsonProcessBet) => {
+              dispatch({
+                type: PROCESS_BET_OBJECT_RECEIVED,
+                processBetObject: jsonProcessBet
               })
+              setLoading(dispatch, false)
+              balanceCheck(gamblerId).then(
+                (jsonBalanceCheck) => {
+                  dispatch({
+                    type: PLAYER_OBJECT_RECEIVED,
+                    playerObject: jsonBalanceCheck
+                  })
+                })
+            },
+            (ex) => setLoading(dispatch, true))
           },
-          (ex) => setLoading(dispatch, true))
-        },
-         (ex) => setLoading(dispatch, false))
-    })
+           (ex) => setLoading(dispatch, false))
+      })
+  } else {
+    ErrorHandler('Not enough coins.')
+  }
 }
 
 export const logIn = (facebookResponse) => {
@@ -214,7 +222,6 @@ export const loopGame = (countOfGame) => {
       if (count > countOfGame) {
         clearInterval(interval)
       } else {
-        console.log(count)
         play(dispatch, getState)
       }
     }, 3000)

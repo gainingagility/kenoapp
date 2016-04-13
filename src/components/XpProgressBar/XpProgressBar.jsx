@@ -10,8 +10,6 @@ export default class XpProgressBar extends React.Component {
 
   render () {
     const progressBarLabel = `${this.props.playerObject.wallet.xp}/${this.props.playerObject.level.levelXP}`
-    console.log(progressBarLabel)
-    console.log(this.props.playerObject.wallet.xpToNextLevel)
     return (
       <Panel>
         <ProgressBar
