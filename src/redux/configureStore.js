@@ -2,7 +2,6 @@ import { applyMiddleware, compose, createStore } from 'redux'
 import persistState from 'redux-localstorage'
 import thunk from 'redux-thunk'
 import rootReducer from './rootReducer'
-import { checkUserLogIn } from './modules/keno.js'
 import { routerMiddleware } from 'react-router-redux'
 
 export default function configureStore (initialState = {}, history) {
@@ -28,6 +27,5 @@ export default function configureStore (initialState = {}, history) {
       store.replaceReducer(nextRootReducer)
     })
   }
-  store.dispatch(checkUserLogIn())
   return store
 }

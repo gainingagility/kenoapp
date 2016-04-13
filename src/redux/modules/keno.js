@@ -99,7 +99,7 @@ export const logIn = (facebookResponse) => {
             type: KENO_GAMES_RECEIVED,
             kenoGames: results.kenoGames
           })
-          dispatch(push('/lobby'))
+          dispatch(push('/?page=lobby'))
         })
       }
     )
@@ -115,7 +115,7 @@ export const startGame = (gameId) => {
             type: GAME_OBJECT_RECEIVED,
             gameObject: jsonGame
           })
-          dispatch(push('/game'))
+          dispatch(push('/?page=game'))
         })
   }
 }
@@ -133,7 +133,7 @@ export const checkUserLogIn = () => {
   return (dispatch, getState) => {
     // Check if user Log in
     if (Object.keys(getState().keno.playerObject).length === 0 || getState().keno.playerObject.message !== undefined) {
-      dispatch(push('/login'))
+      dispatch(push('/?page=login'))
     }
   }
 }
@@ -155,14 +155,18 @@ export const leaveGame = () => {
       dispatch({
         type: CLEAR_RESULT
       })
-      dispatch(push('/lobby'))
+      dispatch(push('/?page=lobby'))
     })
   }
 }
 
 export const addToAmount = () => {
   return (dispatch, getState) => {
-    if (getState().keno.betAmount + 1 <= getState().keno.playerObject.wallet.coinBalance) {
+    const maxBetAmount = getState().keno.gameObject.kenoGame.kenoGameConfig.maxBet
+    const increasedBet = getState().keno.betAmount + 1
+    const incBetNotMoreMaxBet = increasedBet <= maxBetAmount
+    const incBetNotMoreCoinBalance = increasedBet <= getState().keno.playerObject.wallet.coinBalance
+    if (incBetNotMoreMaxBet && incBetNotMoreCoinBalance) {
       dispatch({
         type: ADD_TO_BET_AMOUNT
       })
@@ -172,7 +176,10 @@ export const addToAmount = () => {
 
 export const subtractFromAmount = () => {
   return (dispatch, getState) => {
-    if (getState().keno.betAmount - 1 > 0) {
+    const reducedBet = getState().keno.betAmount - 1
+    const minBetAmount = getState().keno.gameObject.kenoGame.kenoGameConfig.minBet
+    const reducedBetNotLessMinBet = reducedBet >= minBetAmount
+    if (reducedBetNotLessMinBet) {
       dispatch({
         type: SUBTRACT_FROM_BET_AMOUNT
       })
@@ -251,7 +258,8 @@ const ACTION_HANDLERS = {
     return ({ ...state, 'processBetObject': action.processBetObject })
   },
   [GAME_OBJECT_RECEIVED]: (state, action) => {
-    return ({ ...state, 'gameObject': action.gameObject })
+    return ({ ...state, 'gameObject': action.gameObject,
+      'betAmount': action.gameObject.kenoGame.kenoGameConfig.minBet })
   },
   [FACEBOOK_USER_RECEIVED]: (state, action) => {
     return ({ ...state, 'facebookUserObject': action.facebookUserObject })
@@ -288,7 +296,10 @@ const initialState = {
   'kenoGames': [],
   'isLoading': false,
   'gameSettings': {
-    'maxSelectedNumbers': 6,
+    'maxNumSelect': 6,
+    'minNumSelect': 1,
+    'minBet': 1,
+    'maxBet': 1,
     'maxCountOfNumbers': 80
   }
 }
