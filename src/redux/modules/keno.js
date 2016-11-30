@@ -1,6 +1,14 @@
 import { push } from 'react-router-redux'
-import { sendLogInRequest, joinGame, placeBet, processBet,
-        balanceCheck, getAllKenoGames, sendLeaveGameRequest } from '../utils/api/APIUtils.js'
+import { sendLogInRequest,
+         joinGame,
+         placeBet,
+         processBet,
+         balanceCheck,
+         getAllKenoGames,
+         sendLeaveGameRequest,
+         buyMoreCoins,
+         getTrophies,
+         getUserTrophies } from '../utils/api/APIUtils.js'
 import { getUserInfo } from '../utils/FacebookHelpers.js'
 import ErrorHandler from '../utils/ErrorHandler.js'
 import RSVP from 'rsvp'
@@ -11,12 +19,18 @@ import RSVP from 'rsvp'
 export const PLAYER_OBJECT_RECEIVED = 'PLAYER_OBJECT_RECEIVED'
 export const GAME_OBJECT_RECEIVED = 'GAME_OBJECT_RECEIVED'
 export const FACEBOOK_USER_RECEIVED = 'FACEBOOK_USER_RECEIVED'
+export const BUY_MORE_COINS = 'BUY_MORE_COINS'
 export const ADD_TO_BET_AMOUNT = 'ADD_TO_BET_AMOUNT'
+export const ADD_TO_ROUND_HISTORY = 'ADD_TO_ROUND_HISTORY'
 export const SUBTRACT_FROM_BET_AMOUNT = 'SUBTRACT_FROM_BET_AMOUNT'
+export const LOBBY_PAGE_LOADING = 'LOBBY_PAGE_LOADING'
 export const KENO_GAMES_RECEIVED = 'KENO_GAMES_RECEIVED'
 export const PROCESS_BET_OBJECT_RECEIVED = 'PROCESS_BET_OBJECT_RECEIVED'
 export const IS_LOADING = 'IS_LOADING'
 export const SELECT_BALLS = 'SELECT_BALLS'
+export const GET_USER_TROPHIES = 'GET_USER_TROPHIES'
+export const GET_TROPHIES = 'GET_TROPHIES'
+export const QUICK_PICK = 'QUICK_PICK'
 export const PLAY_GAME = 'PLAY_GAME'
 export const BET_OBJECT_RECEIVED = 'BET_OBJECT_RECEIVED'
 export const CLEAR_RESULT = 'CLEAR_RESULT'
@@ -64,6 +78,12 @@ const play = (dispatch, getState) => {
                 type: PROCESS_BET_OBJECT_RECEIVED,
                 processBetObject: jsonProcessBet
               })
+              dispatch({
+                type: ADD_TO_ROUND_HISTORY,
+                matched: jsonProcessBet.totalNumbersMatched,
+                numbersMatched: jsonProcessBet.numbersMatched,
+                wonCoins: jsonProcessBet.amountWon
+              })
               setLoading(dispatch, false)
               balanceCheck(gamblerId).then(
                 (jsonBalanceCheck) => {
@@ -82,35 +102,47 @@ const play = (dispatch, getState) => {
   }
 }
 
-export const logIn = (facebookResponse) => {
+export const logIn = () => {
   return (dispatch) => {
-    sendLogInRequest(facebookResponse.id).then(
-      (response) => {
-        dispatch({
-          type: PLAYER_OBJECT_RECEIVED,
-          playerObject: response
-        })
-        // After user auth with facebook we must get
-        // few objects from API calls and to do it ASYNC
-
-        const promises = {
-          kenoGames: getAllKenoGames(),
-          userInfo: getUserInfo(facebookResponse.name, facebookResponse.id, facebookResponse.accessToken)
-        }
-
-        RSVP.hash(promises).then((results) => {
-          dispatch({
-            type: FACEBOOK_USER_RECEIVED,
-            facebookUserObject: results.userInfo
-          })
-          dispatch({
-            type: KENO_GAMES_RECEIVED,
-            kenoGames: results.kenoGames
-          })
-          dispatch(push('/?page=lobby'))
-        })
+    const facebookResponse = JSON.parse(localStorage.getItem('facebookUser'))
+    dispatch({
+      type: LOBBY_PAGE_LOADING
+    })
+    sendLogInRequest(facebookResponse.id, facebookResponse.name).then((playerObject) => {
+      dispatch({
+        type: PLAYER_OBJECT_RECEIVED,
+        playerObject: playerObject
+      })
+      const promises = {
+        kenoGames: getAllKenoGames(),
+        userInfo: getUserInfo(facebookResponse.name, facebookResponse.id, facebookResponse.accessToken),
+        trophies: getTrophies(),
+        userTrophies: getUserTrophies(facebookResponse.id)
       }
-    )
+      RSVP.hash(promises).then((results) => {
+        dispatch({
+          type: FACEBOOK_USER_RECEIVED,
+          facebookUserObject: results.userInfo
+        })
+        dispatch({
+          type: GET_TROPHIES,
+          trophies: results.trophies
+        })
+        dispatch({
+          type: GET_USER_TROPHIES,
+          userTrophies: results.userTrophies
+        })
+        dispatch({
+          type: KENO_GAMES_RECEIVED,
+          kenoGames: results.kenoGames
+        })
+      }).then(() => {
+        dispatch({
+          type: LOBBY_PAGE_LOADING
+        })
+        dispatch(push('/lobby'))
+      })
+    })
   }
 }
 
@@ -123,8 +155,24 @@ export const startGame = (gameId) => {
             type: GAME_OBJECT_RECEIVED,
             gameObject: jsonGame
           })
-          dispatch(push('/?page=game'))
+          dispatch(push('/game'))
         })
+  }
+}
+
+export const buyCoins = (paymentId, amount) => {
+  return (dispatch, getState) => {
+    const gamblerId = getState().keno.playerObject.id
+    const facebookId = getState().keno.facebookUserObject.userId
+    buyMoreCoins(gamblerId, facebookId, amount, paymentId).then(() => {
+      balanceCheck(gamblerId).then(
+      (jsonBalanceCheck) => {
+        dispatch({
+          type: PLAYER_OBJECT_RECEIVED,
+          playerObject: jsonBalanceCheck
+        })
+      })
+    })
   }
 }
 
@@ -137,11 +185,25 @@ export const selectBalls = (ballsNumber) => {
   }
 }
 
+export const quickPick = (numbers) => {
+  return (dispatch) => {
+    dispatch({
+      type: SELECT_BALLS,
+      balls: numbers
+    })
+  }
+}
+
+export const showModalBuyMoreCoins = () => {
+  return () => {
+  }
+}
+
 export const checkUserLogIn = () => {
   return (dispatch, getState) => {
     // Check if user Log in
     if (Object.keys(getState().keno.playerObject).length === 0 || getState().keno.playerObject.message !== undefined) {
-      dispatch(push('/?page=login'))
+      dispatch(push('/login'))
     }
   }
 }
@@ -163,7 +225,7 @@ export const leaveGame = () => {
       dispatch({
         type: CLEAR_RESULT
       })
-      dispatch(push('/?page=lobby'))
+      dispatch(push('/lobby'))
     })
   }
 }
@@ -215,7 +277,6 @@ export const loopGame = (countOfGame) => {
     dispatch({
       type: CLEAR_RESULT
     })
-    setLoading(dispatch, true)
     let count = 0
     const interval = setInterval(() => {
       count += 1
@@ -234,8 +295,11 @@ export const actions = {
   clearResult,
   startGame,
   addToAmount,
+  quickPick,
+  buyCoins,
   loopGame,
   subtractFromAmount,
+  showModalBuyMoreCoins,
   selectBalls,
   checkUserLogIn,
   checkAuth
@@ -259,10 +323,24 @@ const ACTION_HANDLERS = {
     return ({ ...state, 'betObject': action.betObject })
   },
   [CLEAR_RESULT]: (state, action) => {
-    return ({ ...state, 'processBetObject': {}, betObject: {} })
+    return ({ ...state, 'processBetObject': {}, betObject: {}, roundsHistory: [] })
+  },
+  [ADD_TO_ROUND_HISTORY]: (state, action) => {
+    const roundsHistory = state.roundsHistory
+    roundsHistory.push({matched: action.matched, won: action.wonCoins, numbersMatched: action.numbersMatched})
+    return ({ ...state, roundsHistory: roundsHistory })
   },
   [PROCESS_BET_OBJECT_RECEIVED]: (state, action) => {
     return ({ ...state, 'processBetObject': action.processBetObject })
+  },
+  [GET_USER_TROPHIES]: (state, action) => {
+    return ({ ...state, 'userTrophies': action.userTrophies })
+  },
+  [GET_TROPHIES]: (state, action) => {
+    return ({ ...state, 'trophies': action.trophies })
+  },
+  [LOBBY_PAGE_LOADING]: (state, action) => {
+    return ({ ...state, 'lobbyPageLoading': !state.lobbyPageLoading })
   },
   [GAME_OBJECT_RECEIVED]: (state, action) => {
     return ({ ...state, 'gameObject': action.gameObject,
@@ -297,10 +375,14 @@ const initialState = {
     'gamblerId': null
   },
   'betObject': {},
+  'roundsHistory': [],
   'betAmount': 1,
+  'lobbyPageLoading': false,
   'processBetObject': {},
   'selectedBalls': '',
   'kenoGames': [],
+  'userTrophies': 0,
+  'trophies': [],
   'isLoading': false,
   'gameSettings': {
     'maxNumSelect': 6,

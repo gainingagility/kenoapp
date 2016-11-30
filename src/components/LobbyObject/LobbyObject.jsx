@@ -1,22 +1,20 @@
 
 import React, { PropTypes } from 'react'
 // import classes from './LobbyObject.scss'
-import { Panel, Col } from 'react-bootstrap'
 
 export default class LobbyObject extends React.Component {
 
   static propTypes = {
     value: PropTypes.string,
-    text: PropTypes.string
+    image: PropTypes.string
   };
 
   render () {
+    const image = `assets/${this.props.image}.png`
     return (
-      <Col xs={12} md={4}>
-        <Panel>
-          {this.props.text} {this.props.value}
-        </Panel>
-      </Col>
+      <div className="lobby-object-wrapper">
+        <img src={image} className="lobby-object-image" /> <span className="lobby-object-text">{this.props.value}</span>
+      </div>
     )
   }
 }

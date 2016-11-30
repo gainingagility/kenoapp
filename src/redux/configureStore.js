@@ -1,5 +1,4 @@
 import { applyMiddleware, compose, createStore } from 'redux'
-import persistState from 'redux-localstorage'
 import thunk from 'redux-thunk'
 import rootReducer from './rootReducer'
 import { routerMiddleware } from 'react-router-redux'
@@ -13,12 +12,9 @@ export default function configureStore (initialState = {}, history) {
       : require('containers/DevTools').default.instrument()
     middleware = compose(middleware, devTools)
   }
-  const createPersistentStore = compose(
-    persistState()
-  )(createStore)
 
   // Create final store and subscribe router in debug env ie. for devtools
-  const store = middleware(createPersistentStore)(rootReducer, initialState)
+  const store = middleware(createStore)(rootReducer, initialState)
 
   if (module.hot) {
     module.hot.accept('./rootReducer', () => {

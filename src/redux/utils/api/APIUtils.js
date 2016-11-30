@@ -2,16 +2,81 @@ import { APIConstants } from './APIConstants.js'
 import fetch from 'isomorphic-fetch'
 import ErrorHandler from '../ErrorHandler.js'
 import moment from 'moment'
+import toastr from 'toastr'
 
-export function sendLogInRequest (playerId) {
+export function sendLogInRequest (facebookId, facebookName) {
   return new Promise((resolve, reject) => {
-    fetch(`${APIConstants.SERVER_NAME}${APIConstants.LOG_IN}${playerId}`)
-          .then((responseGambler) => responseGambler.json())
-          .then((jsonGambler) => {
-            resolve(jsonGambler)
+    fetch(`${APIConstants.SERVER_NAME}${APIConstants.LOG_IN}`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'cache-control': 'no-cache'
+      },
+      body: JSON.stringify({
+        'facebookid': facebookId,
+        'gamblername': facebookName
+      })
+    }).then((res) => res.json())
+    .then((jsonRes) => {
+      console.log(jsonRes)
+      resolve(jsonRes)
+    }).catch((ex) => {
+      ErrorHandler(ex)
+    })
+  })
+}
+
+export function getTrophies () {
+  return new Promise((resolve, reject) => {
+    fetch(`${APIConstants.SERVER_NAME}${APIConstants.GET_TROPHIES}`)
+          .then((responseTrophies) => responseTrophies.json())
+          .then((jsonTrophies) => {
+            resolve(jsonTrophies)
           }).catch((ex) => {
             ErrorHandler(ex)
           })
+  })
+}
+
+export function getUserTrophies (playerId) {
+  return new Promise((resolve, reject) => {
+    fetch(`${APIConstants.SERVER_NAME}${APIConstants.GET_USER_TROPHIES}${playerId}`)
+          .then((responseTrophies) => responseTrophies.json())
+          .then((jsonTrophies) => {
+            resolve(jsonTrophies)
+          }).catch((ex) => {
+            ErrorHandler(ex)
+          })
+  })
+}
+
+export function buyMoreCoins (gamblerId, facebookId, coins, paymentId) {
+  const description = `${coins} Gold Coins Purchased – Id: ${paymentId}`
+  return new Promise((resolve, reject) => {
+    fetch(`${APIConstants.SERVER_NAME}${APIConstants.BUY_COINS}`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'cache-control': 'no-cache'
+      },
+      body: JSON.stringify({
+        'facebookid': facebookId,
+        'amount': coins,
+        'description': description
+      })
+    }).then((res) => {
+      const options = {
+        'closeButton': true,
+        'progressBar': true,
+        'showDuration': '300',
+        'hideDuration': '1000',
+        'timeOut': '5000'
+      }
+      toastr.success(`You have successfully bought ${coins} coins`, options)
+      resolve(res)
+    }).catch((ex) => {
+      ErrorHandler(ex)
+    })
   })
 }
 
@@ -19,9 +84,9 @@ export function joinGame (gamblerId, gameId) {
   const roundStartTime = moment().utcOffset('2013-03-07T07:00:00-08:00') // ISO8601 formatted string
   return new Promise((resolve, reject) => {
     fetch(`${APIConstants.SERVER_NAME}${APIConstants.JOIN_GAME}`, {
-      method: 'post',
+      method: 'POST',
       headers: {
-        'content-type': 'application/json',
+        'Content-Type': 'application/json',
         'cache-control': 'no-cache'
       },
       body: JSON.stringify({
@@ -48,7 +113,7 @@ export function placeBet (detail, roundId, gamblerId, betAmount) {
     fetch(`${APIConstants.SERVER_NAME}${APIConstants.PLACE_BET}`, {
       method: 'post',
       headers: {
-        'content-type': 'application/json',
+        'Content-Type': 'application/json',
         'cache-control': 'no-cache'
       },
       body: JSON.stringify({
@@ -116,7 +181,7 @@ export function sendLeaveGameRequest (roundId, gamblerId) {
     fetch(`${APIConstants.SERVER_NAME}${APIConstants.LEAVE_GAME}`, {
       method: 'post',
       headers: {
-        'content-type': 'application/json',
+        'Content-Type': 'application/json',
         'cache-control': 'no-cache'
       },
       body: JSON.stringify({

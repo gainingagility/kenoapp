@@ -1,9 +1,8 @@
 
 import React, { PropTypes } from 'react'
 // import classes from './GamesList.scss'
-import { Panel, Col } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 import GameListItem from './GamesListItem/GamesListItem.jsx'
-import Slider from 'react-slick'
 
 export default class GamesList extends React.Component {
 
@@ -13,38 +12,28 @@ export default class GamesList extends React.Component {
   };
 
   render () {
-    const settings = {
-      arrows: true,
-      dots: false,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 1
-    }
     const gamesListItems = []
     this.props.kenoGames.map((i) => {
       gamesListItems.push(
         <GameListItem
-          key={i.kenoGameConfig.id}
+          key={i.name}
           name={i.name}
-          id={i.kenoGameConfig.id}
+          id={i.id}
           startGame={this.props.startGame}
           minBet={i.kenoGameConfig.minBet}
           maxBet={i.kenoGameConfig.maxBet}
+          locked={i.isActive}
           boardNumbers={i.kenoGameConfig.boardNumbers}
         />)
     })
     return (
-      <Col xs={12} md={12}>
-        <Panel>
-          <Slider {...settings}>
-            {gamesListItems.map((i) => {
-              return (
-                i
-              )
-            }, this)}
-          </Slider>
-        </Panel>
+      <Col xs={12} md={12} className="text-center">
+        <h3 className="text-center game-seaction-header">Game List</h3>
+          {gamesListItems.map((i) => {
+            return (
+              i
+            )
+          }, this)}
       </Col>
     )
   }

@@ -1,6 +1,5 @@
 
 import React, { PropTypes } from 'react'
-import classes from './DrawnNumbersCircle.scss'
 
 export default class DrawnNumbersCircle extends React.Component {
 
@@ -11,7 +10,7 @@ export default class DrawnNumbersCircle extends React.Component {
   render () {
     // Change style of circle on check
     return (
-      <div className={classes.numberCircle} >
+      <div className="drawn-numbers-circle">
         {this.props.number}
       </div>
     )

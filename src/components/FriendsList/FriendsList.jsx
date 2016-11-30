@@ -1,7 +1,7 @@
 
 import React, { PropTypes } from 'react'
 // import classes from './GamesList.scss'
-import { Panel, Col } from 'react-bootstrap'
+import { Grid, Row, Col, Button } from 'react-bootstrap'
 import Slider from 'react-slick'
 
 export default class FriendsList extends React.Component {
@@ -10,11 +10,25 @@ export default class FriendsList extends React.Component {
     fbFriends: PropTypes.array
   };
 
+  inviteFriend (e) {
+    const FB = window.FB
+    const id = e.target.value
+    FB.ui({
+      method: 'apprequests',
+      title: 'Come join me on Golden Ball Keno',
+      message: 'You should join me playing Golden Ball Keno.',
+      to: id
+    }, (response) => {
+      console.log(response)
+    })
+  }
+
   render () {
     const settings = {
       dots: false,
-      arrows: false,
       autoplay: true,
+      swipe: false,
+      arrows: false,
       speed: 700,
       infinity: true,
       slidesToShow: 5,
@@ -24,33 +38,54 @@ export default class FriendsList extends React.Component {
     if (this.props.fbFriends !== undefined) {
       this.props.fbFriends.map((i) => {
         friendsListItems.push(
-          <Panel key={i.id} style={{
-            'minHeight': '170px',
-            'width': '180px',
-            'textAlign': 'center'
-          }}>
-            <div style={{
-              'minHeight': '30px'
-            }}>{i.name}</div>
-            <hr />
+          <div className="invite-friend-item" key={i.id}>
             <img style={{
-              'margin': '0 auto'
-            }}src={i.picture.data.url}/>
-          </Panel>)
+              'margin': '0 auto',
+              'marginBottom': '5px',
+              'marginLeft': '25px',
+              'borderRadius': '5px',
+              'width': '75px',
+              'border': '1px solid #09b8e8'
+            }}src={i.picture.data.url} />
+            <div style={{
+              'color': '#00b8f5',
+              'textAlign': 'center',
+              'fontSize': '12px',
+              'marginBottom': '5px',
+              'marginLeft': '25px',
+              'minHeight': '40px'
+            }}>{i.name}</div>
+            <Button
+              value={i.id}
+              bsStyle="info"
+              className="friend-list-btn"
+              onClick={::this.inviteFriend}>
+              Invite/Add
+            </Button>
+          </div>)
       })
     }
     return (
-      <Col xs={12} md={12}>
-        <Panel style={{'maxHeight': '200px'}}>
-          <Slider {...settings}>
-            {friendsListItems.map((i) => {
-              return (
-                i
-              )
-            }, this)}
-          </Slider>
-        </Panel>
-      </Col>
+      <Grid>
+        <h3 className="friend-list-header">
+          Friends List
+          <div className="fl-header-border-corner-left" />
+          <div className="fl-header-border-corner-left-radius" />
+          <div className="fl-header-border-corner-right" />
+          <div className="fl-header-border-corner-right-radius" />
+        </h3>
+        <Row>
+          <Col xs={12} md={12} className="friend-list-wrapper">
+            <Slider {...settings}>
+              {friendsListItems.map((i) => {
+                return (
+                  i
+                )
+              }, this)}
+            </Slider>
+          </Col>
+        </Row>
+      </Grid>
     )
   }
 }
