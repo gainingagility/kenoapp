@@ -293,65 +293,54 @@ export class GameView extends React.Component {
       <Grid fluid className={gameStyleName}>
         <Grid>
           <Row className="lobby-header-row">
-            <Col xs={12} md={3}>
-              <img src="assets/bg_logo.png" alt="logo" className="lobby-header-logo" />
-            </Col>
-            <Col xs={12} md={8}>
-              <Row className="lobby-object-wrapper-row">
-                <Col xs={6} md={2} className="col-lobby-object menu-devider">
-                  <div className="lobby-object-wrapper">
-                    <img src="assets/coins-icon.png" className="lobby-object-image" />
-                    <span className="lobby-object-text">
-                      {this.props.playerObject.wallet.coinBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
-                    </span>
-                  </div>
-                </Col>
-                <Col xs={6} md={2} className="col-lobby-object menu-devider">
-                  <div className="lobby-object-wrapper">
-                    <img src="assets/goldbars-icon.png" className="lobby-object-image" />
-                    <span className="lobby-object-text">
-                      {this.props.playerObject.wallet.barBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
-                    </span>
-                  </div>
-                </Col>
-                <Col xs={6} md={2} className="col-lobby-object menu-devider">
-                  <div className="lobby-object-wrapper">
-                    <img src="assets/goldball-icon.png" className="lobby-object-image" />
-                    <span className="lobby-object-text">
-                      {this.props.playerObject.wallet.ballBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
-                    </span>
-                  </div>
-                </Col>
-                <Col xs={6} md={2} className="col-lobby-object menu-devider">
-                  <div className="lobby-object-wrapper">
-                    <img src="assets/level-icon.png" className="lobby-object-image" />
-                    <span className="lobby-object-text">
-                      {this.props.playerObject.level.displayLevelInfo}
-                    </span>
-                  </div>
-                </Col>
-                <Col xs={6} md={2} className="col-lobby-object menu-devider">
-                  <div className="lobby-object-wrapper">
-                    <img src="assets/trophy-icon.png" className="lobby-object-image"
-                      style={{'position': 'relative', 'bottom': '3px'}} />
-                    <span className="lobby-object-text">
-                      {this.props.userTrophies}
-                    </span>
-                  </div>
-                </Col>
-                <Col xs={6} md={2} className="col-lobby-object menu-devider">
-                  <div className="lobby-object-wrapper lobby-object-welcome-text">
-                    Welcome back {this.props.facebookUserObject.name} {this.props.playerObject.level.levelStatus}
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-            <Col xs={0} md={1}>
-              <PictureProfile url={this.props.facebookUserObject.picture} />
-            </Col>
-            <Col xs={12} md={12} style={{'textAlign': 'center'}} className="no-padding">
-              <XpProgressBar playerObject={this.props.playerObject} />
-            </Col>
+            <div className="lobby-header-info">
+              <div className="lobby-header-info-bg">
+                <img src="assets/bg_logo.png" alt="logo" className="lobby-header-logo" />
+                <div>
+                  <Grid className="lobby-object-wrapper-row">
+                    <Row>
+                      <Col xs={6} md={2} className="col-lobby-object menu-divider">
+                        <div className="lobby-object-icon lobby-object-icon-coins" />
+                        <span className="lobby-object-text">
+                          {this.props.playerObject.wallet.coinBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
+                        </span>
+                      </Col>
+                      <Col xs={6} md={2} className="col-lobby-object menu-divider">
+                        <div className="lobby-object-icon lobby-object-icon-goldbars" />
+                        <span className="lobby-object-text">
+                          {this.props.playerObject.wallet.barBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
+                        </span>
+                      </Col>
+                      <Col xs={6} md={2} className="col-lobby-object menu-divider">
+                        <div className="lobby-object-icon lobby-object-icon-goldball" />
+                        <span className="lobby-object-text">
+                          {this.props.playerObject.wallet.ballBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
+                        </span>
+                      </Col>
+                      <Col xs={6} md={2} className="col-lobby-object menu-divider">
+                        <div className="lobby-object-icon lobby-object-icon-level" />
+                        <span className="lobby-object-text">
+                          {this.props.playerObject.level.displayLevelInfo}
+                        </span>
+                      </Col>
+                      <Col xs={6} md={2} className="col-lobby-object menu-divider">
+                        <div className="lobby-object-icon lobby-object-icon-trophy" />
+                        <span className="lobby-object-text">
+                          {this.props.userTrophies}
+                        </span>
+                      </Col>
+                      <Col xs={6} md={2} className="col-lobby-object menu-divider">
+                        <div className="lobby-object-welcome-text">
+                          Welcome back {this.props.facebookUserObject.name} {this.props.playerObject.level.levelStatus}
+                        </div>
+                      </Col>
+                    </Row>
+                  </Grid>
+                </div>
+              </div>
+            </div>
+            <div className="lobby-header-progress">
+            </div>
           </Row>
           <Row>
             <Col xs={12} md={12}>

@@ -5,13 +5,16 @@
     height: 100vh;
     .container {
       height: 100%;
-      padding: 0 20px;
+    }
+    .lobby-header-row {
+      margin-top: 5px;
     }
     .lobby-object-wrapper-row {
       opacity: 0.95;
       border-radius: 4px;
       background-image: linear-gradient(to bottom, #182a64, #294b9b);
       box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);
+      border-top: none;
     }
     .menu-devider {
       border-right: solid 1px #385baf;

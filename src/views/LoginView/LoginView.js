@@ -44,8 +44,8 @@ export class LoginView extends React.Component<void, Props, void> {
             <h4>Please, login using your Facebook details below.</h4>
             <br />
             <FacebookLogin
-              // appId="521810288009768"
-              appId="988449867905257"
+              appId="521810288009768"
+              // appId="988449867905257"
               callback={::this.responseFacebook}
               scope="public_profile, email, user_friends"
               autoLoad={false}

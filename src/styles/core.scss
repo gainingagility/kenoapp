@@ -12,7 +12,9 @@
   // Just remove them if they're not what you want
   @font-face {
     font-family: "Sansation";
-    src: url(./fonts/Sansation_Regular.ttf) format("truetype");
+    src: url(fonts/SansationBold.eot),
+         url(fonts/SansationBold.woff),
+         url(fonts/SansationBold.ttf);
   }
   html {
     box-sizing: border-box;
@@ -71,74 +73,113 @@
     width: 100vw;
   }
   .lobby-header-row {
+    position:relative;
     margin-top: 10px;
-    background-color: #011924;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-top: 2px solid #066778;
+    background: transparent;
+  }
+  .lobby-header-info {
+    height: 95px;
+    padding: 2px 2px 0 2px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background: linear-gradient(to bottom, #264389, rgba(255, 255, 255, 0));
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+  }
+  .lobby-header-info-bg {
+    width: inherit;
+    height: inherit;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-color: #141414;
+    overflow: hidden;
+  }
+  .lobby-header-progress {
+    height: 20px;
   }
   .lobby-header-logo {
-    width: 270px;
-    margin-top: 10px;
-  }
-  .picture-profile {
-    margin-top: 30px;
-    width: 65px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-  .col-lobby-object {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 70px;
-  }
-  .menu-devider {
-    border-style: solid;
-    border-width: 0px 3px 0px 0px;
-    border-image: url(images/menu-devider.png) 19 round;
+    float: left;
+    margin-left: 32px;
+    margin-top: 28px;
   }
   .lobby-object-wrapper-row {
-    background: linear-gradient(179deg, rgb(12, 63, 79) 0%, rgb(1, 17, 24) 100%);
+    float: left;
+    width: 780px;
     min-height: 70px;
-    margin-top: 23px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-top: 2px solid #226d80;
-    border-left: 1px solid #0d404f;
+    margin-top: 29px;
+    margin-left: 25px;
+    padding-top: 8px !important;
+    border-radius: 4px;
+    opacity: 0.95;
+    background-image: linear-gradient(to bottom, #182a64, #294b9b);
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);
   }
-  .lobby-object-wrapper {
-    color: white;
-    text-align: center;
-    min-width: 100%;
+  .lobby-object-wrapper-row .row {
+    margin: 0 -20px;
   }
-  .lobby-header-row {
-    background-color: #141414;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+  .col-lobby-object {
+    padding: 0;
+  }
+  .menu-divider {
+    border-image: linear-gradient(to right, #11245d, #385baf) 1 100%;
+    border-width: 0px;
+    border-right-width: 2px;
     border-style: solid;
-    border-width: 2px;
-    border-image-source: linear-gradient(NaNdeg, #264389, rgba(255, 255, 255, 0));
-    border-image-slice: 1;
   }
-  .lobby-object-image {
-    display: inline-block;
+  .lobby-object-icon {
+    float: left;
+    width: 60px;
+    height: 58px;
   }
-  .lobby-object-welcome-text {
-    font-size: 11px;
-    font-weight: 700;
-    text-align: center;
-    color: #ffffff;
-    text-shadow: 0 -2px 2px rgba(0, 0, 0, 0.8);
+  .lobby-object-icon-coins {
+    background: url("images/coins-icon.png") no-repeat center;
+  }
+  .lobby-object-icon-goldbars {
+    background: url("images/goldbars-icon.png") no-repeat center;
+  }
+  .lobby-object-icon-goldball {
+    background: url("images/goldball-icon.png") no-repeat center;
+  }
+  .lobby-object-icon-level {
+    background: url("images/level-icon.png") no-repeat center;
+  }
+  .lobby-object-icon-trophy {
+    background: url("images/trophy-icon.png") no-repeat center;
   }
   .lobby-object-text {
-  font-family: "Sansation";
-  font-size: 13px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  color: #ffffff;
-  text-shadow: 0 -1px 2px rgba(0, 0, 0, 0.8);
-    margin-left: 10px;
+    font-family: "Sansation";
+    font-size: 13px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 -1px 2px rgba(0, 0, 0, 0.8);
+    margin: 0px;
+    line-height: 58px;
+    vertical-align: middle;
+  }
+  .lobby-object-welcome-text {
+    font-family: "Sansation";
+    font-size: 11px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 -2px 2px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 16px;
+  }
+  .picture-profile-border {
+    margin: 28px 28px 0 auto;
+    width: 70px;
+    height: 65px;
+    padding: 2px 2px 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background: linear-gradient(to bottom, #264389, rgba(255, 255, 255, 0));
+  }
+  .picture-profile {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-color: #141414;
   }
   .round-details-btn div {
     height: 21px;
@@ -659,13 +700,6 @@
     height: 100vh;
     .container {
       height: 100%;
-    }
-    .lobby-object-wrapper-row {
-      opacity: 0.95;
-      border-radius: 4px;
-      background-image: linear-gradient(to bottom, #182a64, #294b9b);
-      box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);
-      border-top: none;
     }
     .menu-devider {
       border-right: solid 1px #385baf;
@@ -1198,9 +1232,6 @@
     }
     .lobby-object-wrapper-row {
       margin-top: 0px;
-    }
-    .lobby-object-wrapper {
-      text-align: left;
     }
     .picture-profile {
       display: none;
