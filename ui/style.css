@@ -1,3 +1,4 @@
+/* font declaration starts here */
 @font-face {
     font-family: 'Sansation';
     src: url('fonts/sansation_regular-webfont.woff2') format('woff2'),
@@ -12,6 +13,28 @@
     font-weight: bold;
     font-style: normal;
 }
+@font-face {
+    font-family: 'Sansation';
+    src: url('fonts/sansation_italic-webfont.woff2') format('woff2'),
+         url('fonts/sansation_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Arial-MT';
+    src: url('fonts/arialmt-webfont.woff2') format('woff2'),
+         url('fonts/arialmt-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Arial-MT';
+    src: url('fonts/arialmt_bold-webfont.woff2') format('woff2'),
+         url('fonts/arialmt_bold-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+/* font declaration ends here */
 html, body {
   color: #ffffff;
 }
@@ -20,13 +43,9 @@ html, body {
   height: 920px;
   background: url(images/bg.png);
 }
-.flex-display,
-.keno-vcenter {
+.flex-display {
   display: -webkit-flex;
   display: flex;
-}
-.keno-vcenter {
-  align-items: center;
 }
 .theme-bg {
   background-image: linear-gradient(to bottom, rgba(24, 42, 100, 0.95), rgba(41, 75, 155, 0.95));
@@ -38,7 +57,7 @@ html, body {
 }
 .header-content {
 	position: relative;
-	height: 82.6%;
+	height: 95px;
 	border-top-left-radius: 4px;
 	border-top-right-radius: 4px;
   background: linear-gradient(to bottom, #264389, #555555, #1a1a1a);
@@ -57,35 +76,29 @@ html, body {
 	background-color: #1a1a1a;
 }
 .header-content-wrapper {
-	position: relative;
 	height: 100%;
-}
-.header-content-wrapper > * {
-	float: left;
-}
-.header-logo-wrapper {
-	height: 100%;
-	margin-left: 2.93%;
-	width: 16.55%;
+  padding: 0 30px 0 34px;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
 }
 .header-logo {
-	width: 100%;
-	height: 36.84%;
+	width: 192px;
+	height: 35px;
+  align-self: center;
 }
 .header-info {
-	position: absolute;
-	left: 21.64%;
-	bottom: 0;
-	margin-bottom: -6px;
-	width: 67.24%;
-	height: 73.68%;
-	border-radius: 4px;
-	/*box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);*/
+	width: 780px;
+	height: 64px;
+	border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  padding-top: 8px;
+  align-self: flex-end;
+  box-sizing: border-box;
 }
 .header-info-item {
-	height: 56px;
-	margin-top: 8px;
-	padding: 0;
+  align-items: center;
+  width: 16.66%;
 }
 .right-separator {
 	border-style: solid;
@@ -117,9 +130,6 @@ html, body {
 	font-family: Sansation, sans-serif;
 	font-weight: bold;
 	font-size: 13px;
-	position: absolute;
-	top: 50%;
-	transform: translateX(0) translateY(-50%);
 	text-shadow: 0 -1px 2px rgba(0, 0, 0, 0.8);
 }
 .header-info-item-welcome {
@@ -129,14 +139,13 @@ html, body {
 	text-shadow: 0 -2px 2px rgba(0, 0, 0, 0.8);
 }
 .profile-picture {
-	float: right;
 	width: 70px;
 	height: 65px;
-	margin: 28px 28px 0 0;
 	border-top-left-radius: 4px;
 	border-top-right-radius: 4px;
 	background: linear-gradient(to bottom, #264389, rgba(255, 255, 255, 0));
 	padding: 2px 2px 0 2px;
+  align-self: flex-end;
 }
 .profile-picture-inner {
 	width: 100%;
@@ -150,6 +159,7 @@ html, body {
 	background: linear-gradient(to left, rgba(5, 184, 213, 0.3), rgba(2, 130, 171, 0.3));
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.5);
   position: relative;
+  z-index: 2;
 }
 .header-progress-percent-bar {
   width: 93%;
@@ -163,7 +173,7 @@ html, body {
 }
 .header-progress-percent-bar span {
   font-size: 0.625em;
-  font-family: Arial-MT, sans-serif;
+  font-family: 'Arial-MT', sans-serif;
   font-weight: 500;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
 }
@@ -182,6 +192,32 @@ html, body {
 /* game score panel style starts here */
 .game-score-panel {
   width: 22.41%;
+  position: relative;
+}
+.game-score-panel-title {
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(-150%);
+  position: absolute;
+  text-align: center;
+  font-family: Sansation, sans-serif;
+  font-size: 1.125em;
+  text-shadow: 0 -1px 2px rgba(0, 0, 0, 0.8);
+}
+.game-score-panel-title-payout,
+.game-score-panel-title-results {
+  float: left;
+  display: inline-block;
+}
+.game-score-panel-title-payout {
+  width: 40%;
+}
+.game-score-panel-title-results {
+  width: 60%;
+}
+.game-score-panel-main {
+  height: 100%;
   border-radius: 8px;
   box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);
   overflow: hidden;
@@ -196,7 +232,7 @@ html, body {
 .game-score-panel-header-item {
   width: 20%;
   text-align: center;
-  font-family: Arial-MT, sans-serif;
+  font-family: 'Arial-MT', sans-serif;
   font-size: 0.75em;
 }
 .game-score-panel-content {
@@ -222,8 +258,8 @@ html, body {
 .game-score-panel-footer {
   width: 100%;
   min-height: 40px;
-  background-image: linear-gradient(to top, #d6bf4e, #be9f35 25%, #f1ec7b);
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5), inset 0 -1px 4px 0 rgba(162, 28, 28, 0.77), inset 0 2px 7px 0 #efe562;
+  background-image: linear-gradient(to bottom, #fffe8a, #b38515);
+  box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.5), inset 0 -1px 4px 0 rgba(162, 28, 28, 0.77), inset 0 2px 7px 0 #efe562;
   bottom: 0px;
   position: absolute;
   padding: 0 10px;
@@ -232,6 +268,7 @@ html, body {
 }
 .game-score-panel-footer-totalwin {
   color: #000000;
+  font-family: 'Arial-MT', sans-serif;
   font-weight: bold;
   white-space: nowrap;
   margin-right: 10px;
@@ -269,6 +306,18 @@ html, body {
   width: 22.41%;
   flex-direction: column;
   justify-content: flex-start;
+  position: relative;
+}
+.game-leaderboard-title {
+  font-family: Sansation, sans-serif;
+  font-size: 1.25em;
+  text-shadow: 0 -1px 2px rgba(0, 0, 0, 0.8);
+  text-align: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(-140%);
+  position: absolute;
 }
 .game-leaderboard-item {
   height: 18.92%;
@@ -314,6 +363,7 @@ html, body {
   position: absolute;
 }
 .game-leaderboard-item-name {
+  font-family: 'Arial-MT', sans-serif;
   display: block;
   font-size: 0.875em;
   padding: 0 27px 0 50px;
@@ -341,10 +391,149 @@ html, body {
   /**/
 }
 .game-leaderboard-item-score {
-  margin-left: 14px;
+  margin-left: 10px;
   font-family: Sansation, sans-serif;
   font-size: 0.8125em;
   text-shadow: 0 -1px 2px rgba(0, 0, 0, 0.8);
 }
 /* game leaderboard panel style ends here */
+/* game footer style starts here */
+.rounded-button {
+  height: 40px;
+  border-radius: 25px;
+  text-transform: uppercase;
+  font-family: Sansation, sans-serif;
+  font-size: 0.9375em;
+  border-width: 0;
+  color: #ffffff;
+}
+.game-footer {
+  margin-top: 30px;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn-buy-more-coins,
+.btn-game-info {
+  width: 200px;
+}
+.btn-buy-more-coins {
+  background-image: linear-gradient(to bottom, #fffe8a, #b38515);
+  box-shadow: 0 0 4px 0 #f0e767, inset 0 -1px 4px 0 rgba(162, 28, 28, 0.77), inset 0 2px 7px 0 #f0e562;
+  font-weight: bold;
+  color: #000000;
+}
+.btn-buy-more-coins img {
+  transform: translate(-2px, -2px);
+}
+.btn-buy-more-coins span {
+  margin-left: 4px;
+  top: 1px;
+  position: relative;
+}
+.btn-game-info {
+  background-image: linear-gradient(to bottom, #5baf59, #387539);
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+}
+.lbl-numbers-matched {
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 1.5em;
+  -webkit-text-stroke: 1px #ffffff;
+  color: #dd0707;
+  text-transform: uppercase;
+}
+/* game footer style ends here */
 /* game style ends here */
+/* footer style starts here */
+.footer {
+  margin-top: 30px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+.footer-bet-buttons-row,
+.footer-play-buttons-row {
+  margin: 30px 0;
+}
+.footer-circles-row {
+  height: 60px;
+  background-image: linear-gradient(to right, #9e0b0c 3%, #cc1c1d);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  justify-content: space-between;
+  padding: 10px;
+}
+.footer-bet-buttons-row,
+.footer-play-buttons-row {
+  justify-content: center;
+}
+.footer-bets-wrapper {
+  margin: 0 30px;
+  align-items: center;
+}
+.bets-box {
+  width: 160px;
+  height: 100%;
+  margin: 0 11px;
+  border-radius: 18.5px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+  border-style: solid;
+  border-width: 2px;
+  border: linear-gradient(to bottom, #becdea, #f8fafc) 1 100%;
+  justify-content: center;
+  align-items: center;
+}
+.lbl-bets {
+  font-family: Sansation, sans-serif;
+  font-style: italic;
+  font-size: 1.25em;
+}
+.btn-decrease-bets,
+.btn-increase-bets {
+  width: 18px;
+  height: 25px;
+  background-image: url(images/btn-decrease-bets.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-width: 0;
+  background-color: transparent;
+  margin: 0 -4px;
+}
+.btn-increase-bets {
+  transform: scale(-1, 1);
+}
+.btn-clear-results,
+.btn-quick-pick,
+.btn-play-game {
+  width: 140px;
+}
+.btn-clear-results {
+  background-image: linear-gradient(to bottom, #ffffff, #9bb2db);
+  box-shadow: 0 0 4px 0 #6b8de2, inset 0 -1px 4px 0 #003adc, inset 0 2px 7px 0 #ffffff;
+  font-weight: bold;
+  color: #305dc8;
+}
+.btn-play-5,
+.btn-play-10 {
+  width: 100px;
+}
+.btn-quick-pick,
+.btn-play-5,
+.btn-play-10 {
+  background-image: linear-gradient(to top, #830706, #c31a1b, #cc1c1d);
+  box-shadow: 0 0 6px 1px #750001;
+}
+.btn-play-game {
+  margin: 0 30px;
+  background-image: linear-gradient(to bottom, #182a64, #294b9b);
+  box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);
+}
+.btn-exit-game {
+  width: 120px;
+  left: 40px;
+  bottom: 30px;
+  position: absolute;
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  opacity: 0.5;
+}
+/* footer style ends here */
