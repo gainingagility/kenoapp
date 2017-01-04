@@ -290,86 +290,195 @@ export class GameView extends React.Component {
     }
     console.log(this.props.isLoading)
     return (
-      <div className={gameStyleName}>
-        <div className="main">
-          <div className="header">
-            <div className="header-content">
-              <div className="header-content-bg" />
-              <div className="header-content-wrapper flex-display">
-                <img className="header-logo" src="assets/bg_logo.png" />
-                <div className="header-info flex-display theme-bg">
-                  <div className="header-info-item flex-display right-separator">
-                    <div className="header-info-item-icon icon-coins" />
-                    <span className="header-info-item-text">
+      <Grid fluid className={gameStyleName}>
+        <Grid>
+          <Row className="lobby-header-row">
+            <Col xs={12} md={3}>
+              <img src="assets/bg_logo.png" alt="logo" className="lobby-header-logo" />
+            </Col>
+            <Col xs={12} md={8}>
+              <Row className="lobby-object-wrapper-row">
+                <Col xs={6} md={2} className="col-lobby-object menu-devider">
+                  <div className="lobby-object-wrapper">
+                    <img src="assets/coins-icon.png" className="lobby-object-image" />
+                    <span className="lobby-object-text">
                       {this.props.playerObject.wallet.coinBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
                     </span>
                   </div>
-                  <div className="header-info-item flex-display right-separator">
-                    <div className="header-info-item-icon icon-goldbars" />
-                    <span className="header-info-item-text">
+                </Col>
+                <Col xs={6} md={2} className="col-lobby-object menu-devider">
+                  <div className="lobby-object-wrapper">
+                    <img src="assets/goldbars-icon.png" className="lobby-object-image" />
+                    <span className="lobby-object-text">
                       {this.props.playerObject.wallet.barBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
                     </span>
                   </div>
-                  <div className="header-info-item flex-display right-separator">
-                    <div className="header-info-item-icon icon-goldball" />
-                    <span className="header-info-item-text">
+                </Col>
+                <Col xs={6} md={2} className="col-lobby-object menu-devider">
+                  <div className="lobby-object-wrapper">
+                    <img src="assets/goldball-icon.png" className="lobby-object-image" />
+                    <span className="lobby-object-text">
                       {this.props.playerObject.wallet.ballBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
                     </span>
                   </div>
-                  <div className="header-info-item flex-display right-separator">
-                    <div className="header-info-item-icon icon-charts" />
-                    <span className="header-info-item-text">
+                </Col>
+                <Col xs={6} md={2} className="col-lobby-object menu-devider">
+                  <div className="lobby-object-wrapper">
+                    <img src="assets/level-icon.png" className="lobby-object-image" />
+                    <span className="lobby-object-text">
                       {this.props.playerObject.level.displayLevelInfo}
                     </span>
                   </div>
-                  <div className="header-info-item flex-display right-separator">
-                    <div className="header-info-item-icon icon-awards" />
-                    <span className="header-info-item-text">
+                </Col>
+                <Col xs={6} md={2} className="col-lobby-object menu-devider">
+                  <div className="lobby-object-wrapper">
+                    <img src="assets/trophy-icon.png" className="lobby-object-image"
+                      style={{'position': 'relative', 'bottom': '3px'}} />
+                    <span className="lobby-object-text">
                       {this.props.userTrophies}
                     </span>
                   </div>
-                  <div className="header-info-item flex-display">
-                    <span className="header-info-item-text header-info-item-welcome">
-                      Welcome back {this.props.facebookUserObject.name} {this.props.playerObject.level.levelStatus}!</span>
+                </Col>
+                <Col xs={6} md={2} className="col-lobby-object menu-devider">
+                  <div className="lobby-object-wrapper lobby-object-welcome-text">
+                    Welcome back {this.props.facebookUserObject.name} {this.props.playerObject.level.levelStatus}
                   </div>
-                </div>
-                <div className="profile-picture">
-                  <div className="profile-picture-inner">
-                    <img src="" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="header-progress">
-              <div className="header-progress-percent-bar">
-                <span>XP 140/150 (93% To next level)</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="content">
-            <div className="game-logo" />
-            <div className="game-main flex-display">
-              <div className="game-score-panel-wrapper">
+                </Col>
+              </Row>
+            </Col>
+            <Col xs={0} md={1}>
+              <PictureProfile url={this.props.facebookUserObject.picture} />
+            </Col>
+            <Col xs={12} md={12} style={{'textAlign': 'center'}} className="no-padding">
+              <XpProgressBar playerObject={this.props.playerObject} />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} md={12}>
+              <div className="game-name-header" />
+            </Col>
+          </Row>
+          <Row style={{'position': 'relative'}}>
+            <div className="grid">
+              <div className="grid--fit">
                 <PayoutResultTable
                   paytableItems={JSON.parse(this.props.gameObject.kenoGame.kenoGameConfig.payTable).paytable}
                   rounds={this.props.roundsHistory}
                   selectedNumbersCount={this.state.selectedNumbersCount}
                   />
               </div>
-              <div className="game-content-panel">
-                <div />
+              <div className="grid--30 numberCircles">
+                <div id="numberCircles">
+                  {numberCircles.map((i) => {
+                    return (
+                      i
+                    )
+                  }, this)}
+                </div>
               </div>
-              <div className="game-leaderboard-panel-wrapper">
+              <div className="grid--fit">
                 <LeaderBoard
                   playerObject={this.props.playerObject}
                   facebookUserObject={this.props.facebookUserObject}
                   />
               </div>
             </div>
+          </Row>
+          <Row style={{'marginBottom': '10px'}}>
+            <div className="grid">
+              <div className="grid--fit game-btn-flex-wrapper">
+                <button
+                  className="btn-buy-more-coins"
+                  onClick={::this.showBuyCoinsModal}>
+                  <img src="assets/coins-icon.png" />
+                  <span>BUY MORE COINS</span>
+                </button>
+                <BuyCoinsModal
+                  modalIsOpen={this.state.buyCoinsModalIsOpen}
+                  buyCoinsPack={::this.buyCoinsPack}
+                  closeModal={::this.closeBuyCoinsModal} />
+              </div>
+              <div className="grid--30 numberCircles numbers-matched-title-wrapper">
+                {totalNumbersMatched !== '' && <h3 className="numbers-matched-title">{totalNumbersMatched} NUMBERS MATCHED</h3>}
+              </div>
+              <div className="grid--fit game-btn-flex-wrapper">
+                <button
+                  className="btn-game-information"
+                  onClick={::this.showGameInformation}>
+                  <span>GAME INFORMATION</span>
+                </button>
+                <GameInformationModal
+                  modalIsOpen={this.state.gameInformationaModalIsOpen}
+                  closeModal={::this.closeGameInformation}
+                  gameInfo={this.props.gameObject.kenoGame.kenoGameConfig.payTable} />
+              </div>
+            </div>
+          </Row>
+          <div className="game-footer">
+            <div className="game-footer-circles-matched">
+              {numbersMatchedCircles.map((i) => {
+                return (
+                  i
+                )
+              }, this)}
+            </div>
+            <div className="game-footer-btn-bet">
+              <button
+                className="btn-clear-result"
+                disabled={this.state.clearButtonDisable}
+                onClick={::this.clearResult}>
+                <span>CLEAR RESULT</span>
+              </button>
+              <div className="btn-bet-group">
+                <button
+                  className="btn-subtact"
+                  onClick={::this.subtractFromAmount} />
+                <div className="bet-amount">
+                  {this.props.betAmount}
+                </div>
+                <button
+                  className="btn-increase"
+                  onClick={::this.addToAmount} />
+              </div>
+              <button
+                className="btn-quick-pick"
+                onClick={::this.quickPick}>
+                  QUICK PICK
+              </button>
+            </div>
+            <div className="game-footer-bottom">
+              <button
+                className="btn-exit-game"
+                onClick={::this.exitGame}
+                >
+                EXIT GAME
+              </button>
+              <button
+                className="btn-play-count"
+                onClick={::this.playFiveGames}
+                disabled={this.state.gameButtonDisabled}
+                >
+                PLAY 5
+              </button>
+              <button
+                className="btn-play-game"
+                onClick={::this.playGame}
+                disabled={this.state.gameButtonDisabled}
+                >
+                PLAY GAME
+                {this.props.isLoading && <Spinner spinnerName="three-bounce" noFadeIn />}
+              </button>
+              <button
+                className="btn-play-count"
+                onClick={::this.playTenGames}
+                disabled={this.state.gameButtonDisabled}
+                >
+                PLAY 10
+              </button>
+            </div>
           </div>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     )
   }
 }

@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { showModal } from 'redux/modules/modal'
-import { Col } from 'react-bootstrap'
-// import classes from './LoginButton.scss'
 
 export class RoundDetailedInformationBtn extends React.Component {
 
@@ -39,17 +37,11 @@ export class RoundDetailedInformationBtn extends React.Component {
         style={{
           'cursor': 'pointer'
         }}
-        className="round-details-btn"
+        className="game-score-panel-content-row flex-display"
       >
-        <Col xs={4} md={4} className="no-padding">
-          <span>{this.props.round}</span>
-        </Col>
-        <Col xs={4} md={3} className="no-padding">
-          <span>{matched}</span>
-        </Col>
-        <Col xs={4} md={5} className="no-padding">
-          <span>{this.numberFormatter(this.props.game.won)}</span>
-        </Col>
+        <span className="game-score-panel-content-item">{this.props.round}</span>
+        <span className="game-score-panel-content-item">{matched}</span>
+        <span className="game-score-panel-content-item">{this.numberFormatter(this.props.game.won)}</span>
       </div>
     )
   }

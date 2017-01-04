@@ -51,17 +51,13 @@ export default class LeaderBoard extends React.Component {
 
   render () {
     return (
-      <div className="game-leaderboard">
-        <div>
-          <h3 className="text-center game-seaction-header">Leaderboard</h3>
-        </div>
-        <div className="game-leaderboard-wrapper">
-          {this.state.leaderboardInfo.map((i) => {
-            return (
-              i
-            )
-          }, this)}
-        </div>
+      <div className="game-leaderboard-panel">
+        <span className="game-leaderboard-title">Leaderboard</span>
+        {this.state.leaderboardInfo.map((i) => {
+          return (
+            i
+          )
+        }, this)}
       </div>
     )
   }

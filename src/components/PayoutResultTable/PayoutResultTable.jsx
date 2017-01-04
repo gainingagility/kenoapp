@@ -1,9 +1,7 @@
 
 import React, { PropTypes } from 'react'
-import { Row, Col } from 'react-bootstrap'
 import RoundDetailedInformationBtn from
 'components/Modals/Buttons/RoundDetailedInformationBtn/RoundDetailedInformationBtn'
-// import classes from './PayoutResultTable.scss'
 
 export default class PayoutResultTable extends React.Component {
 
@@ -50,62 +48,43 @@ export default class PayoutResultTable extends React.Component {
     }
 
     return (
-      <div className="payout-table" style={{'position': 'relative', 'display': 'flex', 'flexDirection': 'column', 'height': '100%'}}>
-        <h3 className="table-payout-header">
-          Payout
-        </h3>
-        <h3 className="table-results-header">
-          Results
-        </h3>
-        <Row style={{'color': 'white', 'margin': '0px', 'flex': '1'}}>
-          <Col xs={5} md={5} className="no-padding game-table-paytable-header">
-            <Col xs={5} md={5} className="no-padding">
-              <span>Hits</span>
-            </Col>
-            <Col xs={7} md={7} className="no-padding">
-              <span>Payouts</span>
-            </Col>
-          </Col>
-          <Col xs={7} md={7} className="no-padding game-table-result-header">
-            <Col xs={4} md={4} className="no-padding">
-              <span>Round</span>
-            </Col>
-            <Col xs={3} md={3} className="no-padding">
-              <span>Hits</span>
-            </Col>
-            <Col xs={5} md={5} className="no-padding">
-              <span>Payout</span>
-            </Col>
-          </Col>
-        </Row>
-        <Row className="game-table-content">
-          <Col xs={5} md={5} className="no-padding">
-            {payTable.map((e) => {
-              return (
-                <div className="game-table-content-payout">
-                  <Col xs={5} md={5} className="no-padding">
-                    <span>{e.matched}</span>
-                  </Col>
-                  <Col xs={7} md={7} className="no-padding">
-                    <span>{this.numberFormatter(e.payout)}</span>
-                  </Col>
-                </div>
-              )
-            })}
-
-          </Col>
-          <Col xs={7} md={7} className="no-padding">
-            {playedRounds.map((i) => {
-              return (
-                i
-              )
-            }, this)}
-          </Col>
-        </Row>
-        <div className="game-table-footer">
-          <h4>Total Win</h4>
-          <img src="assets/coins-icon.png" />
-          <h3>{this.numberFormatter(totalWon)}</h3>
+      <div className="game-score-panel">
+        <div className="game-score-panel-title">
+          <span className="game-score-panel-title-payout">Payout</span>
+          <span className="game-score-panel-title-results">Results</span>
+        </div>
+        <div className="game-score-panel-main theme-bg">
+          <div className="game-score-panel-header flex-display">
+            <span className="game-score-panel-header-item">Hits</span>
+            <span className="game-score-panel-header-item">Payouts</span>
+            <span className="game-score-panel-header-item">Round</span>
+            <span className="game-score-panel-header-item">Hits</span>
+            <span className="game-score-panel-header-item">Payouts</span>
+          </div>
+          <div className="game-score-panel-content flex-display">
+            <div className="game-score-panel-content-payout flex-display">
+              {payTable.map((e) => {
+                return (
+                  <div className="game-score-panel-content-row flex-display">
+                    <span className="game-score-panel-content-item">{e.matched}</span>
+                    <span className="game-score-panel-content-item">{this.numberFormatter(e.payout)}</span>
+                  </div>
+                )
+              })}
+            </div>
+            <div className="game-score-panel-content-results flex-display">
+              {playedRounds.map((i) => {
+                return (
+                  i
+                )
+              }, this)}
+            </div>
+          </div>
+          <div className="game-score-panel-footer flex-display">
+            <span className="game-score-panel-footer-totalwin">Total Win</span>
+            <img src="assets/coins-icon.png" />
+            <span className="game-score-panel-footer-totalscore">{this.numberFormatter(totalWon)}</span>
+          </div>
         </div>
       </div>
     )
