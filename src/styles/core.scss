@@ -911,35 +911,6 @@
       text-shadow: 0 -1px 2px rgba(0, 0, 0, 0.8);
     }
 
-    .btn-buy-more-coins {
-      width: 200px;
-      height: 40px;
-      border: 0px;
-      margin-top: 30px;
-      border-radius: 25px;
-      background-image: linear-gradient(to bottom, #fffe8a, #b38515);
-      box-shadow: 0 0 4px 0 #efe767, inset 0 -1px 4px 0 rgba(162, 28, 28, 0.77), inset 0 2px 7px 0 #efe562;
-    }
-
-    .btn-buy-more-coins:focus {
-      outline: none;
-    }
-    .btn-buy-more-coins:active {
-      outline: none;
-      position: relative;
-      top: 1px;
-    }
-    .btn-buy-more-coins span {
-      font-family: 'Sansation';
-      font-size: 15px;
-      font-weight: 700;
-      text-align: center;
-      color: #000000;
-    }
-    .btn-buy-more-coins img {
-      margin-right: 5px;
-    }
-
     .numbers-matched-title {
       font-family: 'Alfa Slab One', cursive;
       float: right;
@@ -954,54 +925,9 @@
       -webkit-text-stroke: 2px #ffffff;
     }
 
-    .btn-game-information {
-      float: right;
-      margin-top: 30px;
-      width: 200px;
-      border: 0px;
-      height: 40px;
-      border-radius: 25px;
-      background-image: linear-gradient(to bottom, #5baf59, #387539);
-      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
-    }
-    .btn-game-information:active {
-      position: relative;
-      top: 1px;
-    }
-    .btn-game-information:focus {
-      outline: none;
-    }
-    .btn-game-information span {
-      font-family: "Sansation";
-      font-size: 15px;
-      font-weight: 700;
-      text-align: center;
-      color: #ffffff;
-    }
     .container {
       display: flex;
       flex-direction: column;
-    }
-    .game-footer {
-      flex: 1;
-      border-radius: 8px;
-      background-image: linear-gradient(to bottom, #182a64, #294b9b);
-      box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);
-      margin-bottom: 10px;
-      margin-right: -15px;
-      margin-left: -15px;
-    }
-    .game-footer-circles-matched {
-      border-top-right-radius: 8px;
-      border-top-left-radius: 8px;
-      width: 100%;
-      height: 60px;
-      background-image: linear-gradient(to right, #9e0b0c 3%, #cc1c1d);
-      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-    }
-    .game-footer-btn-bet {
-      text-align: center;
-      margin-top: 40px;
     }
     .btn-clear-result {
       width: 140px;
@@ -1113,11 +1039,6 @@
       font-weight: 400;
       color: #ffffff;
       border-color: #acd0da;
-    }
-    .game-footer-bottom {
-      text-align: center;
-      margin-top: 20px;
-      position: relative;
     }
     .btn-exit-game:active {
       position: absolute;
@@ -1269,15 +1190,6 @@
       }
       .game-btn-flex-wrapper {
         text-align: center;
-      }
-      .btn-game-information {
-        float: none;
-      }
-      .btn-buy-more-coins {
-        float: none;
-      }
-      .game-footer-bottom {
-        margin-bottom: 30px;
       }
       .btn-exit-game {
         position: relative;

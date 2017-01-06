@@ -367,6 +367,18 @@ export class GameView extends React.Component {
                   />
               </div>
             </div>
+            <div className="game-footer flex-display">
+              <button className="btn-buy-more-coins rounded-button" onClick={::this.showBuyCoinsModal}>
+                <img src="assets/coins-icon.png" />
+                <span>Buy More Coins</span>
+              </button>
+              {totalNumbersMatched !== '' && <span className="lbl-numbers-matched">{totalNumbersMatched} numbers matched</span>}
+              <button className="btn-game-info rounded-button" onClick={::this.showGameInformation}>Game Information</button>
+            </div>
+          </div>
+          <div className="footer theme-bg">
+            <div className="footer-circles-row flex-display">
+            </div>
           </div>
         </div>
       </div>
