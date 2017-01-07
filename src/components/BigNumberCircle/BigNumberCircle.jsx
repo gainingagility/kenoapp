@@ -43,26 +43,27 @@ export default class BigNumberCircle extends React.Component {
 
   render () {
     // Change style of circle on check
-    const circleStyle = this.state.checked ? ' numberCircle ' : ' numberCircleChecked '
+    const circleStyle = this.state.checked ? 'number-circle-normal' : 'number-circle-checked'
     let mouseArrowStyle
     if ((this.props.disabled && !this.state.checked) || (!this.props.disabled && !this.state.checked)) {
-      mouseArrowStyle = ' numberCirclePointer '
+      mouseArrowStyle = ' number-circle-pointer'
     } else if (!this.props.disabled) {
-      mouseArrowStyle = ' numberCirclePointer '
+      mouseArrowStyle = ' number-circle-pointer'
     } else {
-      mouseArrowStyle = ' numberCircleDisabled '
+      mouseArrowStyle = ' number-circle-disabled'
     }
     if (this.props.disabled && this.props.drawnNumbers !== undefined) {
-      mouseArrowStyle = ' numberCircleDisabled '
+      mouseArrowStyle = ' number-circle-disabled'
     }
-    let style = `${circleStyle} ${mouseArrowStyle}`
+    let style = 'number-circle'
+    style += ` ${circleStyle} ${mouseArrowStyle}`
     if (this.props.drawnNumbers !== undefined) {
       const numbersMatched = this.props.drawnNumbers.split(',')
       numbersMatched.forEach((item) => {
         if (Number(item) === this.props.number && !this.state.checked) {
-          style += ' numberCircleMathed '
+          style += ' number-circle-matched'
         } else if (Number(item) === this.props.number) {
-          style += ' numberCircleDrawn '
+          style += ' number-circle-drawn'
         }
       })
     }

@@ -357,8 +357,12 @@ export class GameView extends React.Component {
                   selectedNumbersCount={this.state.selectedNumbersCount}
                   />
               </div>
-              <div className="game-content-panel">
-                <div />
+              <div className="game-content-panel flex-display theme-bg">
+                {numberCircles.map((i) => {
+                  return (
+                    i
+                  )
+                }, this)}
               </div>
               <div className="game-leaderboard-panel-wrapper">
                 <LeaderBoard
@@ -368,17 +372,59 @@ export class GameView extends React.Component {
               </div>
             </div>
             <div className="game-footer flex-display">
-              <button className="btn-buy-more-coins rounded-button" onClick={::this.showBuyCoinsModal}>
-                <img src="assets/coins-icon.png" />
-                <span>Buy More Coins</span>
-              </button>
+              <div>
+                <button className="btn-buy-more-coins rounded-button" onClick={::this.showBuyCoinsModal}>
+                  <img src="assets/coins-icon.png" />
+                  <span>Buy More Coins</span>
+                </button>
+                <BuyCoinsModal
+                  modalIsOpen={this.state.buyCoinsModalIsOpen}
+                  buyCoinsPack={::this.buyCoinsPack}
+                  closeModal={::this.closeBuyCoinsModal} />
+              </div>
               {totalNumbersMatched !== '' && <span className="lbl-numbers-matched">{totalNumbersMatched} numbers matched</span>}
-              <button className="btn-game-info rounded-button" onClick={::this.showGameInformation}>Game Information</button>
+              <div>
+                <button className="btn-game-info rounded-button" onClick={::this.showGameInformation}>Game Information</button>
+                <GameInformationModal
+                  modalIsOpen={this.state.gameInformationaModalIsOpen}
+                  closeModal={::this.closeGameInformation}
+                  gameInfo={this.props.gameObject.kenoGame.kenoGameConfig.payTable} />
+              </div>
             </div>
           </div>
           <div className="footer theme-bg">
             <div className="footer-circles-row flex-display">
+              {numbersMatchedCircles.map((i) => {
+                return (
+                  i
+                )
+              }, this)}
             </div>
+            <div className="footer-bet-buttons-row flex-display">
+              <button className="btn-clear-results rounded-button"
+                disabled={this.state.clearButtonDisable}
+                onClick={::this.clearResult}>Clear Results</button>
+              <div className="footer-bets-wrapper flex-display">
+                <button className="btn-decrease-bets" onClick={::this.subtractFromAmount} />
+                <div className="bets-box flex-display">
+                  <span className="lbl-bets">{this.props.betAmount}</span>
+                </div>
+                <button className="btn-increase-bets" onClick={::this.addToAmount} />
+              </div>
+              <button className="btn-quick-pick rounded-button" onClick={::this.quickPick}>Quick Pick</button>
+            </div>
+            <div className="footer-play-buttons-row flex-display">
+              <button className="btn-play-count rounded-button"
+                onClick={::this.playFiveGames}
+                disabled={this.state.gameButtonDisabled}>Play 5</button>
+              <button className="btn-play-game rounded-button"
+                onClick={::this.playGame}
+                disabled={this.state.gameButtonDisabled}>Play Game</button>
+              <button className="btn-play-count rounded-button"
+                onClick={::this.playTenGames}
+                disabled={this.state.gameButtonDisabled}>Play 10</button>
+            </div>
+            <button className="btn-exit-game rounded-button" onClick={::this.exitGame}>Exit Game</button>
           </div>
         </div>
       </div>

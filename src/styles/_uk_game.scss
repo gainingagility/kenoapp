@@ -1,8 +1,9 @@
 .Keno_Bingo_UK {
     background: url(images/bg-uk-game.png);
     background-size: cover;
+    background-position: center;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     .main {
     	width: 1160px;
       margin: auto;
@@ -265,10 +266,35 @@
     .game-content-panel {
       width: 48.28%;
       border-radius: 8px;
-      padding: 7.5px 12.5px;
+      padding: 7.5px 5px;
       box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);
-      flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
+      align-content: space-between;
+      flex-wrap: wrap;
+    }
+    .number-circle {
+      width: 40px;
+      height: 40px;
+      margin: 0 7.5px;
+      background-size: contain;
+    }
+    .number-circle-normal {
+      background-image: url(images/uk-circle.png);
+    }
+    .number-circle-checked {
+      background-image: url(images/uk-circle-selected.png);
+    }
+    .number-circle-drawn {
+      background-image: url(images/uk-circle-win.png);
+    }
+    .number-circle-matched {
+      background-image: url(images/uk-circle-winselect.png);
+    }
+    .number-circle-disabled {
+        cursor:not-allowed;
+    }
+    .number-circle-pointer {
+        cursor:pointer;
     }
     /* game content panel style ends here */
     /* game leaderboard panel style starts here */
@@ -417,6 +443,107 @@
     }
     /* game footer style ends here */
     /* game style ends here */
+    /* footer style starts here */
+    .footer {
+      margin-top: 30px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+    .footer-bet-buttons-row,
+    .footer-play-buttons-row {
+      margin: 30px 0;
+    }
+    .footer-circles-row {
+      height: 60px;
+      background-image: linear-gradient(to right, #9e0b0c 3%, #cc1c1d);
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      padding: 10px;
+    }
+    .footer-circles-row .number-circle {
+      margin: 0 9px;
+    }
+    .footer-circles-row .number-circle:first-child {
+      margin-left: 0;
+    }
+    .footer-circles-row .number-circle:last-child {
+      margin-right: 0;
+    }
+    .footer-bet-buttons-row,
+    .footer-play-buttons-row {
+      justify-content: center;
+    }
+    .footer-bets-wrapper {
+      margin: 0 30px;
+      align-items: center;
+    }
+    .bets-box {
+      width: 160px;
+      height: 100%;
+      margin: 0 11px;
+      border-radius: 18.5px;
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+      border-style: solid;
+      border-width: 2px;
+      border: linear-gradient(to bottom, #becdea, #f8fafc) 1 100%;
+      justify-content: center;
+      align-items: center;
+    }
+    .lbl-bets {
+      font-family: Sansation, sans-serif;
+      font-style: italic;
+      font-size: 1.25em;
+    }
+    .btn-decrease-bets,
+    .btn-increase-bets {
+      width: 18px;
+      height: 25px;
+      background-image: url(images/btn-bet-increase.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-width: 0;
+      background-color: transparent;
+      margin: 0 -4px;
+    }
+    .btn-increase-bets {
+      transform: scale(-1, 1);
+    }
+    .btn-clear-results,
+    .btn-quick-pick,
+    .btn-play-game {
+      width: 140px;
+    }
+    .btn-clear-results {
+      background-image: linear-gradient(to bottom, #ffffff, #9bb2db);
+      box-shadow: 0 0 4px 0 #6b8de2, inset 0 -1px 4px 0 #003adc, inset 0 2px 7px 0 #ffffff;
+      font-weight: bold;
+      color: #305dc8;
+    }
+    .btn-play-count {
+      width: 100px;
+    }
+    .btn-quick-pick,
+    .btn-play-count {
+      background-image: linear-gradient(to top, #830706, #c31a1b, #cc1c1d);
+      box-shadow: 0 0 6px 1px #750001;
+    }
+    .btn-play-game {
+      margin: 0 30px;
+      background-image: linear-gradient(to bottom, #182a64, #294b9b);
+      box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);
+    }
+    .btn-exit-game {
+      width: 120px;
+      left: 40px;
+      bottom: 30px;
+      position: absolute;
+      background-color: transparent;
+      border: 2px solid #ffffff;
+      opacity: 0.5;
+    }
+    /* footer style ends here */
 
     .container {
       height: 100%;
@@ -727,167 +854,13 @@
       display: flex;
       flex-direction: column;
     }
-    .btn-clear-result {
-      width: 140px;
-      height: 40px;
-      border: 0px;
-      border-radius: 25px;
-      background-image: linear-gradient(to bottom, #ffffff, #9bb2db);
-      box-shadow: 0 0 4px 0 #6b8de2, inset 0 -1px 4px 0 #003adc, inset 0 2px 7px 0 #ffffff;
-    }
-    .btn-clear-result:focus {
-      outline: none;
-    }
-    .btn-clear-result:active {
-      position: relative;
-      top: 1px;
-    }
-    .btn-clear-result span {
-      font-family: "Sansation";
-      font-size: 15px;
-      font-weight: 700;
-      text-align: center;
-      color: #305dc8;
-    }
 
-    .btn-bet-group {
-      display: inline-block;
-    }
-
-    .btn-subtact {
-      background-image: url(images/btn-bet-increase.png);
-      height: 25px;
-      width: 17px;
-      background-size: cover;
-      background-repeat: no-repeat;
-      position: relative;
-      top: 6px;
-      margin-right: 12px;
-      margin-left: 30px;
-      background-color: transparent;
-      border: 0px;
-    }
-    .btn-subtact:focus {
-      outline: none;
-    }
-    .btn-subtact:active {
-      position: relative;
-      top: 7px;
-    }
-    .btn-increase {
-      background-image: url(images/btn-bet-increase.png);
-      height: 25px;
-      width: 17px;
-      background-size: cover;
-      background-repeat: no-repeat;
-      position: relative;
-      top: 6px;
-      margin-left: 12px;
-      transform: rotate(180deg);
-      margin-right: 30px;
-      background-color: transparent;
-      border: 0px;
-    }
-    .btn-increase:focus {
-      outline: none;
-    }
-    .btn-increase:active {
-      position: relative;
-      top: 7px;
-    }
-    .btn-quick-pick {
-      width: 140px;
-      height: 40px;
-      border-radius: 25px;
-      background-image: linear-gradient(to top, #2f3757, #43548d);
-      box-shadow: 0 0 6px 1px #3a4876;
-      background-color: transparent;
-      font-family: Sansation;
-      font-size: 15px;
-      font-weight: 700;
-      text-align: center;
-      color: #ffffff;
-      border: 0px;
-    }
-    .btn-quick-pick:focus {
-      outline: none;
-    }
-    .btn-quick-pick:active {
-      position: relative;
-      top: 1px;
-    }
     button:focus {
       outline: none;
     }
     button:active {
       position: relative;
       top: 1px;
-    }
-    .bet-amount {
-      width: 160px;
-      height: 40px;
-      font-style: italic;
-      border-radius: 18.5px;
-      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
-      border-style: solid;
-      display: inline-block;
-      border-width: 2px;
-      font-family: "Sansation";
-      font-size: 23px;
-      padding-top: 1px;
-      font-weight: 400;
-      color: #ffffff;
-      border-color: #acd0da;
-    }
-    .btn-exit-game:active {
-      position: absolute;
-      top: 1px;
-    }
-    .btn-exit-game {
-      font-family: Sansation;
-      font-size: 15px;
-      font-weight: 700;
-      float: left;
-      text-align: center;
-      color: #ffffff;
-      position: absolute;
-      left: 0px;
-      width: 120px;
-      float: left;
-      background-color: transparent;
-      height: 40px;
-      border-radius: 25px;
-      opacity: 0.5;
-      margin-left: 40px;
-      border: solid 2px #ffffff;
-    }
-    .btn-play-count {
-      width: 100px;
-      height: 40px;
-      border-radius: 25px;
-      background-image: linear-gradient(to top, #830706, #c31a1b, #cc1c1d);
-      box-shadow: 0 0 6px 1px #750001;
-      font-family: Sansation;
-      font-size: 15px;
-      font-weight: 700;
-      border: none;
-      text-align: center;
-      color: #ffffff;
-      margin-left: 30px;
-      margin-right: 30px;
-    }
-    .btn-play-game {
-      width: 140px;
-      height: 40px;
-      opacity: 0.95;
-      border-radius: 25px;
-      background-image: linear-gradient(to bottom, #182a64, #294b9b);
-      box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);
-      font-size: 15px;
-      font-weight: 700;
-      text-align: center;
-      border: none;
-      color: #ffffff;
     }
 
     //Grid system
@@ -943,15 +916,6 @@
       }
       .game-btn-flex-wrapper {
         text-align: center;
-      }
-      .btn-exit-game {
-        position: relative;
-      }
-      .btn-clear-result, .btn-play-count, .btn-exit-game {
-        margin-bottom: 10px;
-      }
-      .btn-quick-pick {
-        margin-top: 10px;
       }
 
     }

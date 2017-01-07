@@ -299,17 +299,17 @@ html, body {
 .game-content-panel {
   width: 48.28%;
   border-radius: 8px;
-  padding: 7.5px 12.5px;
+  padding: 7.5px 5px;
+  padding-right: 0;
   box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);
-  flex-direction: column;
-  justify-content: space-between;
-}
-.game-content-row {
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-content: space-between;
+  flex-wrap: wrap;
 }
 .bingo-uk-number-circle {
   width: 40px;
   height: 40px;
+  margin: 0 7.5px;
   background-color: #ffffff;
   border-radius: 50%;
 }
@@ -476,8 +476,17 @@ html, body {
   height: 60px;
   background-image: linear-gradient(to right, #9e0b0c 3%, #cc1c1d);
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-  justify-content: space-between;
+  justify-content: center;
   padding: 10px;
+}
+.footer-circles-row .bingo-uk-number-circle {
+  margin: 0 9px;
+}
+.bingo-uk-number-circle:first-child {
+  margin-left: 0;
+}
+.bingo-uk-number-circle:last-child {
+  margin-right: 0;
 }
 .footer-bet-buttons-row,
 .footer-play-buttons-row {
