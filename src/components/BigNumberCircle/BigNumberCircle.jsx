@@ -69,7 +69,8 @@ export default class BigNumberCircle extends React.Component {
     }
     return (
       <div className={style} onClick={::this.handleClick}>
-        <span><div>{this.props.number}</div></span>
+        <div className="number-circle-bg" />
+        <span>{this.props.number}</span>
       </div>
     )
   }

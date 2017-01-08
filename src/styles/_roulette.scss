@@ -441,13 +441,6 @@
       flex-direction: column;
     }
 
-    button:focus {
-      outline: none;
-    }
-    button:active {
-      position: relative;
-      top: 1px;
-    }
     .picture-profile {
       margin-top: 51px;
     }

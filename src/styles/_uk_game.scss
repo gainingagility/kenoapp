@@ -276,18 +276,25 @@
       width: 40px;
       height: 40px;
       margin: 0 7.5px;
-      background-size: contain;
+      position: relative;
     }
-    .number-circle-normal {
+    .number-circle-bg {
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      transform: translate(-25%, -25%);
+      pointer-events: none;
+    }
+    .number-circle-normal .number-circle-bg {
       background-image: url(images/uk-circle.png);
     }
-    .number-circle-checked {
+    .number-circle-checked .number-circle-bg {
       background-image: url(images/uk-circle-selected.png);
     }
-    .number-circle-drawn {
+    .number-circle-drawn .number-circle-bg {
       background-image: url(images/uk-circle-win.png);
     }
-    .number-circle-matched {
+    .number-circle-matched .number-circle-bg {
       background-image: url(images/uk-circle-winselect.png);
     }
     .number-circle-disabled {
@@ -295,6 +302,23 @@
     }
     .number-circle-pointer {
         cursor:pointer;
+    }
+    .number-circle span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin-top: -1px;
+      color: #000;
+      font-family: HelveticaNeueCyr, sans-serif;
+      font-size: 0.75em;
+      font-weight: 900;
+    }
+    .number-circle-checked span {
+      color: #e64224;
+    }
+    .number-circle-matched span {
+      color: #e64224;
     }
     /* game content panel style ends here */
     /* game leaderboard panel style starts here */
@@ -538,12 +562,19 @@
       width: 120px;
       left: 40px;
       bottom: 30px;
-      position: absolute;
+      position: absolute !important;
       background-color: transparent;
       border: 2px solid #ffffff;
       opacity: 0.5;
     }
     /* footer style ends here */
+    button:focus {
+      outline: none;
+    }
+    button:active {
+      position: relative;
+      transform: translateY(1px);
+    }
 
     .container {
       height: 100%;
@@ -853,14 +884,6 @@
     .container {
       display: flex;
       flex-direction: column;
-    }
-
-    button:focus {
-      outline: none;
-    }
-    button:active {
-      position: relative;
-      top: 1px;
     }
 
     //Grid system

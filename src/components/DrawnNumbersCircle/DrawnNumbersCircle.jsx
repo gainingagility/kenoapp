@@ -10,8 +10,9 @@ export default class DrawnNumbersCircle extends React.Component {
   render () {
     // Change style of circle on check
     return (
-      <div className="number-circle number-circle-drawn">
-        {this.props.number}
+      <div className="number-circle number-circle-matched">
+        <div className="number-circle-bg" />
+        <span>{this.props.number}</span>
       </div>
     )
   }
