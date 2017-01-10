@@ -11,7 +11,6 @@ import { checkUserLogIn,
           showModalBuyMoreCoins,
           loopGame,
           subtractFromAmount } from '../../redux/modules/keno'
-import { Grid, Row, Col } from 'react-bootstrap'
 import BigNumberCircle from 'components/BigNumberCircle/BigNumberCircle'
 import DrawnNumbersCircle from 'components/DrawnNumbersCircle/DrawnNumbersCircle'
 import XpProgressBar from 'components/XpProgressBar/XpProgressBar.jsx'
@@ -236,6 +235,7 @@ export class GameView extends React.Component {
     const numberCircles = []
     const maxRenderedCircles = this.props.gameObject.kenoGame.kenoGameConfig.boardNumbers
     const gameStyleName = this.props.gameObject.kenoGame.name.split(' ').join('_')
+    const gameThemeName = this.props.gameObject.kenoGame.kenoGameConfig.gameDesign
     for (let i = 1; i <= maxRenderedCircles; i++) {
       if (!this.state.selectedNumbers.find((o) => { return o === i })) {
         const disabledCircle =
@@ -290,7 +290,7 @@ export class GameView extends React.Component {
     }
     console.log(this.props.isLoading)
     return (
-      <div className={gameStyleName}>
+      <div className={'game ' + gameStyleName + ' theme-' + gameThemeName}>
         <div className="main">
           <div className="header">
             <div className="header-content">
@@ -333,18 +333,10 @@ export class GameView extends React.Component {
                       Welcome back {this.props.facebookUserObject.name} {this.props.playerObject.level.levelStatus}!</span>
                   </div>
                 </div>
-                <div className="profile-picture">
-                  <div className="profile-picture-inner">
-                    <img src="" />
-                  </div>
-                </div>
+                <PictureProfile url={this.props.facebookUserObject.picture} />
               </div>
             </div>
-            <div className="header-progress">
-              <div className="header-progress-percent-bar">
-                <span>XP 140/150 (93% To next level)</span>
-              </div>
-            </div>
+            <XpProgressBar playerObject={this.props.playerObject} />
           </div>
 
           <div className="content">
@@ -419,7 +411,7 @@ export class GameView extends React.Component {
                 disabled={this.state.gameButtonDisabled}>Play 5</button>
               <button className="btn-play-game rounded-button"
                 onClick={::this.playGame}
-                disabled={this.state.gameButtonDisabled}>Play Game</button>
+                disabled={this.state.gameButtonDisabled}>Play Game{this.props.isLoading && <Spinner spinnerName="three-bounce" noFadeIn />}</button>
               <button className="btn-play-count rounded-button"
                 onClick={::this.playTenGames}
                 disabled={this.state.gameButtonDisabled}>Play 10</button>

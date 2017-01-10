@@ -10,7 +10,11 @@ export default class PictureProfile extends React.Component {
 
   render () {
     return (
-      <img src={this.props.url} className="picture-profile" />
+      <div className="profile-picture">
+        <div className="profile-picture-inner">
+          <img src={this.props.url} className="profile-picture-img" />
+        </div>
+      </div>
     )
   }
 }
