@@ -472,16 +472,19 @@
   /* footer style starts here */
   .footer {
     margin-top: 30px;
+    padding-bottom: 30px;
     border-radius: 8px;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);
     position: relative;
   }
   .footer-bet-buttons-row,
   .footer-play-buttons-row {
-    margin: 30px 0;
+    margin-top: 30px;
   }
   .footer-circles-row {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
     height: 60px;
     background-image: linear-gradient(to right, #9e0b0c 3%, #cc1c1d);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);

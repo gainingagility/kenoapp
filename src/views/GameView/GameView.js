@@ -76,9 +76,9 @@ export class GameView extends React.Component {
       'Spade_J.png', 'Spade_7.png', 'Spade_3.png', 'Heart_King.png', 'Heart_8.png', 'Heart_4.png', 'Diamond_Queen.png', 'Diamond_9.png', 'Diamond_5.png', 'Diamond_10.png', 'Club_A.png', 'Club_6.png', 'Club_2.png',
       'Spade_A.png', 'Spade_6.png', 'Spade_2.png', 'Heart_J.png', 'Heart_7.png', 'Heart_3.png', 'Diamond_King.png', 'Diamond_8.png', 'Diamond_4.png', 'Club_Queen.png', 'Club_9.png', 'Club_5.png', 'Club_10.png'
     ]
-    $('.Keno_Blackjack .numberCircle').each((i) => {
+    $('.Keno_Blackjack .number-circle').each((i) => {
       const image = normalImages[Math.floor(Math.random() * normalImages.length)]
-      $('.Keno_Blackjack .numberCircle').eq(i).css({'background-image': 'url(images/black_jack/normal/' + image + ')'})
+      $('.Keno_Blackjack .number-circle').eq(i).css({'background-image': 'url(images/black_jack/normal/' + image + ')'})
     })
   }
 
@@ -233,7 +233,7 @@ export class GameView extends React.Component {
 
   render () {
     const numberCircles = []
-    const maxRenderedCircles = this.props.gameObject.kenoGame.kenoGameConfig.boardNumbers
+    const maxRenderedCircles = Math.min(80, this.props.gameObject.kenoGame.kenoGameConfig.boardNumbers)
     const gameStyleName = this.props.gameObject.kenoGame.name.split(' ').join('_')
     const gameThemeName = this.props.gameObject.kenoGame.kenoGameConfig.gameDesign
     for (let i = 1; i <= maxRenderedCircles; i++) {
