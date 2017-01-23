@@ -1,0 +1,428 @@
+@media screen and (min-width: 640px) and (max-width: 959px) {
+  html,
+  body {
+    font-size: 9.6px;
+  }
+  .game {
+    .main {
+      width: 640px;
+      padding: 0;
+    }
+    .rounded-button {
+      height: 24px;
+      border-radius: 12px;
+    }
+    /* header style starts here */
+    .header {
+      height: 63px;
+      margin: 0 2px;
+    }
+    .header-content {
+      height: 52px;
+    }
+    .header-content-wrapper {
+      padding: 0 16px 0 19px;
+    }
+    .header-logo {
+      width: 106px;
+      height: 19px;
+    }
+    .header-info {
+      width: 427.4px;
+      height: 38.5px;
+      padding-top: 5px;
+    }
+    .header-info-item-icon {
+      width: 33px;
+    }
+    .header-info-item-welcome {
+      margin: 0 9px;
+    }
+    .profile-picture {
+      width: 41px;
+      height: 40px;
+    }
+    /* header style ends here */
+    .game-logo {
+      height: 9px;
+      margin: 3px 0 2px 0;
+    }
+    /* game style starts here */
+    .game-main {
+      padding: 0 2px;
+    }
+    .game-coins-icon {
+      width: 18px;
+      height: 18px;
+    }
+    /* game score panel style starts here */
+    .game-score-panel-wrapper {
+      width: 24.375%;
+    }
+    .game-score-panel {
+      height: 185px;
+    }
+    .game-score-panel-title {
+      transform: translateY(-90%);
+    }
+    .game-score-panel-header {
+      min-height: 16px;
+    }
+    .game-score-panel-content {
+      padding-top: 4px;
+      top: 16px;
+      bottom: 22px;
+    }
+    .game-score-panel-content-row {
+      margin-bottom: 2px;
+    }
+    .game-score-panel-footer {
+      min-height: 22px;
+      padding: 0 5px;
+    }
+    .game-score-panel-footer-totalwin {
+      margin-right: 5px;
+    }
+    /* game score panel style ends here */
+    /* game content panel style starts here */
+    .game-content-panel-wrapper {
+      width: 49.75%;
+    }
+    .game-content-panel {
+      padding: 2.5px 2.5px;
+    }
+    .number-circle {
+      width: 26px;
+      height: 26px;
+      margin: 0.5px 2.5px;
+    }
+    .lbl-numbers-matched {
+      margin: 2px 0;
+    }
+    /* game content panel style ends here */
+    /* game leaderboard panel style starts here */
+    .game-leaderboard-panel-wrapper {
+      width: 24.375%;
+    }
+    .game-leaderboard-title {
+      transform: translateY(-90%);
+    }
+    .game-leaderboard-item {
+      height: 35px;
+    }
+    .game-leaderboard-item + .game-leaderboard-item {
+      margin-top: 2px;
+    }
+    .game-leaderboard-item-ribbon {
+      top: 3px;
+      left: -3px;
+    }
+    .game-leaderboard-item-rank,
+    .game-leaderboard-item-name-wrapper {
+      line-height: 12px;
+      height: 12px;
+    }
+    .game-leaderboard-item-rank {
+      padding: 0 5px;
+      width: 50px;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+    .game-leaderboard-item-name-bg {
+      left: -5px;
+    }
+    .game-leaderboard-item-name {
+      padding: 0 13.5px 0 7.5px;
+    }
+    .game-leaderboard-item-info {
+      padding: 3px 20px;
+    }
+    .game-leaderboard-item-photo {
+      width: 30px;
+      height: 30px;
+      margin-right: 3px;
+    }
+    .game-leaderboard-item-score {
+      margin-left: 5px;
+    }
+    .btn-buy-more-coins,
+    .btn-game-info {
+      width: 100%;
+      margin: 15px 0;
+      height: 30px;
+    }
+    /* game leaderboard panel style ends here */
+    /* game style ends here */
+    /* footer style starts here */
+    .footer {
+      padding-top: 8px;
+      padding-bottom: 0;
+      min-height: 40px;
+      border-radius: 0;
+    }
+    .footer-circles-row {
+      display: none;
+    }
+    .footer-bet-buttons-row,
+    .footer-play-buttons-row {
+      margin-top: 0;
+      justify-content: flex-start;
+    }
+    .footer-bet-buttons-row {
+      float: left;
+      margin-left: 67px;
+    }
+    .footer-play-buttons-row {
+      float: right;
+    }
+    .footer-bets-wrapper {
+      margin: 0 7px 0 123px;
+      align-items: center;
+    }
+    .bets-box {
+      width: 80px;
+      margin: 0 !important;
+      border-radius: 12.5px;
+    }
+    .btn-decrease-bets,
+    .btn-increase-bets {
+      width: 14px;
+      height: 100%;
+      background-size: 75%;
+      background-position: center;
+      margin: 0 !important;
+    }
+    .btn-increase-bets {
+      transform: scale(-1, 1);
+    }
+    .btn-clear-results {
+      width: 75px;
+      font-size: 8px;
+    }
+    .btn-quick-pick,
+    .btn-play-game {
+      width: 100px;
+    }
+    .btn-play-count {
+      width: 70px;
+      margin-left: 0 !important;
+      margin-right: 6px;
+    }
+    .btn-play-game,
+    .btn-exit-game {
+      bottom: 8px;
+    }
+    .btn-play-game {
+      left: 158px;
+      transform: none;
+    }
+    .btn-exit-game {
+      width: 55px;
+      left: 4px;
+      font-size: 8px;
+    }
+    /* footer style ends here */
+  }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1365px) {
+  html,
+  body {
+    font-size: 12.3px;
+  }
+  .game {
+    .main {
+      width: 940px;
+      padding: 20px 0 10px 0;
+    }
+    .rounded-button {
+      height: 40px;
+      border-radius: 20px;
+    }
+    /* header style starts here */
+    .header {
+      height: 93px;
+    }
+    .header-content {
+      height: 77px;
+    }
+    .header-content-wrapper {
+      padding: 0 24px 0 28px;
+    }
+    .header-logo {
+      width: 156px;
+      height: 29px;
+    }
+    .header-info {
+      width: 631px;
+      height: 52px;
+      padding-top: 7px;
+    }
+    .header-info-item-icon {
+      width: 48px;
+    }
+    .header-info-item-welcome {
+      margin: 0 12px;
+      font-size: 0.8125em;
+    }
+    .profile-picture {
+      width: 57px;
+      height: 53px;
+    }
+    /* header style ends here */
+    .game-logo {
+      height: 43px;
+      margin: 5px 0 15px 0;
+    }
+    .game-coins-icon {
+      width: 24px;
+      height: 24px;
+    }
+    /* game score panel style starts here */
+    .game-score-panel-wrapper {
+      width: 23.4%;
+    }
+    .game-score-panel {
+      height: 327px;
+    }
+    .game-score-panel-title {
+      transform: translateY(-90%);
+    }
+    .game-score-panel-header {
+      min-height: 35px;
+    }
+    .game-score-panel-content {
+      padding-top: 15px;
+      top: 35px;
+      bottom: 35px;
+    }
+    .game-score-panel-content-row {
+      margin-bottom: 7px;
+    }
+    .game-score-panel-footer {
+      min-height: 35px;
+      padding: 0 8px;
+    }
+    .game-score-panel-footer-totalwin {
+      margin-right: 10px;
+    }
+    /* game score panel style ends here */
+    /* game content panel style starts here */
+    .game-content-panel-wrapper {
+      width: 48.94%;
+    }
+    .game-content-panel {
+      padding: 5px 5px;
+    }
+    .number-circle {
+      width: 35px;
+      height: 35px;
+      margin: 2.5px 5px;
+    }
+    .lbl-numbers-matched {
+      margin: 10px 0;
+      font-size: 1.3em;
+    }
+    /* game content panel style ends here */
+    /* game leaderboard panel style starts here */
+    .game-leaderboard-panel-wrapper {
+      width: 23.4%;
+    }
+    .game-leaderboard-title {
+      transform: translateY(-90%);
+    }
+    .game-leaderboard-item {
+      height: 60px;
+    }
+    .game-leaderboard-item + .game-leaderboard-item {
+      margin-top: 8px;
+    }
+    .game-leaderboard-item-ribbon {
+      top: 10px;
+      left: -12px;
+    }
+    .game-leaderboard-item-rank,
+    .game-leaderboard-item-name-wrapper {
+      line-height: 15px;
+      height: 15px;
+    }
+    .game-leaderboard-item-rank {
+      padding: 0 5px;
+      width: 50px;
+      border-top-left-radius: 7.5px;
+      border-bottom-left-radius: 7.5px;
+    }
+    .game-leaderboard-item-name-bg {
+      left: -5px;
+    }
+    .game-leaderboard-item-name {
+      padding: 0 13.5px 0 25px;
+    }
+    .game-leaderboard-item-info {
+      padding: 10px;
+    }
+    .game-leaderboard-item-photo {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    .game-leaderboard-item-score {
+      margin-left: 5px;
+    }
+    .btn-buy-more-coins,
+    .btn-game-info {
+      width: 100%;
+      margin: 5px 0;
+    }
+    /* game leaderboard panel style ends here */
+    /* game style ends here */
+    /* footer style starts here */
+    .footer {
+      padding-bottom: 20px;
+    }
+    .footer-circles-row {
+      padding: 0px;
+      height: 40px;
+    }
+    .btn-play-game,
+    .btn-exit-game {
+      bottom: 20px;
+    }
+    /* footer style ends here */
+  }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1023px) {
+  .game {
+    .main {
+      width: 940px;
+      padding: 7px 0 10px 0;
+    }
+    .rounded-button {
+      height: 30px;
+      border-radius: 15px;
+    }
+    .game-logo {
+      height: 16px;
+      margin: 9px 0 6px 0;
+    }
+    /* footer style starts here */
+    .footer {
+      padding: 10px 0;
+    }
+    .footer-circles-row {
+      display: none;
+    }
+    .footer-bet-buttons-row {
+      margin-top: 0;
+    }
+    .footer-play-buttons-row {
+      margin-top: 10px;
+    }
+    .btn-play-game,
+    .btn-exit-game {
+      bottom: 10px;
+    }
+    /* footer style ends here */
+  }
+}

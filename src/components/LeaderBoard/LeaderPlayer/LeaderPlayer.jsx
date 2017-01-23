@@ -45,7 +45,7 @@ export default class LeaderPlayed extends React.Component {
         <div className="game-leaderboard-item-info flex-display">
           <img className="game-leaderboard-item-photo" src={pictureUrl} />
           <div className="game-leaderboard-item-score-wrapper">
-            <img className="game-leaderboard-item-coins" src="assets/coins-icon.png" />
+            <img className="game-coins-icon" src="assets/coins-icon.png" />
             <span className="game-leaderboard-item-score">{this.props.player.coinsWon.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}</span>
           </div>
         </div>

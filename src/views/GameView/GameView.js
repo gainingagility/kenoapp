@@ -291,132 +291,135 @@ export class GameView extends React.Component {
     console.log(this.props.isLoading)
     return (
       <div className={'game ' + gameStyleName + ' theme-' + gameThemeName}>
-        <div className="main">
-          <div className="header">
-            <div className="header-content">
-              <div className="header-content-bg" />
-              <div className="header-content-wrapper flex-display">
-                <img className="header-logo" src="assets/bg_logo.png" />
-                <div className="header-info flex-display theme-bg">
-                  <div className="header-info-item flex-display right-separator">
-                    <div className="header-info-item-icon icon-coins" />
-                    <span className="header-info-item-text">
-                      {this.props.playerObject.wallet.coinBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
-                    </span>
+        <div className="main-container flex-display">
+          <div className="main">
+            <div className="header">
+              <div className="header-content">
+                <div className="header-content-bg" />
+                <div className="header-content-wrapper flex-display">
+                  <img className="header-logo" src="assets/bg_logo.png" />
+                  <div className="header-info flex-display theme-bg">
+                    <div className="header-info-item flex-display right-separator">
+                      <div className="header-info-item-icon icon-coins" />
+                      <span className="header-info-item-text">
+                        {this.props.playerObject.wallet.coinBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
+                      </span>
+                    </div>
+                    <div className="header-info-item flex-display right-separator">
+                      <div className="header-info-item-icon icon-goldbars" />
+                      <span className="header-info-item-text">
+                        {this.props.playerObject.wallet.barBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
+                      </span>
+                    </div>
+                    <div className="header-info-item flex-display right-separator">
+                      <div className="header-info-item-icon icon-goldball" />
+                      <span className="header-info-item-text">
+                        {this.props.playerObject.wallet.ballBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
+                      </span>
+                    </div>
+                    <div className="header-info-item flex-display right-separator">
+                      <div className="header-info-item-icon icon-charts" />
+                      <span className="header-info-item-text">
+                        {this.props.playerObject.level.displayLevelInfo}
+                      </span>
+                    </div>
+                    <div className="header-info-item flex-display right-separator">
+                      <div className="header-info-item-icon icon-awards" />
+                      <span className="header-info-item-text">
+                        {this.props.userTrophies}
+                      </span>
+                    </div>
+                    <div className="header-info-item flex-display">
+                      <span className="header-info-item-text header-info-item-welcome">
+                        Welcome back {this.props.facebookUserObject.name} {this.props.playerObject.level.levelStatus}!</span>
+                    </div>
                   </div>
-                  <div className="header-info-item flex-display right-separator">
-                    <div className="header-info-item-icon icon-goldbars" />
-                    <span className="header-info-item-text">
-                      {this.props.playerObject.wallet.barBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
-                    </span>
-                  </div>
-                  <div className="header-info-item flex-display right-separator">
-                    <div className="header-info-item-icon icon-goldball" />
-                    <span className="header-info-item-text">
-                      {this.props.playerObject.wallet.ballBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
-                    </span>
-                  </div>
-                  <div className="header-info-item flex-display right-separator">
-                    <div className="header-info-item-icon icon-charts" />
-                    <span className="header-info-item-text">
-                      {this.props.playerObject.level.displayLevelInfo}
-                    </span>
-                  </div>
-                  <div className="header-info-item flex-display right-separator">
-                    <div className="header-info-item-icon icon-awards" />
-                    <span className="header-info-item-text">
-                      {this.props.userTrophies}
-                    </span>
-                  </div>
-                  <div className="header-info-item flex-display">
-                    <span className="header-info-item-text header-info-item-welcome">
-                      Welcome back {this.props.facebookUserObject.name} {this.props.playerObject.level.levelStatus}!</span>
+                  <PictureProfile url={this.props.facebookUserObject.picture} />
+                </div>
+              </div>
+              <XpProgressBar playerObject={this.props.playerObject} />
+            </div>
+            <div className="content">
+              <div className="game-logo" />
+              <div className="game-main flex-display">
+                <div className="game-score-panel-wrapper">
+                  <PayoutResultTable
+                    paytableItems={JSON.parse(this.props.gameObject.kenoGame.kenoGameConfig.payTable).paytable}
+                    rounds={this.props.roundsHistory}
+                    selectedNumbersCount={this.state.selectedNumbersCount}
+                    />
+                  <div>
+                    <button className="btn-buy-more-coins rounded-button" onClick={::this.showBuyCoinsModal}>
+                      <img className="game-coins-icon" src="assets/coins-icon.png" />
+                      <span>Buy More Coins</span>
+                    </button>
+                    <BuyCoinsModal
+                      modalIsOpen={this.state.buyCoinsModalIsOpen}
+                      buyCoinsPack={::this.buyCoinsPack}
+                      closeModal={::this.closeBuyCoinsModal} />
                   </div>
                 </div>
-                <PictureProfile url={this.props.facebookUserObject.picture} />
+                <div className="game-content-panel-wrapper">
+                  <div className="game-content-panel flex-display theme-bg">
+                    {numberCircles.map((i) => {
+                      return (
+                        i
+                      )
+                    }, this)}
+                  </div>
+                  {totalNumbersMatched !== '' && <span className="lbl-numbers-matched">{totalNumbersMatched} numbers matched</span>}
+                </div>
+                <div className="game-leaderboard-panel-wrapper">
+                  <LeaderBoard
+                    playerObject={this.props.playerObject}
+                    facebookUserObject={this.props.facebookUserObject}
+                    />
+                  <div>
+                    <button className="btn-game-info rounded-button" onClick={::this.showGameInformation}>Game Information</button>
+                    <GameInformationModal
+                      modalIsOpen={this.state.gameInformationaModalIsOpen}
+                      closeModal={::this.closeGameInformation}
+                      gameInfo={this.props.gameObject.kenoGame.kenoGameConfig.payTable} />
+                  </div>
+                </div>
               </div>
             </div>
-            <XpProgressBar playerObject={this.props.playerObject} />
-          </div>
-
-          <div className="content">
-            <div className="game-logo" />
-            <div className="game-main flex-display">
-              <div className="game-score-panel-wrapper">
-                <PayoutResultTable
-                  paytableItems={JSON.parse(this.props.gameObject.kenoGame.kenoGameConfig.payTable).paytable}
-                  rounds={this.props.roundsHistory}
-                  selectedNumbersCount={this.state.selectedNumbersCount}
-                  />
-              </div>
-              <div className="game-content-panel flex-display theme-bg">
-                {numberCircles.map((i) => {
+            <div className="footer theme-bg">
+              <div className="footer-circles-row flex-display">
+                {numbersMatchedCircles.map((i) => {
                   return (
                     i
                   )
                 }, this)}
               </div>
-              <div className="game-leaderboard-panel-wrapper">
-                <LeaderBoard
-                  playerObject={this.props.playerObject}
-                  facebookUserObject={this.props.facebookUserObject}
-                  />
-              </div>
-            </div>
-            <div className="game-footer flex-display">
-              <div>
-                <button className="btn-buy-more-coins rounded-button" onClick={::this.showBuyCoinsModal}>
-                  <img src="assets/coins-icon.png" />
-                  <span>Buy More Coins</span>
-                </button>
-                <BuyCoinsModal
-                  modalIsOpen={this.state.buyCoinsModalIsOpen}
-                  buyCoinsPack={::this.buyCoinsPack}
-                  closeModal={::this.closeBuyCoinsModal} />
-              </div>
-              {totalNumbersMatched !== '' && <span className="lbl-numbers-matched">{totalNumbersMatched} numbers matched</span>}
-              <div>
-                <button className="btn-game-info rounded-button" onClick={::this.showGameInformation}>Game Information</button>
-                <GameInformationModal
-                  modalIsOpen={this.state.gameInformationaModalIsOpen}
-                  closeModal={::this.closeGameInformation}
-                  gameInfo={this.props.gameObject.kenoGame.kenoGameConfig.payTable} />
-              </div>
-            </div>
-          </div>
-          <div className="footer theme-bg">
-            <div className="footer-circles-row flex-display">
-              {numbersMatchedCircles.map((i) => {
-                return (
-                  i
-                )
-              }, this)}
-            </div>
-            <div className="footer-bet-buttons-row flex-display">
-              <button className="btn-clear-results rounded-button"
-                disabled={this.state.clearButtonDisable}
-                onClick={::this.clearResult}>Clear Results</button>
-              <div className="footer-bets-wrapper flex-display">
-                <button className="btn-decrease-bets" onClick={::this.subtractFromAmount} />
-                <div className="bets-box flex-display">
-                  <span className="lbl-bets">{this.props.betAmount}</span>
+              <div className="footer-bet-buttons-row flex-display">
+                <button className="btn-clear-results rounded-button"
+                  disabled={this.state.clearButtonDisable}
+                  onClick={::this.clearResult}>Clear Results</button>
+                <div className="flex-display">
+                  <div className="footer-bets-wrapper flex-display">
+                    <button className="btn-decrease-bets" onClick={::this.subtractFromAmount} />
+                    <div className="bets-box flex-display">
+                      <span className="lbl-bets">{this.props.betAmount}</span>
+                    </div>
+                    <button className="btn-increase-bets" onClick={::this.addToAmount} />
+                  </div>
+                  <button className="btn-quick-pick rounded-button" onClick={::this.quickPick}>Quick Pick</button>
                 </div>
-                <button className="btn-increase-bets" onClick={::this.addToAmount} />
               </div>
-              <button className="btn-quick-pick rounded-button" onClick={::this.quickPick}>Quick Pick</button>
-            </div>
-            <div className="footer-play-buttons-row flex-display">
-              <button className="btn-play-count rounded-button"
-                onClick={::this.playFiveGames}
-                disabled={this.state.gameButtonDisabled}>Play 5</button>
+              <div className="footer-play-buttons-row flex-display">
+                <button className="btn-play-count rounded-button"
+                  onClick={::this.playFiveGames}
+                  disabled={this.state.gameButtonDisabled}>Play 5</button>
+                <button className="btn-play-count rounded-button"
+                  onClick={::this.playTenGames}
+                  disabled={this.state.gameButtonDisabled}>Play 10</button>
+              </div>
               <button className="btn-play-game rounded-button"
                 onClick={::this.playGame}
                 disabled={this.state.gameButtonDisabled}>Play Game{this.props.isLoading && <Spinner spinnerName="three-bounce" noFadeIn />}</button>
-              <button className="btn-play-count rounded-button"
-                onClick={::this.playTenGames}
-                disabled={this.state.gameButtonDisabled}>Play 10</button>
+              <button className="btn-exit-game rounded-button" onClick={::this.exitGame}>Exit Game</button>
             </div>
-            <button className="btn-exit-game rounded-button" onClick={::this.exitGame}>Exit Game</button>
           </div>
         </div>
       </div>
