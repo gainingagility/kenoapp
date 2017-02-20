@@ -1,0 +1,99 @@
+.Keno_Blackjack {
+  background-image: url(images/black_jack/background.png);
+}
+.Keno_Blackjack .game-logo {
+  background-image: url(images/black_jack/desktop-l-o-g-o-u-s.png);
+}
+.Keno_Blackjack .game-content-panel {
+  padding: 10px 5px;
+}
+.Keno_Blackjack .number-circle {
+  width: 40px;
+  height: 60px;
+  margin: 5px;
+  border-radius: 2px;
+  background-size: 100%;
+  background-color: #fff;
+}
+.Keno_Blackjack .number-circle-bg {
+  background: none !important;
+}
+.Keno_Blackjack .number-circle-checked {
+  box-shadow: 0 0 20px 12px #2061b1, 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+}
+.Keno_Blackjack .number-circle-drawn {
+  /* */
+}
+.Keno_Blackjack .number-circle-matched {
+  box-shadow: 0 0 10px 11px #d0a93f, 0 0 10px 2px #f9f68b;
+}
+.Keno_Blackjack .footer-bet-buttons-row{
+  margin: 20px 0;
+}
+.Keno_Blackjack .footer-circles-row {
+  height: 70px !important;
+  padding: 5px !important;
+}
+.Keno_Blackjack .footer-circles-row .number-circle {
+  margin: 0 7.5px;
+}
+
+.theme-blackjack .theme-bg {
+  background-image: url(images/theme-bj-bg.png);
+  background-repeat: repeat;
+}
+.theme-blackjack .header-content {
+  background: linear-gradient(to bottom, #28612c, #555555, #1a1a1a);
+}
+.theme-blackjack .right-separator {
+  border-image: linear-gradient(to right, #1a5121, #428347) 1 100%;
+}
+.theme-blackjack .game-score-panel-header {
+  background-image: linear-gradient(to right, #387539, #5baf59 40%, #343434 40.1%, #484848);
+}
+.theme-blackjack .game-leaderboard-item-rank,
+.theme-blackjack .game-leaderboard-item-name-bg {
+  background-image: linear-gradient(to right, #343434, #484848);
+}
+.theme-blackjack .lbl-numbers-matched {
+  color: #eb2c3b;
+}
+.theme-blackjack .footer-circles-row {
+  background-image: linear-gradient(to right, #343434, #484848 50%, #343434);
+}
+.theme-blackjack .btn-clear-results {
+  color: #276930;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.72), #27652d);
+  box-shadow: 0 0 4px 0 #2a6d33, inset 0 -1px 4px 0 #4e7783, inset 0 2px 7px 0 #ffffff;
+}
+.theme-blackjack .btn-quick-pick,
+.theme-blackjack .btn-play-count {
+  background-image: linear-gradient(to top, #343434, #484848);
+  box-shadow: 0 0 6px 1px #343434;
+}
+.theme-blackjack .btn-play-game {
+  background-image: linear-gradient(to bottom, #4e8d57, #26602c);
+  box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.62);
+}
+
+@media screen and (min-width: 960px) and (max-width: 1365px) {
+  .Keno_Blackjack .number-circle {
+    width: 35px;
+    height: 52.5px;
+    margin: 5px 2.9px;
+  }
+  .Keno_Blackjack .footer-circles-row {
+    height: 62.5px !important;
+  }
+}
+
+@media screen and (min-width: 640px) and (max-width: 959px) {
+  .Keno_Blackjack .game-content-panel {
+    padding: 5px 3px;
+  }
+  .Keno_Blackjack .number-circle {
+    width: 26px;
+    height: 39px;
+    margin: 1px 1px;
+  }
+}

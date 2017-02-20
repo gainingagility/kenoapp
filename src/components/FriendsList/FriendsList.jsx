@@ -1,7 +1,6 @@
 
 import React, { PropTypes } from 'react'
 // import classes from './GamesList.scss'
-import { Grid, Row, Col, Button } from 'react-bootstrap'
 import Slider from 'react-slick'
 
 export default class FriendsList extends React.Component {
@@ -38,54 +37,29 @@ export default class FriendsList extends React.Component {
     if (this.props.fbFriends !== undefined) {
       this.props.fbFriends.map((i) => {
         friendsListItems.push(
-          <div className="invite-friend-item" key={i.id}>
-            <img style={{
-              'margin': '0 auto',
-              'marginBottom': '5px',
-              'marginLeft': '25px',
-              'borderRadius': '5px',
-              'width': '75px',
-              'border': '1px solid #09b8e8'
-            }}src={i.picture.data.url} />
-            <div style={{
-              'color': '#00b8f5',
-              'textAlign': 'center',
-              'fontSize': '12px',
-              'marginBottom': '5px',
-              'marginLeft': '25px',
-              'minHeight': '40px'
-            }}>{i.name}</div>
-            <Button
-              value={i.id}
-              bsStyle="info"
-              className="friend-list-btn"
-              onClick={::this.inviteFriend}>
-              Invite/Add
-            </Button>
-          </div>)
+          <div className="friend flex-display">
+            <div className="friend-photo">
+              <img src={i.picture.data.url} />
+            </div>
+            <div className="friend-name">{i.name}</div>
+            <button className="btn-invite-friend" value={i.id} onClick={::this.inviteFriend}>Invite/Add</button>
+          </div>
+        )
       })
     }
     return (
-      <Grid>
-        <h3 className="friend-list-header">
-          Friends List
-          <div className="fl-header-border-corner-left" />
-          <div className="fl-header-border-corner-left-radius" />
-          <div className="fl-header-border-corner-right" />
-          <div className="fl-header-border-corner-right-radius" />
-        </h3>
-        <Row>
-          <Col xs={12} md={12} className="friend-list-wrapper">
-            <Slider {...settings}>
-              {friendsListItems.map((i) => {
-                return (
-                  i
-                )
-              }, this)}
-            </Slider>
-          </Col>
-        </Row>
-      </Grid>
+      <div className="friends-list-wrapper">
+        <div className="titlebox">Friends List</div>
+        <div className="friends-list flex-display">
+          <Slider {...settings}>
+            {friendsListItems.map((i) => {
+              return (
+                i
+              )
+            }, this)}
+          </Slider>
+        </div>
+      </div>
     )
   }
 }

@@ -82,7 +82,7 @@ export default class PayoutResultTable extends React.Component {
           </div>
           <div className="game-score-panel-footer flex-display">
             <span className="game-score-panel-footer-totalwin">Total Win</span>
-            <img className="game-coins-icon" src="assets/coins-icon.png" />
+            <img className="coins-icon" src="assets/coins-icon.png" />
             <span className="game-score-panel-footer-totalscore">{this.numberFormatter(totalWon)}</span>
           </div>
         </div>

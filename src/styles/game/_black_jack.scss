@@ -1,0 +1,90 @@
+.Keno_Blackjack {
+  background-image: url(images/black_jack/background.png);
+  .game-logo {
+    background-image: url(images/black_jack/desktop-l-o-g-o-u-s.png);
+  }
+  .game-content-panel {
+    padding: 10px 5px;
+  }
+  .number-circle {
+    width: 40px;
+    height: 60px;
+    margin: 5px;
+    border-radius: 2px;
+    background-size: 100%;
+    background-color: #fff;
+  }
+  .number-circle-bg {
+    background: none !important;
+  }
+  .number-circle-checked {
+    box-shadow: 0 0 20px 12px #2061b1, 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    span {
+      color: #2061b1;
+    }
+  }
+  .number-circle-drawn {
+    span {
+      color: #efe767;
+    }
+  }
+  .number-circle-matched {
+    box-shadow: 0 0 10px 11px #d0a93f, 0 0 10px 2px #f9f68b;
+    span {
+      color: #efe767;
+    }
+  }
+  .number-circle span {
+    font-family: Sansation, sans-serif;
+    font-size: 1.125em;
+    font-weight: 900;
+  }
+  .footer-bet-buttons-row{
+    margin: 20px 0;
+  }
+  .footer-circles-row {
+    height: 70px !important;
+    padding: 5px !important;
+  }
+  .footer-circles-row .number-circle {
+    margin: 0 7.5px;
+  }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1365px) {
+  .Keno_Blackjack {
+    .number-circle {
+      width: 35px;
+      height: 52.5px;
+      margin: 5px 2.9px;
+    }
+    .number-circle-checked {
+      box-shadow: 0 0 10px 6px #2061b1, 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    }
+    .number-circle-matched {
+      box-shadow: 0 0 5px 5px #d0a93f, 0 0 5px 1px #f9f68b;
+    }
+    .footer-circles-row {
+      height: 62.5px !important;
+    }
+  }
+}
+
+@media screen and (min-width: 640px) and (max-width: 959px) {
+  .Keno_Blackjack {
+    .game-content-panel {
+      padding: 5px 3px;
+    }
+    .number-circle {
+      width: 26px;
+      height: 39px;
+      margin: 1px 1px;
+    }
+    .number-circle-checked {
+      box-shadow: 0 0 5px 3px #2061b1, 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    }
+    .number-circle-matched {
+      box-shadow: 0 0 3px 3px #d0a93f, 0 0 3px 1px #f9f68b;
+    }
+  }
+}

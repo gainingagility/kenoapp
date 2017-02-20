@@ -17,10 +17,10 @@ export class TrophiesButton extends React.Component {
 
   render () {
     return (
-      <span className="lobby-nav-item"
+      <div className="button-item right-separator"
         onClick={::this.handleShowLogInModal}>
-          Trophies
-      </span>
+          TROPHIES
+      </div>
     )
   }
 }

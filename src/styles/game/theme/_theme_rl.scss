@@ -1,0 +1,39 @@
+.game.theme-roulette {
+  .theme-bg {
+    background-image: url(images/theme-bj-bg.png);
+    background-repeat: repeat;
+  }
+  .header-content {
+    background: linear-gradient(to bottom, #28612c, #555555, #1a1a1a);
+  }
+  .right-separator {
+    border-image: linear-gradient(to right, #1a5121, #428347) 1 100%;
+  }
+  .game-score-panel-header {
+    background-image: linear-gradient(to right, #387539, #5baf59 40%, #343434 40.1%, #484848);
+  }
+  .leaderboard-item-rank,
+  .leaderboard-item-name-bg {
+    background-image: linear-gradient(to right, #343434, #484848);
+  }
+  .lbl-numbers-matched {
+    color: #eb2c3b;
+  }
+  .footer-circles-row {
+    background-image: linear-gradient(to right, #343434, #484848 50%, #343434);
+  }
+  .btn-clear-results {
+    color: #276930;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.72), #27652d);
+    box-shadow: 0 0 4px 0 #2a6d33, inset 0 -1px 4px 0 #4e7783, inset 0 2px 7px 0 #ffffff;
+  }
+  .btn-quick-pick,
+  .btn-play-count {
+    background-image: linear-gradient(to top, #343434, #484848);
+    box-shadow: 0 0 6px 1px #343434;
+  }
+  .btn-play-game {
+    background-image: linear-gradient(to bottom, #4e8d57, #26602c);
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.62);
+  }
+}

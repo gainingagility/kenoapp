@@ -1,0 +1,38 @@
+.game.theme-bingouk {
+  .theme-bg {
+    background-image: linear-gradient(to bottom, rgba(24, 42, 100, 0.95), rgba(41, 75, 155, 0.95));
+  }
+  .header-content {
+    background: linear-gradient(to bottom, #264389, #555555, #1a1a1a);
+  }
+  .right-separator {
+    border-image: linear-gradient(to right, #11245d, #385baf) 1 100%;
+  }
+  .game-score-panel-header {
+    background-image: linear-gradient(to right, #387539, #5baf59 40%, #830706 40.1%, #cc1c1d);
+  }
+  .leaderboard-item-rank,
+  .leaderboard-item-name-bg {
+    background-image: linear-gradient(to right, #830706, #cc1c1d);
+  }
+  .lbl-numbers-matched {
+    color: #dd0707;
+  }
+  .footer-circles-row {
+    background-image: linear-gradient(to right, #9e0b0c 3%, #cc1c1d);
+  }
+  .btn-clear-results {
+    color: #305dc8;
+    background-image: linear-gradient(to bottom, #ffffff, #9bb2db);
+    box-shadow: 0 0 4px 0 #6b8de2, inset 0 -1px 4px 0 #003adc, inset 0 2px 7px 0 #ffffff;
+  }
+  .btn-quick-pick,
+  .btn-play-count {
+    background-image: linear-gradient(to top, #830706, #c31a1b, #cc1c1d);
+    box-shadow: 0 0 6px 1px #750001;
+  }
+  .btn-play-game {
+    background-image: linear-gradient(to bottom, #182a64, #294b9b);
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.5);
+  }
+}

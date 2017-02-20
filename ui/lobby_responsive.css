@@ -1,0 +1,421 @@
+@media screen and (min-width: 640px) and (max-width: 959px) {
+  html,
+  body {
+    font-size: 9.6px;
+  }
+  .main {
+    width: 640px;
+    padding: 0;
+  }
+  /* header style starts here */
+  .header {
+    height: 63px;
+    margin: 0 2px;
+  }
+  .header-content {
+    height: 52px;
+  }
+  .header-content-wrapper {
+    padding: 0 16px 0 19px;
+  }
+  .header-logo {
+    width: 106px;
+    height: 19px;
+  }
+  .header-info {
+    width: 427.4px;
+    height: 38.5px;
+    padding-top: 5px;
+  }
+  .header-info-item-icon {
+    width: 33px;
+  }
+  .header-info-item-welcome {
+    margin: 0 9px;
+  }
+  .profile-picture {
+    width: 41px;
+    height: 40px;
+  }
+  /* header style ends here */
+  .coins-icon {
+    width: 18px;
+    height: 18px;
+  }
+  /* buttons style starts here */
+  .buttons-bar {
+    height: 24px;
+  }
+  .buttons-bar-left {
+    width: 456px;
+  }
+  .buttons-bar-right {
+    width: 86px;
+  }
+  .button-item {
+    height: 20px;
+    line-height: 20px;
+    padding-top: 2px;
+  }
+  .fb-likes {
+    width: 43px;
+    height: 20px;
+    padding: 0 6px;
+  }
+  .btn-fb-like {
+    width: 31px;
+    height: 10px;
+    margin-top: 3px;
+  }
+  .lbl-fb-like {
+    display: none;
+  }
+  .buttons-bar-right .button-item {
+    width: 42px;
+  }
+  /* buttons style ends here */
+  /* lobby style starts here */
+  .lobby-main {
+    margin-top: 13px;
+  }
+  /* games-list style starts here */
+  .games-list {
+    width: 445px;
+    margin-left: 13px;
+  }
+  .game-item {
+    width: 96px;
+    height: 169px;
+  }
+  .game-item-img {
+    height: 124px;
+  }
+  .game-item-info {
+    height: 45px;
+  }
+  .game-item-info-item {
+    margin-top: 5px;
+  }
+  /* games-list style ends here */
+  /* leaderboard panel style starts here */
+  .leaderboard-panel {
+    width: 24.375%;
+  }
+  .leaderboard-title {
+    transform: translateY(-90%);
+  }
+  .leaderboard-item {
+    height: 35px;
+  }
+  .leaderboard-item + .leaderboard-item {
+    margin-top: 2px;
+  }
+  .leaderboard-item-ribbon {
+    top: 3px;
+    left: -3px;
+  }
+  .leaderboard-item-rank,
+  .leaderboard-item-name-wrapper {
+    line-height: 12px;
+    height: 12px;
+  }
+  .leaderboard-item-rank {
+    padding: 0 5px;
+    width: 50px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+  .leaderboard-item-name-bg {
+    left: -5px;
+  }
+  .leaderboard-item-name {
+    padding: 0 13.5px 0 7.5px;
+  }
+  .leaderboard-item-info {
+    padding: 3px 20px;
+  }
+  .leaderboard-item-photo {
+    width: 30px;
+    height: 30px;
+    margin-right: 3px;
+  }
+  .leaderboard-item-score {
+    margin-left: 5px;
+  }
+  /* leaderboard panel style ends here */
+  /* lobby style ends here */
+  /* footer style starts here */
+  .footer {
+    height: 67px;
+    margin-top: 11px;
+    padding: 0 5px 0 13px;
+  }
+  .friends-list-wrapper .titlebox {
+    width: 110px;
+    height: 18px;
+    padding-top: 2px;
+    font-size: 0.875em;
+  }
+  .friend {
+    height: 52px;
+    margin-right: 15.5px;
+  }
+  .friend-photo {
+    width: 28px;
+    height: 28px;
+  }
+  .friend-name {
+    margin-top: 0;
+  }
+  .btn-invite-friend {
+    width: 48px;
+    height: 12px;
+    font-size: 0.75em;
+  }
+  /* footer style ends here */
+}
+
+@media screen and (min-width: 960px) and (max-width: 1365px) {
+  html,
+  body {
+    font-size: 12.3px;
+  }
+  .main {
+    width: 940px;
+    padding: 20px 0 0 0;
+  }
+  /* header style starts here */
+  .header {
+    height: 93px;
+  }
+  .header-content {
+    height: 77px;
+  }
+  .header-content-wrapper {
+    padding: 0 24px 0 28px;
+  }
+  .header-logo {
+    width: 156px;
+    height: 29px;
+  }
+  .header-info {
+    width: 631px;
+    height: 52px;
+    padding-top: 7px;
+  }
+  .header-info-item-icon {
+    width: 48px;
+  }
+  .header-info-item-welcome {
+    margin: 0 12px;
+    font-size: 0.8125em;
+  }
+  .profile-picture {
+    width: 57px;
+    height: 53px;
+  }
+  /* header style ends here */
+  .coins-icon {
+    width: 24px;
+    height: 24px;
+  }
+  /* buttons style starts here */
+  .buttons-bar {
+    height: 36px;
+  }
+  .buttons-bar-left {
+    width: 720px;
+  }
+  .buttons-bar-right {
+    width: 134px;
+  }
+  .button-item {
+    height: 32px;
+    line-height: 32px;
+    padding-top: 2px;
+    font-size: 0.8em;
+  }
+  .fb-likes {
+    width: 65.5px;
+    height: 30px;
+    padding: 0 12px;
+  }
+  .btn-fb-like {
+    width: 40px;
+    height: 16px;
+    margin-top: 4px;
+  }
+  .lbl-fb-like {
+    display: none;
+  }
+  .buttons-bar-right .button-item {
+    width: 65.5px;
+  }
+  /* buttons style ends here */
+  /* lobby style starts here */
+  .lobby-main {
+    margin-top: 30px;
+  }
+  /* games-list style starts here */
+  .games-list {
+    width: 680px;
+  }
+  .game-item {
+    width: 140px;
+    height: 308px;
+  }
+  .game-item-img {
+    height: 250px;
+  }
+  .game-item-info {
+    height: 58px;
+  }
+  .game-item-info-item {
+    margin-top: 10px;
+  }
+  /* games-list style ends here */
+  /* leaderboard panel style starts here */
+  .leaderboard-panel {
+    width: 23.4%;
+  }
+  .leaderboard-title {
+    transform: translateY(-110%);
+  }
+  .leaderboard-item {
+    height: 60px;
+  }
+  .leaderboard-item + .leaderboard-item {
+    margin-top: 8px;
+  }
+  .leaderboard-item-ribbon {
+    top: 10px;
+    left: -12px;
+  }
+  .leaderboard-item-rank,
+  .leaderboard-item-name-wrapper {
+    line-height: 15px;
+    height: 15px;
+  }
+  .leaderboard-item-rank {
+    padding: 0 5px;
+    width: 50px;
+    border-top-left-radius: 7.5px;
+    border-bottom-left-radius: 7.5px;
+  }
+  .leaderboard-item-name-bg {
+    left: -5px;
+  }
+  .leaderboard-item-name {
+    padding: 0 13.5px 0 25px;
+  }
+  .leaderboard-item-info {
+    padding: 10px;
+  }
+  .leaderboard-item-photo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  .leaderboard-item-score {
+    margin-left: 5px;
+  }
+  /* leaderboard panel style ends here */
+  /* lobby style ends here */
+  /* footer style starts here */
+  .footer {
+    height: 206px;
+    margin-top: 50px;
+    padding: 0;
+  }
+  .friends-list-wrapper .titlebox {
+    width: 220px;
+    height: 50px;
+    padding-top: 20px;
+    font-size: 1.6em;
+  }
+  .friend {
+    height: 150px;
+    margin-right: 44px;
+  }
+  .friend-photo {
+    width: 80px;
+    height: 80px;
+  }
+  .friend-name {
+    margin-top: -12px;
+    font-size: 1em;
+  }
+  .btn-invite-friend {
+    width: 120px;
+    height: 30px;
+    font-size: 1.1em;
+  }
+  /* footer style ends here */
+}
+
+@media screen and (min-width: 960px) and (max-width: 1023px) {
+  .main {
+    width: 940px;
+    padding: 10px 0 0 0;
+  }
+  /* buttons style starts here */
+  .buttons-bar {
+    height: 32px;
+  }
+  .buttons-bar-left {
+    width: 684px;
+  }
+  .buttons-bar-right {
+    width: 134px;
+  }
+  .button-item {
+    height: 30px;
+    line-height: 30px;
+    padding-top: 1px;
+    font-size: 0.625em;
+  }
+  .btn-fb-like {
+    width: 40px;
+    height: 13px;
+    margin-top: 2px;
+  }
+  /* buttons style ends here */
+  /* lobby style starts here */
+  .lobby-main {
+    margin-top: 25px;
+  }
+  .leaderboard-title {
+    transform: translateY(-90%);
+  }
+  /* lobby style ends here */
+  /* footer style starts here */
+  .footer {
+    height: 98px;
+    margin-top: 10px;
+    padding: 0;
+  }
+  .friends-list-wrapper .titlebox {
+    width: 165px;
+    height: 26px;
+    padding-top: 2px;
+    font-size: 0.875em;
+  }
+  .friend {
+    height: 80px;
+    margin-right: 31px;
+  }
+  .friend-photo {
+    width: 42px;
+    height: 42px;
+  }
+  .friend-name {
+    margin-top: 0;
+    font-size: 0.75em;
+  }
+  .btn-invite-friend {
+    width: 65px;
+    height: 17px;
+    font-size: 0.75em;
+  }
+  /* footer style ends here */
+}

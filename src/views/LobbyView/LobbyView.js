@@ -8,7 +8,6 @@ import XpProgressBar from 'components/XpProgressBar/XpProgressBar.jsx'
 import PictureProfile from 'components/PictureProfile/PictureProfile.jsx'
 import LeaderBoard from 'components/LeaderBoard/LeaderBoard.jsx'
 import TrophiesButton from 'components/Modals/Buttons/TrophiesButton/TrophiesButton'
-import { Grid, Row, Col } from 'react-bootstrap'
 import { FacebookButton } from 'react-social-sharebuttons'
 import Spinner from 'react-spinkit'
 // import classes from './LoginView.scss'
@@ -60,126 +59,91 @@ export class LobbyView extends React.Component<void, Props, void> {
       levelStatus = this.props.playerObject.level.levelStatus
     }
     return (
-      <div className="background-image-wrapper">
+      <div className="lobby">
         {this.props.lobbyPageLoading ? <Spinner spinnerName="double-bounce" noFadeIn /> : <div>
-          <Grid>
-            <Row className="lobby-header-row">
-              <Col xs={12} md={3}>
-                <img src="assets/bg_logo.png" alt="logo" className="lobby-header-logo" />
-              </Col>
-              <Col xs={12} md={8}>
-                <Row className="lobby-object-wrapper-row">
-                  <Col xs={6} md={2} className="col-lobby-object menu-devider">
-                    <div className="lobby-object-wrapper">
-                      <img src="assets/coins-icon.png" className="lobby-object-image" />
-                      <span className="lobby-object-text">
-                        {coinBalance}
-                      </span>
+          <div className="main-container flex-display">
+            <div className="main">
+              <div className="header">
+                <div className="header-content">
+                  <div className="header-content-bg" />
+                  <div className="header-content-wrapper flex-display">
+                    <img className="header-logo" src="assets/bg_logo.png" />
+                    <div className="header-info flex-display theme-bg">
+                      <div className="header-info-border" />
+                      <div className="header-info-item flex-display right-separator">
+                        <div className="header-info-item-icon icon-coins" />
+                        <span className="header-info-item-text">
+                          {coinBalance}
+                        </span>
+                      </div>
+                      <div className="header-info-item flex-display right-separator">
+                        <div className="header-info-item-icon icon-goldbars" />
+                        <span className="header-info-item-text">
+                          {barBalance}
+                        </span>
+                      </div>
+                      <div className="header-info-item flex-display right-separator">
+                        <div className="header-info-item-icon icon-goldball" />
+                        <span className="header-info-item-text">
+                          {ballBalance}
+                        </span>
+                      </div>
+                      <div className="header-info-item flex-display right-separator">
+                        <div className="header-info-item-icon icon-charts" />
+                        <span className="header-info-item-text">
+                          {levelNumber}
+                        </span>
+                      </div>
+                      <div className="header-info-item flex-display right-separator">
+                        <div className="header-info-item-icon icon-awards" />
+                        <span className="header-info-item-text">
+                          {this.props.userTrophies}
+                        </span>
+                      </div>
+                      <div className="header-info-item flex-display">
+                        <span className="header-info-item-text header-info-item-welcome">
+                          Welcome back {this.props.facebookUserObject.name} {levelStatus}!
+                        </span>
+                      </div>
                     </div>
-                  </Col>
-                  <Col xs={6} md={2} className="col-lobby-object menu-devider">
-                    <div className="lobby-object-wrapper">
-                      <img src="assets/goldbars-icon.png" className="lobby-object-image" />
-                      <span className="lobby-object-text">
-                        {barBalance}
-                      </span>
-                    </div>
-                  </Col>
-                  <Col xs={6} md={2} className="col-lobby-object menu-devider">
-                    <div className="lobby-object-wrapper">
-                      <img src="assets/goldball-icon.png" className="lobby-object-image" />
-                      <span className="lobby-object-text">
-                        {ballBalance}
-                      </span>
-                    </div>
-                  </Col>
-                  <Col xs={6} md={2} className="col-lobby-object menu-devider">
-                    <div className="lobby-object-wrapper">
-                      <img src="assets/level-icon.png" className="lobby-object-image" />
-                      <span className="lobby-object-text">
-                        {levelNumber}
-                      </span>
-                    </div>
-                  </Col>
-                  <Col xs={6} md={2} className="col-lobby-object menu-devider">
-                    <div className="lobby-object-wrapper">
-                      <img src="assets/trophy-icon.png" className="lobby-object-image"
-                        style={{'position': 'relative', 'bottom': '3px'}} />
-                      <span className="lobby-object-text">
-                        {this.props.userTrophies}
-                      </span>
-                    </div>
-                  </Col>
-                  <Col xs={6} md={2} className="col-lobby-object menu-devider">
-                    <div className="lobby-object-wrapper lobby-object-welcome-text">
-                      Welcome back {this.props.facebookUserObject.name} {levelStatus}
-                    </div>
-                  </Col>
-                </Row>
-              </Col>
-              <Col xs={0} md={1}>
-                <PictureProfile url={this.props.facebookUserObject.picture} />
-              </Col>
-              <Col xs={12} md={12} style={{'textAlign': 'center'}} className="no-padding">
+                    <PictureProfile url={this.props.facebookUserObject.picture} />
+                  </div>
+                </div>
                 <XpProgressBar playerObject={this.props.playerObject} />
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={12} md={12} className="no-padding">
-                <Col xs={12} md={9} className="no-padding">
-                  <nav className="lobby-nav">
-                    <span className="lobby-nav-item lobby-nav-item-border-radius-left">
-                      My account
-                    </span>
-                    <span className="lobby-nav-item">
-                      Shop
-                    </span>
-                    <TrophiesButton />
-                    <span className="lobby-nav-item">
-                      Leaderbord
-                    </span>
-                    <span className="lobby-nav-item">
-                      Mini league
-                    </span>
-                    <span className="lobby-nav-item">
-                      Suggestions
-                    </span>
-                    <span className="lobby-nav-item lobby-nav-item-border-radius-right">
-                      Support
-                    </span>
-                  </nav>
-                </Col>
-                <Col xs={0} md={1} />
-                <Col xs={12} md={2} className="no-padding">
-                  <span className="lobby-fb-like-btn">
-                    <Col xs={6} md={6}>
-                      <FacebookButton url="kenoapp.herokuapp.com" layout="button_count" share={false} showFaces={false} />
-                    </Col>
-                    <Col xs={6} md={6} style={{'textAlign': 'right'}}>
-                      <a className="logout-btn" onClick={::this.handleLogOut}>Logout</a>
-                    </Col>
-                  </span>
-                </Col>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={12} md={10}>
+              </div>
+              <div className="buttons-bar">
+                <div className="buttons-bar-left flex-display theme-bg">
+                  <div className="button-item right-separator">MY ACCOUNT</div>
+                  <div className="button-item right-separator">SHOP</div>
+                  <TrophiesButton />
+                  <div className="button-item right-separator">LEADERBOARD</div>
+                  <div className="button-item right-separator">MINI LEAGUE</div>
+                  <div className="button-item right-separator">SUGGESTIONS</div>
+                  <div className="button-item">SUPPORT</div>
+                </div>
+                <div className="buttons-bar-right flex-display theme-bg">
+                  <div className="fb-likes flex-display right-separator">
+                    <btn className="btn-fb-like" />
+                    <div className="lbl-fb-like">- Lisa and 450 like this</div>
+                  </div>
+                  <div className="button-item" onClick={::this.handleLogOut}>Logout</div>
+                </div>
+              </div>
+              <div className="lobby-main flex-display">
                 <GamesList
                   startGame={this.props.startGame}
                   kenoGames={this.props.kenoGames}
                   />
-              </Col>
-              <Col xs={0} md={1} />
-              <Col xs={12} md={2}>
-                <LeaderBoard playerObject={this.props.playerObject} facebookUserObject={this.props.facebookUserObject} />
-              </Col>
-            </Row>
-          </Grid>
-          <Grid fluid className="friend-list-grid-fluid">
-            <div>
-              <FriendsList fbFriends={this.props.facebookUserObject.friends} />
+                <div className="leaderboard-panel-wrapper">
+                  <LeaderBoard playerObject={this.props.playerObject} facebookUserObject={this.props.facebookUserObject} />
+                </div>
+              </div>
+              <div className="footer">
+                <div className="footer-bg" />
+                <FriendsList fbFriends={this.props.facebookUserObject.friends} />
+              </div>
             </div>
-          </Grid>
+          </div>
         </div>}
       </div>
     )
@@ -193,6 +157,7 @@ const mapStateToProps = (state) => ({
   lobbyPageLoading: state.keno.lobbyPageLoading,
   facebookUserObject: state.keno.facebookUserObject
 })
+
 export default connect((mapStateToProps), {
   startGame, logIn
 })(LobbyView)

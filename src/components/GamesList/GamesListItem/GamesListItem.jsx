@@ -36,21 +36,26 @@ export default class GamesListItem extends React.Component {
       default:
         break
     }
-    gameClassName += this.props.locked ? 'game-card' : 'game-card locked-game-list-item'
+    // gameClassName += this.props.locked ? 'game-card' : 'game-card locked-game-list-item'
+    gameClassName += 'game-item'
     return (
-      <div className={gameClassName}
-        onClick={::this.handleClick}>
-        <img src="assets/lock-game.png"
-          className={this.props.locked ? 'hide-locked-game' : 'locked-game-list-image'} />
-        <div className="game-item-name" />
-        <div className="game-item-footer">
-          <div className="game-item-info">Min<br />bet<br /><span className="game-info-number">
-            {this.props.minBet}</span></div>
-          <div className="game-item-info game-item-info-boards">
-            Boarding<br />numbers<br /><span className="game-info-number">
-              {this.props.boardNumbers}</span></div>
-          <div className="game-item-info">Max<br />bet<br /> <span className="game-info-number">
-            {this.props.maxBet}</span></div>
+      <div className={gameClassName} onClick={::this.handleClick}>
+        <div className="game-item-img" />
+        <div className="game-item-info flex-display theme-bg">
+          <div className="game-item-info-item">
+            Min<br />Bet<br />
+            <span>{this.props.minBet}</span>
+          </div>
+          <div className="right-separator" />
+          <div className="game-item-info-item">
+            Boarding<br />Numbers<br />
+            <span>{this.props.boardNumbers}</span>
+          </div>
+          <div className="right-separator" />
+          <div className="game-item-info-item">
+            Max<br />Bet<br />
+            <span>{this.props.maxBet}</span>
+          </div>
         </div>
       </div>
     )

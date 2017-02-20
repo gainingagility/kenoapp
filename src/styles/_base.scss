@@ -10,3 +10,27 @@ For example:
 @import './variables/components'
 @import './themes/default'
 */
+
+.flex-display {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: flex;
+}
+
+.right-separator {
+  border-style: solid;
+  border-width: 0px;
+  border-right-width: 2px;
+  border-image: linear-gradient(to right, #11245d, #385baf) 1 100%;
+}
+
+button:focus {
+  outline: none;
+}
+button:active {
+  position: relative;
+  transform: translateY(1px);
+}
+button {
+  padding: 1px 2px 0 2px;
+}

@@ -18,8 +18,10 @@ export default class XpProgressBar extends React.Component {
     }
     return (
       <div className="header-progress">
-        <div className="header-progress-percent-bar" style={{width: xpToNextLevel + '%'}}>
-          <span>{progressBarLabel}</span>
+        <div className="header-progress-percent-bar flex-display" style={{width: xpToNextLevel + '%'}}>
+          <div className="progress-overlay flex-display">
+            <span>{progressBarLabel}</span>
+          </div>
         </div>
       </div>
     )

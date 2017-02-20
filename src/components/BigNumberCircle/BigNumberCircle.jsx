@@ -8,7 +8,9 @@ export default class BigNumberCircle extends React.Component {
     disabled: PropTypes.bool.isRequired,
     checked: PropTypes.bool.isRequired,
     drawnNumbers: PropTypes.string,
-    selectNumber: PropTypes.func.isRequired
+    selectNumber: PropTypes.func.isRequired,
+    gameType: PropTypes.string,
+    bgImage: PropTypes.string
   };
 
   constructor () {
@@ -45,6 +47,7 @@ export default class BigNumberCircle extends React.Component {
     // Change style of circle on check
     const circleStyle = this.state.checked ? 'number-circle-normal' : 'number-circle-checked'
     let mouseArrowStyle
+    let imgDir = this.state.checked ? 'normal/' : 'select/'
     if ((this.props.disabled && !this.state.checked) || (!this.props.disabled && !this.state.checked)) {
       mouseArrowStyle = ' number-circle-pointer'
     } else if (!this.props.disabled) {
@@ -62,13 +65,24 @@ export default class BigNumberCircle extends React.Component {
       numbersMatched.forEach((item) => {
         if (Number(item) === this.props.number && !this.state.checked) {
           style += ' number-circle-matched'
+          imgDir = 'win/'
         } else if (Number(item) === this.props.number) {
           style += ' number-circle-drawn'
+          imgDir = 'win/'
         }
       })
     }
+    let bgImage = ''
+    if (this.props.bgImage && this.props.bgImage.length) {
+      if (this.props.gameType === 'Keno_Blackjack') {
+        bgImage = 'url(images/black_jack/' + imgDir + this.props.bgImage + ')'
+      } else if (this.props.gameType === 'Keno_Roulette') {
+        bgImage = 'url(images/roulette/' + imgDir + this.props.bgImage + ')'
+      }
+    }
+    console.log(bgImage)
     return (
-      <div className={style} onClick={::this.handleClick}>
+      <div className={style} onClick={::this.handleClick} style={{backgroundImage: bgImage}}>
         <div className="number-circle-bg" />
         <span>{this.props.number}</span>
       </div>

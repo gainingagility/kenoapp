@@ -64,6 +64,20 @@ export class GameView extends React.Component {
     }
   }
 
+  componentWillMount () {
+    const bjImgNames = [ 'Spade_Queen.png', 'Spade_9.png', 'Spade_5.png', 'Spade_10.png', 'Heart_A.png', 'Heart_6.png', 'Heart_2.png', 'Diamond_J.png', 'Diamond_7.png', 'Diamond_3.png', 'Club_King.png', 'Club_8.png', 'Club_4.png',
+      'Spade_King.png', 'Spade_8.png', 'Spade_4.png', 'Heart_Queen.png', 'Heart_9.png', 'Heart_5.png', 'Heart_10.png', 'Diamond_A.png', 'Diamond_6.png', 'Diamond_2.png', 'Club_J.png', 'Club_7.png', 'Club_3.png',
+      'Spade_J.png', 'Spade_7.png', 'Spade_3.png', 'Heart_King.png', 'Heart_8.png', 'Heart_4.png', 'Diamond_Queen.png', 'Diamond_9.png', 'Diamond_5.png', 'Diamond_10.png', 'Club_A.png', 'Club_6.png', 'Club_2.png',
+      'Spade_A.png', 'Spade_6.png', 'Spade_2.png', 'Heart_J.png', 'Heart_7.png', 'Heart_3.png', 'Diamond_King.png', 'Diamond_8.png', 'Diamond_4.png', 'Club_Queen.png', 'Club_9.png', 'Club_5.png', 'Club_10.png'
+    ]
+    bjImages.length = 0
+    const maxRenderedCircles = this.props.gameObject.kenoGame.kenoGameConfig.boardNumbers
+    for (let i = 1; i <= maxRenderedCircles; i++) {
+      let imgName = bjImgNames[Math.floor(Math.random() * bjImgNames.length)]
+      bjImages.push(imgName)
+    }
+  }
+
   componentDidMount () {
     // if user is not logged - redirect to login page
     this.props.checkUserLogIn()
@@ -71,15 +85,6 @@ export class GameView extends React.Component {
     window.onbeforeunload = () => {
       this.props.leaveGame()
     }
-    const normalImages = [ 'Spade_Queen.png', 'Spade_9.png', 'Spade_5.png', 'Spade_10.png', 'Heart_A.png', 'Heart_6.png', 'Heart_2.png', 'Diamond_J.png', 'Diamond_7.png', 'Diamond_3.png', 'Club_King.png', 'Club_8.png', 'Club_4.png',
-      'Spade_King.png', 'Spade_8.png', 'Spade_4.png', 'Heart_Queen.png', 'Heart_9.png', 'Heart_5.png', 'Heart_10.png', 'Diamond_A.png', 'Diamond_6.png', 'Diamond_2.png', 'Club_J.png', 'Club_7.png', 'Club_3.png',
-      'Spade_J.png', 'Spade_7.png', 'Spade_3.png', 'Heart_King.png', 'Heart_8.png', 'Heart_4.png', 'Diamond_Queen.png', 'Diamond_9.png', 'Diamond_5.png', 'Diamond_10.png', 'Club_A.png', 'Club_6.png', 'Club_2.png',
-      'Spade_A.png', 'Spade_6.png', 'Spade_2.png', 'Heart_J.png', 'Heart_7.png', 'Heart_3.png', 'Diamond_King.png', 'Diamond_8.png', 'Diamond_4.png', 'Club_Queen.png', 'Club_9.png', 'Club_5.png', 'Club_10.png'
-    ]
-    $('.Keno_Blackjack .number-circle').each((i) => {
-      const image = normalImages[Math.floor(Math.random() * normalImages.length)]
-      $('.Keno_Blackjack .number-circle').eq(i).css({'background-image': 'url(images/black_jack/normal/' + image + ')'})
-    })
   }
 
   componentWillReceiveProps (nextProps) {
@@ -233,10 +238,16 @@ export class GameView extends React.Component {
 
   render () {
     const numberCircles = []
-    const maxRenderedCircles = Math.min(80, this.props.gameObject.kenoGame.kenoGameConfig.boardNumbers)
+    const maxRenderedCircles = this.props.gameObject.kenoGame.kenoGameConfig.boardNumbers
     const gameStyleName = this.props.gameObject.kenoGame.name.split(' ').join('_')
     const gameThemeName = this.props.gameObject.kenoGame.kenoGameConfig.gameDesign
     for (let i = 1; i <= maxRenderedCircles; i++) {
+      let bgImage = ''
+      if (gameStyleName === 'Keno_Blackjack') {
+        bgImage = bjImages[i-1]
+      } else if (gameStyleName === 'Keno_Roulette') {
+        bgImage = (i % 2 === 0) ? 'number_circle_bg_black.png' : 'number_circle_bg_red.png'
+      }
       if (!this.state.selectedNumbers.find((o) => { return o === i })) {
         const disabledCircle =
         this.state.selectedNumbers.length === this.props.gameObject.kenoGame.kenoGameConfig.maxNumSelect
@@ -248,6 +259,8 @@ export class GameView extends React.Component {
             selectNumber={::this.selectNumber}
             disabled={disabledCircle}
             checked={false}
+            gameType={gameStyleName}
+            bgImage={bgImage}
           />)
       } else {
         numberCircles.push(
@@ -258,6 +271,8 @@ export class GameView extends React.Component {
             selectNumber={::this.selectNumber}
             disabled={false}
             checked
+            gameType={gameStyleName}
+            bgImage={bgImage}
           />)
       }
     }
@@ -265,10 +280,18 @@ export class GameView extends React.Component {
     if (this.props.drawnNumbers !== undefined) {
       const drawnNumbers = this.props.drawnNumbers.split(',')
       drawnNumbers.forEach((item) => {
+        let bgImage = ''
+        if (gameStyleName === 'Keno_Blackjack') {
+          bgImage = bjImages[item-1]
+        } else if (gameStyleName === 'Keno_Roulette') {
+          bgImage ='number_circle_bg_black.png'
+        }
         drawnNumberCircles.push(
           <DrawnNumbersCircle
             number={item}
             key={item}
+            gameType={gameStyleName}
+            bgImage={bgImage}
           />)
       })
     }
@@ -277,10 +300,18 @@ export class GameView extends React.Component {
       const numbersMatched = this.props.numbersMatched.split(',')
       numbersMatched.sort()
       numbersMatched.forEach((item) => {
+        let bgImage = ''
+        if (gameStyleName === 'Keno_Blackjack') {
+          bgImage = bjImages[item-1]
+        } else if (gameStyleName === 'Keno_Roulette') {
+          bgImage ='number_circle_bg_black.png'
+        }
         numbersMatchedCircles.push(
           <DrawnNumbersCircle
             number={item}
             key={item}
+            gameType={gameStyleName}
+            bgImage={bgImage}
           />)
       })
     }
@@ -299,6 +330,7 @@ export class GameView extends React.Component {
                 <div className="header-content-wrapper flex-display">
                   <img className="header-logo" src="assets/bg_logo.png" />
                   <div className="header-info flex-display theme-bg">
+                    <div className="header-info-border" />
                     <div className="header-info-item flex-display right-separator">
                       <div className="header-info-item-icon icon-coins" />
                       <span className="header-info-item-text">
@@ -331,7 +363,8 @@ export class GameView extends React.Component {
                     </div>
                     <div className="header-info-item flex-display">
                       <span className="header-info-item-text header-info-item-welcome">
-                        Welcome back {this.props.facebookUserObject.name} {this.props.playerObject.level.levelStatus}!</span>
+                        Welcome back {this.props.facebookUserObject.name} {this.props.playerObject.level.levelStatus}!
+                      </span>
                     </div>
                   </div>
                   <PictureProfile url={this.props.facebookUserObject.picture} />
@@ -369,7 +402,7 @@ export class GameView extends React.Component {
                   </div>
                   {totalNumbersMatched !== '' && <span className="lbl-numbers-matched">{totalNumbersMatched} numbers matched</span>}
                 </div>
-                <div className="game-leaderboard-panel-wrapper">
+                <div className="leaderboard-panel-wrapper">
                   <LeaderBoard
                     playerObject={this.props.playerObject}
                     facebookUserObject={this.props.facebookUserObject}
@@ -427,6 +460,8 @@ export class GameView extends React.Component {
   }
 }
 
+const bjImages = []
+
 const mapStateToProps = (state) => ({
   playerObject: state.keno.playerObject,
   facebookUserObject: state.keno.facebookUserObject,
@@ -442,6 +477,7 @@ const mapStateToProps = (state) => ({
   numbersMatched: state.keno.processBetObject.numbersMatched,
   gameSettings: state.keno.gameSettings
 })
+
 export default connect((mapStateToProps), {
   checkUserLogIn,
   clearResult,

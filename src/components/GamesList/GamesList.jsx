@@ -1,7 +1,6 @@
 
 import React, { PropTypes } from 'react'
 // import classes from './GamesList.scss'
-import { Col } from 'react-bootstrap'
 import GameListItem from './GamesListItem/GamesListItem.jsx'
 
 export default class GamesList extends React.Component {
@@ -27,14 +26,13 @@ export default class GamesList extends React.Component {
         />)
     })
     return (
-      <Col xs={12} md={12} className="text-center">
-        <h3 className="text-center game-seaction-header">Game List</h3>
+      <div className="games-list flex-display">
         {gamesListItems.map((i) => {
           return (
             i
           )
         }, this)}
-      </Col>
+      </div>
     )
   }
 }

@@ -45,6 +45,11 @@ html, body {
   width: 100%;
   height: 100%;
 }
+.main-container {
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
 .main {
   width: 1160px;
   margin: auto;
@@ -127,6 +132,13 @@ html, body {
   float: left;
   width: 60px;
   height: 100%;
+}
+.icon-coins,
+.icon-goldbars,
+.icon-goldball,
+.icon-charts,
+.icon-awards {
+  background-size: 50% !important;
 }
 .icon-coins {
   background: url(images/coins.png) no-repeat center;

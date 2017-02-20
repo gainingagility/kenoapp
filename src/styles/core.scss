@@ -41,16 +41,10 @@
   @import 'login';
   @import 'vendor/normalize';
   @import 'modal';
-  @import 'game';
-  @import 'game_responsive';
-  @import 'uk_game';
-  @import 'us_game';
-  @import 'black_jack';
-  @import 'roulette';
-  @import 'theme_uk';
-  @import 'theme_us';
-  @import 'theme_bj';
-  @import 'theme_rl';
+  @import 'header';
+  @import 'lobby/main';
+  @import 'game/main';
+  @import 'leaderboard';
 
   // Some best-practice CSS that's useful for most apps
   // Just remove them if they're not what you want
@@ -112,6 +106,7 @@
     background-size: cover;
     width: 100vw;
   }
+  /*
   .lobby-header-row {
     margin-top: 10px;
     background-color: #011924;
@@ -534,7 +529,6 @@
     position: relative;
   }
 
-
   .friend-list-grid-fluid {
     padding-left: 0px;
     padding-right: 0px;
@@ -649,7 +643,7 @@
     color: #ffffff;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
   }
-
+*/
   // Game
   .numberCircle {
     width: 48px;
@@ -774,14 +768,14 @@
       right: 50px;
       position: absolute;
     }
-    .game-leaderboard {
+    .leaderboard {
       padding-left: 50px;
       display: flex;
       justify-content: space-between;
       flex-direction: column;
       height: 100%;
     }
-    .game-leaderboard-wrapper {
+    .leaderboard-wrapper {
       display: flex;
       justify-content: space-between;
       flex-direction: column;
@@ -1064,7 +1058,7 @@
         padding-left: 0px;
         text-align: center;
       }
-      .game-leaderboard {
+      .leaderboard {
         padding-left: 0px;
       }
       .game-seaction-header {
@@ -1073,7 +1067,7 @@
         right: 0px;
         margin-bottom: 20px;
       }
-      .game-leaderboard-wrapper {
+      .leaderboard-wrapper {
         margin-left: 25px;
       }
       .numbers-matched-title-wrapper {
