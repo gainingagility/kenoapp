@@ -55,7 +55,7 @@
 .theme-blackjack .game-leaderboard-item-name-bg {
   background-image: linear-gradient(to right, #343434, #484848);
 }
-.theme-blackjack .lbl-numbers-matched {
+.theme-blackjack .lbl-game-message {
   color: #eb2c3b;
 }
 .theme-blackjack .footer-circles-row {

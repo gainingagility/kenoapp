@@ -245,8 +245,6 @@ export class GameView extends React.Component {
       let bgImage = ''
       if (gameStyleName === 'Keno_Blackjack') {
         bgImage = bjImages[i-1]
-      } else if (gameStyleName === 'Keno_Roulette') {
-        bgImage = (i % 2 === 0) ? 'number_circle_bg_black.png' : 'number_circle_bg_red.png'
       }
       if (!this.state.selectedNumbers.find((o) => { return o === i })) {
         const disabledCircle =
@@ -283,8 +281,6 @@ export class GameView extends React.Component {
         let bgImage = ''
         if (gameStyleName === 'Keno_Blackjack') {
           bgImage = bjImages[item-1]
-        } else if (gameStyleName === 'Keno_Roulette') {
-          bgImage ='number_circle_bg_black.png'
         }
         drawnNumberCircles.push(
           <DrawnNumbersCircle
@@ -303,8 +299,6 @@ export class GameView extends React.Component {
         let bgImage = ''
         if (gameStyleName === 'Keno_Blackjack') {
           bgImage = bjImages[item-1]
-        } else if (gameStyleName === 'Keno_Roulette') {
-          bgImage ='number_circle_bg_black.png'
         }
         numbersMatchedCircles.push(
           <DrawnNumbersCircle
@@ -315,11 +309,7 @@ export class GameView extends React.Component {
           />)
       })
     }
-    let totalNumbersMatched = ''
-    if (this.props.totalNumbersMatched !== undefined) {
-      totalNumbersMatched = this.props.totalNumbersMatched
-    }
-    console.log(this.props.isLoading)
+
     return (
       <div className={'game ' + gameStyleName + ' theme-' + gameThemeName}>
         <div className="main-container flex-display">
@@ -400,7 +390,7 @@ export class GameView extends React.Component {
                       )
                     }, this)}
                   </div>
-                  {totalNumbersMatched !== '' && <span className="lbl-numbers-matched">{totalNumbersMatched} numbers matched</span>}
+                  <span className="lbl-game-message">{this.props.gameMessage}</span>
                 </div>
                 <div className="leaderboard-panel-wrapper">
                   <LeaderBoard
@@ -419,6 +409,7 @@ export class GameView extends React.Component {
             </div>
             <div className="footer theme-bg">
               <div className="footer-circles-row flex-display">
+                {drawnNumberCircles.length > 0 && <span className="lbl-numbers-matched">{drawnNumberCircles.length} drawn, {this.props.totalNumbersMatched} matched</span>}
                 {numbersMatchedCircles.map((i) => {
                   return (
                     i

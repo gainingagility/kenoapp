@@ -79,7 +79,7 @@
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
-    position: relative;
+    position: absolute !important;
   }
   .double-bounce1, .double-bounce2, .bounce1, .bounce2, .bounce3 {
     background-color: white !important;
@@ -643,7 +643,7 @@
     color: #ffffff;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
   }
-*/
+
   // Game
   .numberCircle {
     width: 48px;
@@ -651,11 +651,11 @@
     background-size: contain;
     display: inline-block;
     margin-right: 15px;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none;   /* Chrome/Safari/Opera */
-    -khtml-user-select: none;    /* Konqueror */
-    -moz-user-select: none;      /* Firefox */
-    -ms-user-select: none;       /* IE/Edge */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
      user-select: none;
   }
   .numberCircleChecked {
@@ -665,11 +665,11 @@
       text-align: center;
       margin-right: 15px;
       display: inline-block;
-      -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none;   /* Chrome/Safari/Opera */
-      -khtml-user-select: none;    /* Konqueror */
-      -moz-user-select: none;      /* Firefox */
-      -ms-user-select: none;       /* IE/Edge */
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
        user-select: none;
   }
   .numberCircleDisabled {
@@ -1081,5 +1081,5 @@
         margin-top: 10px;
       }
     }
-  }
+  }*/
 }

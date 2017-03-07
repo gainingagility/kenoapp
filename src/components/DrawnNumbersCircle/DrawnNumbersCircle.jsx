@@ -15,8 +15,6 @@ export default class DrawnNumbersCircle extends React.Component {
     if (this.props.bgImage && this.props.bgImage.length) {
       if (this.props.gameType === 'Keno_Blackjack') {
         bgImage = 'url(images/black_jack/win/' + this.props.bgImage + ')'
-      } else if (this.props.gameType === 'Keno_Roulette') {
-        bgImage = 'url(images/roulette/win/' + this.props.bgImage + ')'
       }
     }
     return (

@@ -76,11 +76,8 @@ export default class BigNumberCircle extends React.Component {
     if (this.props.bgImage && this.props.bgImage.length) {
       if (this.props.gameType === 'Keno_Blackjack') {
         bgImage = 'url(images/black_jack/' + imgDir + this.props.bgImage + ')'
-      } else if (this.props.gameType === 'Keno_Roulette') {
-        bgImage = 'url(images/roulette/' + imgDir + this.props.bgImage + ')'
       }
     }
-    console.log(bgImage)
     return (
       <div className={style} onClick={::this.handleClick} style={{backgroundImage: bgImage}}>
         <div className="number-circle-bg" />

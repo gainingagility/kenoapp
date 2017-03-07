@@ -17,7 +17,8 @@ import RSVP from 'rsvp'
 // Constants
 // ------------------------------------
 export const PLAYER_OBJECT_RECEIVED = 'PLAYER_OBJECT_RECEIVED'
-export const GAME_OBJECT_RECEIVED = 'GAME_OBJECT_RECEIVED'
+export const GAME_OBJECT_RECEIVED_START = 'GAME_OBJECT_RECEIVED_START'
+export const GAME_OBJECT_RECEIVED_PLAY = 'GAME_OBJECT_RECEIVED_PLAY'
 export const FACEBOOK_USER_RECEIVED = 'FACEBOOK_USER_RECEIVED'
 export const BUY_MORE_COINS = 'BUY_MORE_COINS'
 export const ADD_TO_BET_AMOUNT = 'ADD_TO_BET_AMOUNT'
@@ -63,7 +64,7 @@ const play = (dispatch, getState) => {
     joinGame(gamblerId, gameId).then(
       (jsonGame) => {
         dispatch({
-          type: GAME_OBJECT_RECEIVED,
+          type: GAME_OBJECT_RECEIVED_PLAY,
           gameObject: jsonGame
         })
         placeBet(detail, roundId, gamblerId, betAmount).then(
@@ -152,7 +153,7 @@ export const startGame = (gameId) => {
     joinGame(gamblerId, gameId).then(
         (jsonGame) => {
           dispatch({
-            type: GAME_OBJECT_RECEIVED,
+            type: GAME_OBJECT_RECEIVED_START,
             gameObject: jsonGame
           })
           dispatch(push('/game'))
@@ -342,9 +343,12 @@ const ACTION_HANDLERS = {
   [LOBBY_PAGE_LOADING]: (state, action) => {
     return ({ ...state, 'lobbyPageLoading': !state.lobbyPageLoading })
   },
-  [GAME_OBJECT_RECEIVED]: (state, action) => {
+  [GAME_OBJECT_RECEIVED_START]: (state, action) => {
     return ({ ...state, 'gameObject': action.gameObject,
       'betAmount': action.gameObject.kenoGame.kenoGameConfig.minBet })
+  },
+  [GAME_OBJECT_RECEIVED_PLAY]: (state, action) => {
+    return ({ ...state, 'gameObject': action.gameObject })
   },
   [FACEBOOK_USER_RECEIVED]: (state, action) => {
     return ({ ...state, 'facebookUserObject': action.facebookUserObject })

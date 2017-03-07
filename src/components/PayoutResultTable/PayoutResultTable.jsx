@@ -55,6 +55,7 @@ export default class PayoutResultTable extends React.Component {
         </div>
         <div className="game-score-panel-main theme-bg">
           <div className="game-score-panel-header flex-display">
+            <div className="game-score-panel-header-bg" />
             <span className="game-score-panel-header-item">Hits</span>
             <span className="game-score-panel-header-item">Payouts</span>
             <span className="game-score-panel-header-item">Round</span>

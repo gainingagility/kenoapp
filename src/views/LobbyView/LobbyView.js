@@ -8,7 +8,6 @@ import XpProgressBar from 'components/XpProgressBar/XpProgressBar.jsx'
 import PictureProfile from 'components/PictureProfile/PictureProfile.jsx'
 import LeaderBoard from 'components/LeaderBoard/LeaderBoard.jsx'
 import TrophiesButton from 'components/Modals/Buttons/TrophiesButton/TrophiesButton'
-import { FacebookButton } from 'react-social-sharebuttons'
 import Spinner from 'react-spinkit'
 // import classes from './LoginView.scss'
 

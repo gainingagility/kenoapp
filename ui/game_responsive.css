@@ -95,7 +95,7 @@
     height: 26px;
     margin: 0.5px 2.5px;
   }
-  .lbl-numbers-matched {
+  .lbl-game-message {
     margin: 2px 0;
   }
   /* game content panel style ends here */
@@ -316,7 +316,7 @@
     height: 35px;
     margin: 2.5px 5px;
   }
-  .lbl-numbers-matched {
+  .lbl-game-message {
     margin: 10px 0;
     font-size: 1.3em;
   }

@@ -10,17 +10,24 @@
     border-image: linear-gradient(to right, #1a5121, #428347) 1 100%;
   }
   .game-score-panel-header {
-    background-image: linear-gradient(to right, #387539, #5baf59 40%, #343434 40.1%, #484848);
+    background-image: url(images/roulette/theme-bg.png);
   }
-  .leaderboard-item-rank,
+  .game-score-panel-header-bg {
+    background-image: linear-gradient(to right, #387539, #5baf59 40%, rgba(0, 0, 0, 0) 40.1%, rgba(0, 0, 0, 0));
+  }
+  .leaderboard-item-rank {
+    background-image: url(images/roulette/theme-bg.png);
+  }
   .leaderboard-item-name-bg {
-    background-image: linear-gradient(to right, #343434, #484848);
+    background-image: url(images/roulette/theme-bg.png);
+    transform: scaleX(-1) skewX(25deg);
   }
+  .lbl-game-message,
   .lbl-numbers-matched {
     color: #eb2c3b;
   }
   .footer-circles-row {
-    background-image: linear-gradient(to right, #343434, #484848 50%, #343434);
+    background-image: url(images/roulette/footer-bg.png);
   }
   .btn-clear-results {
     color: #276930;
@@ -29,7 +36,7 @@
   }
   .btn-quick-pick,
   .btn-play-count {
-    background-image: linear-gradient(to top, #343434, #484848);
+    background-image: url(images/roulette/theme-bg.png);
     box-shadow: 0 0 6px 1px #343434;
   }
   .btn-play-game {

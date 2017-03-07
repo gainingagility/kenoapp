@@ -4,38 +4,106 @@
     background: none;
   }
   .game-content-panel {
-    padding: 16px 12px;
+    padding: 12px 12px 22px 12px;
   }
   .number-circle {
     width: 60px;
     height: 60px;
-    margin: 0 3.5px;
+    margin: 3.5px;
     border: 1px solid #ffffff;
   }
+  .number-circle span {
+    font-size: 1em;
+    color: #ffffff;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.61);
+  }
   .number-circle-bg {
-    background-image: none !important;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform: none;
+    pointer-events: none;
+    background-size: contain;
   }
-  .number-circle-normal .number-circle-bg {
-    background-image: url(images/uk-circle.png);
+  .number-circle:nth-child(2n+1).number-circle-normal {
+    .number-circle-bg {
+      background-image: url(images/roulette/normal/number-circle-bg-black.png);
+    }
   }
-  .number-circle-checked .number-circle-bg {
-    background-image: url(images/uk-circle-selected.png);
+  .number-circle:nth-child(2n+1).number-circle-checked {
+    .number-circle-bg {
+      background-image: url(images/roulette/select/number-circle-bg-black.png);
+    }
+    span {
+      color: #000000;
+    }
   }
-  .number-circle-drawn .number-circle-bg {
-    background-image: url(images/uk-circle-win.png);
+  .number-circle-normal {
+    .number-circle-bg {
+      background-image: url(images/roulette/normal/number-circle-bg-red.png);
+    }
   }
-  .number-circle-matched .number-circle-bg {
-    background-image: url(images/uk-circle-winselect.png);
+  .number-circle-checked {
+    .number-circle-bg {
+      background-image: url(images/roulette/select/number-circle-bg-red.png);
+    }
+    span {
+      color: #e0282f;
+    }
+  }
+  .number-circle-drawn {
+    .number-circle-bg {
+      background-image: url(images/roulette/win/number-circle-bg-drawn.png) !important;
+    }
+    span {
+      color: #000000 !important;
+    }
+  }
+  .number-circle-matched {
+    .number-circle-bg {
+      background-image: url(images/roulette/win/number-circle-bg-matched.png) !important;
+    }
+    span {
+      color: #daba4b !important;
+    }
+  }
+  .footer-circles-row .number-circle {
+    border: none;
   }
   .footer-bet-buttons-row{
-    margin: 20px 0 !important;
+    margin: 20px 0;
   }
   .footer-circles-row {
     height: 70px !important;
     padding: 5px !important;
   }
 }
-@media screen and (max-width: 991px) {
-  .Keno_Bingo_UK {
+
+@media screen and (min-width: 960px) and (max-width: 1365px) {
+  .Keno_Roulette {
+    .game-content-panel {
+      padding: 10px;
+    }
+    .number-circle {
+      width: 48px;
+      height: 48px;
+    }
+    .footer-circles-row {
+      height: 54px !important;
+      padding: 3px !important;
+    }
+  }
+}
+
+@media screen and (min-width: 640px) and (max-width: 959px) {
+  .Keno_Roulette {
+    .game-content-panel {
+      padding: 5px;
+    }
+    .number-circle {
+      width: 34px;
+      height: 34px;
+      margin: 2px;
+    }
   }
 }
