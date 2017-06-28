@@ -267,6 +267,7 @@
     position: relative;
   }
   .footer-circles-row .lbl-numbers-matched {
+    display: none;
     position: absolute;
     left: 20px;
     top: 50%;
@@ -280,10 +281,10 @@
   .footer-circles-row .number-circle {
     margin: 0 9px;
   }
-  .footer-circles-row .number-circle:first-child {
+  .footer-circles-row .number-circle:first-of-type {
     margin-left: 0;
   }
-  .footer-circles-row .number-circle:last-child {
+  .footer-circles-row .number-circle:last-of-type {
     margin-right: 0;
   }
   .footer-bet-buttons-row,

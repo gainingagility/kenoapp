@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import { Row, Col, Panel } from 'react-bootstrap'
 
 export default class TrophiesList extends React.Component {
 
@@ -9,48 +8,27 @@ export default class TrophiesList extends React.Component {
 
   render () {
     let trophiesNodes = this.props.trophies.map((trophy, index) => {
+      let className = 'item bottom-border '
+      if (!trophy.isActive) {
+        className += 'item-achieved'
+      }
+      let iconClassName = 'item-icon '
+      if (trophy.trophyName.toLowerCase().includes('ball')) {
+        iconClassName += 'item-icon-ball'
+      } else {
+        iconClassName += 'item-icon-bet'
+      }
       return (
-        <Row key={index}>
-          <Col
-            xs={12}
-            md={4}
-            >
-            <Panel style={{'textAlign': 'center', 'minHeight': '140px'}}>
-              <img
-                src="https://image.freepik.com/free-icon/trophy-cup-silhouette_318-63600.png"
-                alt="trophy"
-                style={{
-                  'width': '50px'
-                }}
-                />
-              <hr />
-              {trophy.trophyName}
-            </Panel>
-          </Col>
-          <Col xs={12} md={4}>
-            <Panel style={{'textAlign': 'justify', 'minHeight': '140px'}}>
-              {trophy.trophyDescription}
-            </Panel>
-          </Col>
-          <Col xs={12} md={4}>
-            <Panel style={{'textAlign': 'center', 'minHeight': '140px'}}>
-              <img
-                src="http://www.pngall.com/wp-content/uploads/2016/04/Red-Cross-Mark-Download-PNG.png"
-                alt="red-cross"
-                style={{
-                  'width': '50px',
-                  'position': 'relative',
-                  'top': '30px'
-                }}
-                />
-            </Panel>
-          </Col>
-        </Row>
+        <div className={className}>
+          <p className="item-title">{trophy.trophyName}</p>
+          <div className={iconClassName} />
+          <p className="item-description">{trophy.trophyDescription}</p>
+        </div>
       )
     })
 
     return (
-      <div id="trophies">
+      <div id="trophies" className="popup-content flex-display">
         {trophiesNodes}
       </div>
     )

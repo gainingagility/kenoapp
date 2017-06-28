@@ -169,6 +169,9 @@
   /* games-list style ends here */
   /* leaderboard panel style starts here */
   .leaderboard-panel-wrapper {
+    .leaderboard-panel {
+      min-height: 430px;
+    }
     .leaderboard-title {
       transform: translateY(-110%);
     }

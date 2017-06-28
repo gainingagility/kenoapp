@@ -1,6 +1,5 @@
 
 import React, { PropTypes } from 'react'
-import { Row, Col, Button } from 'react-bootstrap'
 import PriceBlock from './PriceBlock/PriceBlock.jsx'
 import Modal from 'react-modal'
 
@@ -17,7 +16,7 @@ export default class BuyCoinsModal extends React.Component {
     this.state = {
       priceBlocks: [
         {id: 1, coins: 10, price: '0.50'},
-        {id: 2, coins: 25, price: '1'},
+        {id: 2, coins: 25, price: '1.00'},
         {id: 3, coins: 50, price: '1.50'},
         {id: 4, coins: 100, price: '5.00'}
       ],
@@ -84,36 +83,17 @@ export default class BuyCoinsModal extends React.Component {
           isOpen={this.props.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.props.closeModal}
-          className="Modal__Bootstrap modal-dialog" >
-          <div className="modal-content">
-            <div className="modal-header">
-              <button type="button" className="close" onClick={this.props.closeModal}>
-                <span aria-hidden="true">&times;</span>
-                <span className="sr-only">Close</span>
-              </button>
-              <h4 className="modal-title">Buy more coins</h4>
-            </div>
-            <div className="modal-body">
-              <Row>
-                {priceBlocks.map((i) => {
-                  return (
-                    i
-                  )
-                }, this)}
-              </Row>
-              <Row>
-                <Col xs={12} md={12}>
-                  <Button bsStyle="primary" onClick={::this.buyCoins} disabled={buyButtonDissabled}>Buy Coins</Button>
-                </Col>
-              </Row>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-default"
-                onClick={this.props.closeModal}>
-                Close
-              </button>
-            </div>
+          className="popup-buy-coins" >
+          <p className="popup-title">Buy More Coins</p>
+          <img className="popup-icon" src="assets/icon-buy-more-coins.png" />
+          <div className="popup-content flex-display">
+            {priceBlocks.map((i) => {
+              return (
+                i
+              )
+            }, this)}
           </div>
+          <button className="popup-button" onClick={::this.buyCoins} disabled={buyButtonDissabled}>BUY MORE COINS</button>
         </Modal>
       </div>
     )

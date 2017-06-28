@@ -1,8 +1,5 @@
 
 import React, { PropTypes } from 'react'
-import { Panel, Col } from 'react-bootstrap'
-import classes from './PriceBlock.scss'
-
 export default class PriceBlock extends React.Component {
 
   static propTypes = {
@@ -18,13 +15,17 @@ export default class PriceBlock extends React.Component {
   }
 
   render () {
-    const style = this.props.checked ? classes.priceBlockChecked : ''
+    var style = 'item left-border'
+    if (this.props.checked) {
+      style += ' item-active'
+    }
     return (
-      <Col xs={12} md={3}>
-        <Panel className={style} onClick={::this.handleBlockClick}>
-          {this.props.coins} coins <br /> £{this.props.price}
-        </Panel>
-      </Col>
+      <div className={style} onClick={::this.handleBlockClick}>
+        <p>
+          <span>{this.props.coins}</span> Coins<br />
+          £ <span>{this.props.price}</span>
+        </p>
+      </div>
     )
   }
 }

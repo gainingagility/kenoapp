@@ -67,6 +67,11 @@
       margin-top: 5px;
     }
     /* games-list style ends here */
+    /* leaderboard panel style starts here */
+    .leaderboard-panel {
+      min-height: 183px !important;
+    }
+    /* leaderboard panel style ends here */
     /* lobby style ends here */
     /* footer style starts here */
     .footer {
@@ -170,6 +175,9 @@
     }
     /* games-list style ends here */
     /* leaderboard panel style starts here */
+    .leaderboard-panel {
+      min-height: 332px !important;
+    }
     .leaderboard-title {
       transform: translateY(-110%);
     }

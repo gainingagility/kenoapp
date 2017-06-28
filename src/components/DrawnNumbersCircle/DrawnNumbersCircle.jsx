@@ -6,7 +6,8 @@ export default class DrawnNumbersCircle extends React.Component {
   static propTypes = {
     number: PropTypes.string.isRequired,
     gameType: PropTypes.string,
-    bgImage: PropTypes.string
+    bgImage: PropTypes.string,
+    matched: PropTypes.bool
   };
 
   render () {
@@ -17,8 +18,15 @@ export default class DrawnNumbersCircle extends React.Component {
         bgImage = 'url(images/black_jack/win/' + this.props.bgImage + ')'
       }
     }
+    let style = 'number-circle '
+    if (this.props.matched) {
+      style += 'number-circle-matched'
+    } else {
+      style += 'number-circle-drawn'
+    }
+
     return (
-      <div className="number-circle number-circle-matched" style={{backgroundImage: bgImage}}>
+      <div className={style} style={{backgroundImage: bgImage}}>
         <div className="number-circle-bg" />
         <span>{this.props.number}</span>
       </div>

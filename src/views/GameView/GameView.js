@@ -276,36 +276,21 @@ export class GameView extends React.Component {
     }
     const drawnNumberCircles = []
     if (this.props.drawnNumbers !== undefined) {
-      const drawnNumbers = this.props.drawnNumbers.split(',')
+      const drawnNumbers = this.props.drawnNumbers.split(', ')
+      const numbersMatched = this.props.numbersMatched.split(', ')
       drawnNumbers.forEach((item) => {
         let bgImage = ''
         if (gameStyleName === 'Keno_Blackjack') {
           bgImage = bjImages[item-1]
         }
+        let matched = numbersMatched.indexOf(item) >= 0
         drawnNumberCircles.push(
           <DrawnNumbersCircle
             number={item}
             key={item}
             gameType={gameStyleName}
             bgImage={bgImage}
-          />)
-      })
-    }
-    const numbersMatchedCircles = []
-    if (this.props.totalNumbersMatched !== undefined && this.props.totalNumbersMatched !== 0) {
-      const numbersMatched = this.props.numbersMatched.split(',')
-      numbersMatched.sort()
-      numbersMatched.forEach((item) => {
-        let bgImage = ''
-        if (gameStyleName === 'Keno_Blackjack') {
-          bgImage = bjImages[item-1]
-        }
-        numbersMatchedCircles.push(
-          <DrawnNumbersCircle
-            number={item}
-            key={item}
-            gameType={gameStyleName}
-            bgImage={bgImage}
+            matched={matched}
           />)
       })
     }
@@ -410,7 +395,7 @@ export class GameView extends React.Component {
             <div className="footer theme-bg">
               <div className="footer-circles-row flex-display">
                 {drawnNumberCircles.length > 0 && <span className="lbl-numbers-matched">{drawnNumberCircles.length} drawn, {this.props.totalNumbersMatched} matched</span>}
-                {numbersMatchedCircles.map((i) => {
+                {drawnNumberCircles.map((i) => {
                   return (
                     i
                   )

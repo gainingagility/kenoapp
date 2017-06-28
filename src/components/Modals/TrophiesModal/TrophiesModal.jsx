@@ -44,33 +44,23 @@ export class TrophiesModal extends React.Component {
   render () {
     return (
       <Modal
-        className="Modal__Bootstrap modal-dialog"
+        className="popup-trophies"
         onRequestClose={::this.handleModalCloseRequest}
         closeTimeoutMS={150}
         isOpen
       >
-        <div className="modal-content">
-          <div className="modal-header">
-            <button type="button" className="close" onClick={::this.handleModalCloseRequest}>
-              <span aria-hidden="true">&times;</span>
-              <span className="sr-only">Close</span>
-            </button>
-          </div>
-          <div className="modal-body" style={{'textAlign': 'right'}}>
-            <TrophiesList trophies={this.state.data} />
-            <ReactPaginate
-              previousLabel={'previous'}
-              nextLabel={'next'}
-              breakLabel={<a href="">...</a>}
-              pageNum={this.state.pageNum}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              clickCallback={this.handlePageClick}
-              containerClassName={'pagination'}
-              subContainerClassName={'pages pagination'}
-              activeClassName={'active'} />
-          </div>
-        </div>
+        <TrophiesList trophies={this.state.data} />
+        <ReactPaginate
+          previousLabel={'previous'}
+          nextLabel={'next'}
+          breakLabel={<a href="">...</a>}
+          pageNum={this.state.pageNum}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          clickCallback={this.handlePageClick}
+          containerClassName={'pagination'}
+          subContainerClassName={'pages pagination'}
+          activeClassName={'active'} />
       </Modal>
     )
   }

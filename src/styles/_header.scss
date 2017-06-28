@@ -129,26 +129,29 @@
     z-index: 2;
   }
   .header-progress-percent-bar {
-    width: 93%;
     height: 100%;
     background: linear-gradient(to right, #5f468b, #d96bdb);
-    /*background: linear-gradient(to right, #3e2e6a, #aa33af);*/
-    justify-content: center;
-    align-items: center;
   }
   .progress-overlay {
     width: 100%;
     height: 100%;
-    justify-content: center;
-    align-items: center;
     background: url(images/progress-overlay.png) repeat-x left;
     background-size: contain;
+    justify-content: center;
+    align-items: center;
+    &.small-percent {
+      justify-content: flex-start;
+      span {
+        margin-left: 5px;
+      }
+    }
   }
   .header-progress-percent-bar span {
     font-size: 0.625em;
     font-family: 'Arial-MT', sans-serif;
     font-weight: 500;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+    white-space: nowrap;
   }
 }
 
